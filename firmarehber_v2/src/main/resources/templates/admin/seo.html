@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" th:href="@{/css/template.css}"></link>
+ <script th:src="@{/js/adminAnasayfa.js}"></script>
+<title>SEO DÜZENLE</title>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+
+
+
+<div id="exTab1" class="container">
+
+		<ul  class="nav nav-pills"  th:if="${seoList !=null}">
+
+			<li th:each="seo : ${seoList}">
+				<a th:href="${'#'+seo.id}" data-toggle="tab" th:text="${seo.pageName}"></a>
+			</li>
+			<li>
+				<a href="#kat" data-toggle="tab">Kategoriler</a>
+				
+				
+			</li>
+			<li><a href="#altkat" data-toggle="tab">Alt Kategoriler</a></li>
+			<li><a href="#subaltkat" data-toggle="tab">İkinci Kategoriler</a></li>
+		</ul>
+
+		<div class="tab-content clearfix">
+
+				<div  th:each="seo : ${seoList}" class="tab-pane" th:id="${seo.id}">
+          			<h3 th:text="${seo.pageName}"></h3>
+          				<table class="table">
+          				<tr>
+          					<th>META NAME</th>
+          					<th colspan="3">META CONTENT</th>
+          				</tr>
+						
+						<tr th:each="seoContent : ${seo.seoContentList}">
+							<td th:text="${seoContent.metaName}"></td>
+							<td th:text="${seoContent.content}"></td>
+							<td><a href="#">SİL</a></td>
+							<td><a href="#">DÜZENLE</a></td>
+						</tr>
+						
+						
+          					
+          				</table>
+
+				</div>
+				
+				<div class="tab-pane" id="kat">KATEGORİLER LİSTESİ
+				
+				<table class="table">
+					<tr>
+						<th>Kategori Ad</th>
+						<th>SEO Durumu</th>
+
+					</tr>
+					
+					<tr th:each="kategori : ${kategoriler}">
+						<td th:text="${kategori.kategoriAd}"></td>
+						<td>
+							<span th:if="${kategori.seoAvaliable}">
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/seo_avaliable.png}"/>
+								<a th:onclick="'$.kategoriSeoDuzenle('+${kategori.id}+')'">Seo Düzenle</a>								
+							</span>
+							<span th:unless="${kategori.seoAvaliable}">
+								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/seo_not_avaliable.png}"/>
+								<a th:onclick="'$.kategoriSeoEkle('+${kategori.id}+')'">Seo Ekle</a>								
+							</span>							
+						</td>
+					
+					</tr>
+				</table>
+				
+				
+				
+				</div>
+				<div class="tab-pane" id="altkat">ALT KATEGORİ LİSTESİ
+				<table class="table">
+					<tr>
+						<th>Alt Kategori Ad</th>
+						<th>SEO DURUMU</th>
+
+					</tr>
+					
+					
+				
+								
+					<tr th:each="altkategori : ${altKategoriler}">
+						<td th:text="${altkategori.altKategoriAd}"></td>
+						<td>
+							<span th:if="${altkategori.seoAvaliable}">
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/seo_avaliable.png}"/>
+								<a  th:each="kategori : ${altkategori.kategori}" th:onclick="'$.altkategoriSeoDuzenle('+${kategori.id}+','+${altkategori.id}+')'">Seo Düzenle</a>								
+							</span>
+							<span th:unless="${altkategori.seoAvaliable}">
+								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/seo_not_avaliable.png}"/>
+								<a th:each="kategori : ${altkategori.kategori}" th:onclick="'$.altkategoriSeoEkle('+${kategori.id}+','+${altkategori.id}+')'">Seo Ekle</a>								
+							</span>							
+						</td>
+					</tr>
+					
+				</table>
+				
+				
+				</div>
+				<div class="tab-pane" id="subaltkat">İKİNCİ ALT KATEGORİ LİSTESİ
+												<table class="table">
+					<tr>
+						<th>Alt Kategori Ad</th>
+						<th>SEO DURUMU</th>
+
+					</tr>
+					
+					<tr th:each="subaltkategori : ${subAltKategoriler}">
+						<td th:text="${subaltkategori.subAltKategoriAd}"></td>
+						<td>
+							<span th:if="${subaltkategori.seoAvaliable}" th:each="altkategori : ${subaltkategori.altKategori}">
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/seo_avaliable.png}"/>
+								<a  th:each="kategori : ${subaltkategori.kategori}" th:onclick="'$.subaltkategoriSeoDuzenle('+${kategori.id}+','+${altkategori.id}+','+${subaltkategori.id}+')'">Seo Düzenle</a>								
+							</span>
+							<span th:unless="${subaltkategori.seoAvaliable}" th:each="altkategori : ${subaltkategori.altKategori}">
+								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/seo_not_avaliable.png}"/>
+								<a th:each="kategori : ${subaltkategori.kategori}" th:onclick="'$.subaltkategoriSeoEkle('+${kategori.id}+','+${altkategori.id}+','+${subaltkategori.id}+')'">Seo Ekle</a>								
+							</span>
+							
+						</td>
+
+					</tr>
+				</table>
+				</div>
+							
+		</div>
+	
+  </div>
+
+
+<!-- Modal Kategori Seo Ekle -->
+<div id="modalSeoEkleForKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kategori SEO EKLE</h4>
+      </div>
+      <div class="modal-body">
+        <p id="seoEkleKategoriName"></p>
+	       <form  onsubmit="$.submitKategoriSeo()" th:object="${kategoriSeo}" method="POST" action="/admin/seo/saveKategoriSeo">
+	      	<input th:field="*{pageTitle}" placeholder="TİTLE" type="text" />
+	      	<input th:field="*{metaName}" placeholder="NAME" type="text" />
+	      	<input th:field="*{metaContent}" placeholder="CONTENT" type="text" />
+	      	<input id="kategori_id" type="hidden"  th:field="*{kategoriId}" />
+	      	<input id="kategori_ad" type="hidden"  th:field="*{kategoriAd}" />
+	      	<input type="text"  th:field="*{seoContent}" />
+	      	<input type="submit" value="Kaydet" />
+	      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Kategori Seo Ekle End -->
+
+<!-- Modal Kategori Seo Duzenle -->
+<div id="modalSeoUpdateForKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kategori SEO DUZENLE</h4>
+      </div>
+      <div class="modal-body">
+        <p id="seoUpdateKategoriName"></p>
+        <input type="text" placeholder="META NAME"/>
+        <input type="text" placeholder="MET CONTENT"/>
+        <input type="text" placeholder="MET DESCRİPTİON"/>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Kategori Seo Duzenle End -->
+
+
+<!-- Modal Alt Kategori Seo Ekle -->
+<div id="modalSeoEkleForAltKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alt Kategori SEO EKLE</h4>
+      </div>
+      <div class="modal-body">
+      	<p id="seoEkleAltKategoriName_Kat"></p>
+        <p id="seoEkleAltKategoriName"></p>
+        
+	     <form  onsubmit="$.submitAltKategoriSeo()" th:object="${altKategoriSeo}" method="POST" action="/admin/seo/saveAltKategoriSeo">
+	      	<input th:field="*{pageTitle}" placeholder="TİTLE" type="text" />
+	      	<input th:field="*{metaName}" placeholder="NAME" type="text" />
+	      	<input th:field="*{metaContent}" placeholder="CONTENT" type="text" />
+	      	
+	        <input id="_altkategori_id" type="hidden"  th:field="*{kategoriId}" />
+	      	<input id="_altkategori_ad" type="hidden"  th:field="*{kategoriAd}" />
+	      	
+	      	<input id="altkategori_id" type="hidden"  th:field="*{altKategoriId}" />
+	      	<input id="altkategori_ad" type="hidden"  th:field="*{altKategoriAd}" />
+	      	<input type="text"  th:field="*{seoContent}" />
+	      	<input type="submit" value="Kaydet" />
+	     </form>
+	     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Alt Kategori Seo Ekle End -->
+
+<!-- Modal Kategori Seo Duzenle -->
+<div id="modalSeoUpdateForAltKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alt Kategori SEO DUZENLE</h4>
+      </div>
+      <div class="modal-body">
+      <p id="seoUpdateAltKategoriName_Kat"></p>
+        <p id="seoUpdateAltKategoriName"></p>
+        <p id="altKategoriSeoView"></p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Kategori Seo Duzenle End -->
+
+<!-- Modal Alt Kategori Seo Ekle -->
+<div id="modalSeoEkleForSubAltKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">İkinci Alt Kategori SEO EKLE</h4>
+      </div>
+      <div class="modal-body">
+      <p id="seoEkleSubAltKategoriName_Kat"></p>
+      <p id="seoEkleSubAltKategoriName_AltKat"></p>
+        <p id="seoEkleSubAltKategoriName"></p>
+        	<form  onsubmit="$.submitSubAltKategoriSeo()" th:object="${subAltKategoriSeo}" method="POST" action="/admin/seo/saveSubAltKategoriSeo">
+	      	<input th:field="*{pageTitle}" placeholder="TİTLE" type="text" />
+	      	<input th:field="*{metaName}" placeholder="NAME" type="text" />
+	      	<input th:field="*{metaContent}" placeholder="CONTENT" type="text" />
+	      	
+	        <input id="subaltkategori_id" type="hidden"  th:field="*{kategoriId}" />
+	      	<input id="subaltkategori_ad" type="hidden"  th:field="*{kategoriAd}" />
+	      	
+	      	<input id="subaltkategori_id_" type="hidden"  th:field="*{altKategoriId}" />
+	      	<input id="subaltkategori_ad_" type="hidden"  th:field="*{altKategoriAd}" />
+	      	
+	     	<input id="_subaltkategori_id" type="hidden"  th:field="*{subAltKategoriId}" />
+	      	<input id="_subaltkategori_ad" type="hidden"  th:field="*{subAltKategoriAd}" />
+	      	
+	      	<input type="text"  th:field="*{seoContent}" />
+	      	<input type="submit" value="Kaydet" />
+	     </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Alt Kategori Seo Ekle End -->
+
+<!-- Modal Kategori Seo Duzenle -->
+<div id="modalSeoUpdateForSubAltKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">İkinci Alt Kategori SEO DUZENLE</h4>
+      </div>
+      <div class="modal-body">
+      <p id="seoUpdateSubAltKategoriName_Kat"></p>
+      <p id="seoUpdateSubAltKategoriName_AltKat"></p>
+      <p id="seoUpdateSubAltKategoriName"></p>
+      <p id="subAltKategoriSeoView"></p>
+
+      
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Kategori Seo Duzenle End -->
+
+
+
+</body>
+</html>

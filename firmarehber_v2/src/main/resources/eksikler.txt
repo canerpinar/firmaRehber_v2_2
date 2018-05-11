@@ -1,0 +1,2 @@
+slider ve referanslar image dosyaları webapp klasörüne upload ediliyor.
+admin seo da delete and update çalışmıyor.
