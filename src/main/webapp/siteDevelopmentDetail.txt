@@ -1,0 +1,3 @@
+Site Administration Panel
+--Reklam ekle düzenle
+--kategori 2 seçenekli

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/adminStyle.css}"></link>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+<form id="kategoriUpdateForm" action="/admin/siteGenel/updateKategori/" method="POST">
+<span>Kategori Ad : </span><input type="text" th:field="*{kategori.kategoriAd}"  th:value="*{kategori.kategoriAd}" />
+<a th:href="'/siteUpdate/kategoriDelete/'+${kategori.id}">Sil</a>
+<input type="hidden" th:field="*{kategori.id}" th:value="*{kategori.id}" />
+
+<div th:each="altkat,status : ${kategori.altKategori}">
+			<ul>
+				<li>Alt Kategori Ad :<input th:field="*{kategori.altKategori[__${status.index}__].altKategoriAd}" type="text" th:value="${altkat.altKategoriAd}" />
+					<input th:field="*{kategori.altKategori[__${status.index}__].id}" th:value="${altkat.id}" type="hidden" />
+					<a th:href="'/siteUpdate/altKategoriDelete/'+${kategori.id}+'/'+${altkat.id}">Sil</a>
+				</li>
+				<li th:each="subalt,statu : *{kategori.altKategori[__${status.index}__].subaltKategori}">
+					İkinci Alt Kategori Ad :<input th:field="*{kategori.altKategori[__${status.index}__].subaltKategori[__${statu.index}__].subAltKategoriAd}" type="text" th:value="${subalt.subAltKategoriAd}" />
+					<input th:field="*{kategori.altKategori[__${status.index}__].subaltKategori[__${statu.index}__].id}" type="hidden" th:value="${subalt.id}" />
+					<a th:href="'/siteUpdate/subAltKategoriDelete/'+${kategori.id}+'/'+${subalt.id}">Sil</a>
+				</li>
+			</ul>		
+</div>
+
+	<input type="submit" value="Update" />
+
+</form>
+</body>
+</html>
