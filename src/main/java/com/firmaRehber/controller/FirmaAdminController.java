@@ -94,17 +94,19 @@ public class FirmaAdminController {
 	public String getFirmaAdminLoadPage(Model model) {
 		
 		model.addAttribute("message_", "Firma admin sayfası");
-	      
+	      /*
 	      User user=new User();
 	      user.setUsername("cnr_p_10@hotmail.com");
 	      user.setPassword("06");
 	      
 	      UserDetails aut = userService.loadUserByUsername(user.getUsername());
+	      */
 	      SecurityContext context = SecurityContextHolder.getContext();
+	      /*
 			Authentication auth =
 					new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), aut.getAuthorities());
 				context.setAuthentication(auth);
-
+				*/
 	      model.addAttribute("message", "You are logged in as " + context.getAuthentication().getName());
 	      firma = firmaService.getFirma(context.getAuthentication().getName());
 	      model.addAttribute("firma", firma);
@@ -255,9 +257,13 @@ public class FirmaAdminController {
 	@RequestMapping("/updateFirmaContact")
 	@ResponseBody
 	public void updateFirmaContact(@ModelAttribute("firma")Firma firma_,HttpServletResponse response) throws IOException{
-		Firma firma = firmaService.getFirma(this.firma.getEmail());
-		firma.setFirmaName(firma.getFirmaName());
-		firmaService.saveFirma(firma);
+
+		Firma _firma = firmaService.getFirma(this.firma.getEmail());
+		_firma.setFirmaName(firma_.getFirmaName());
+		_firma.setFirmaOwner(firma_.getFirmaOwner());
+		_firma.setHaftasonustatus(firma_.isHaftasonustatus());
+		firmaService.saveFirma(_firma);
+
 		response.sendRedirect("/firma/admin/");		
 	}
 	
