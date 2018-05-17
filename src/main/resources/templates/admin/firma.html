@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/adminAnasayfa.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/template.css}"></link>
+<title>Insert title here</title>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+		FİRMA KAYIT BİLGİLERİ
+		<table class="table">
+			<tr>
+				<th>FİRMA AD:</th>
+				<th>FİRMA EMAİL:</th>
+				<th>FİRMA SAHİP:</th>
+				<th colspan="3">FİRMA IMAGE:</th>
+			</tr>
+			
+			<tr th:each="firma : ${firmaList}">
+				<td><span><a th:text="${firma.firmaName}" th:href="'/admin/firma/'+${firma.id}"></a></span></td>
+				<td><span data-toggle="tab" th:text="${firma.email}"></span></td>
+				<td><span data-toggle="tab" th:text="${firma.firmaOwner}"></span></td>
+				<td><span data-toggle="tab" th:text="${firma.firmaImage}"></span></td>
+				<td><a th:onclick="'$.messageSent(\'siteGenelEdit/messageSent/'+${firma.id}+'\');'" data-toggle="tab">MESAJ</a></td>
+				<td><a th:onclick="'$.referansReview(\'siteGenelEdit/referansReview/'+${firma.id}+'\');'" th:href="${'#'+firma.id}" data-toggle="tab">REFERANSLARA GİT</a></td>
+			</tr>
+			
+			
+		</table>
+		
+		<!-- message sent to firma  -->
+		
+		  <div class="modal fade" id="messageModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Kategori Ekle</h4>
+        </div>
+        <div class="modal-body">
+          
+          <form action="/siteUpdate/sentMessage" method="POST">
+          	<input type="hidden" id="firmaId" name="firmaId" />
+          		<span>Firma Email:</span><span id="firmaMail"></span><br/>
+		         <span>Firma Adı:</span><span id="firmaAd"></span><br/>
+		         <span>Firma Sahip:</span><span id="firmaSahip"></span><br/>
+		         <span>Mesaj İçeriği:</span><textarea name="mesajContent" ></textarea><br/>
+		         <input type="submit" value="Gönder" />	          
+		                   
+          </form>
+          
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <!-- message sent to firma  -->
+  
+  
+	<!-- referans review modal -->
+			  <div class="modal fade" id="referansModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Kategori Ekle</h4>
+        </div>
+        <div class="modal-body" id="referansModalBody">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- referans review end -->
+	
+</body>
+</html>

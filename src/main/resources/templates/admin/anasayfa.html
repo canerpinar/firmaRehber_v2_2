@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script th:src="@{/js/adminAnasayfa.js}"></script>
+  <link type="text/css" th:src="@{/css/anasayfa.css}" ></link>
+  <link rel="stylesheet" th:href="@{/css/template.css}"></link>
+<title>Insert title here</title>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+<div style="background-color:aqua;">
+<span>Slider Ekle</span>
+		<form th:object="${images}" method="POST" enctype="multipart/form-data" action="/addFiles">
+			<table>
+				<tr><td>File to upload:</td><td>
+				<input name="file" class="file" type="file" />
+				</td></tr>
+				<tr><td>Resim Alt Yazı:</td><td><input type="text" th:field="*{resimAltText}" /></td></tr>
+				<tr><td>Resim Üst Yazı:</td><td><input type="text" name="*{resimUstText}" /></td></tr>
+				<tr><td>Resim Üst Yazı:</td><td><input type="text" name="*{resimLink}" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+		<div>
+		<form action="/sliderDelete" method="POST">
+			<span th:each="image : ${sliderList}">
+				<img width="80" height="80" th:src="'/imagesForSlider/'+${image.resimName}" />
+				<input type="checkbox" name="Deneme" th:value="${image.id}"/>
+				<input type="hidden" name="imageName" th:value="${image.resimName}" />			
+			</span>
+			<input type="submit" value="Sil" />
+		</form>
+
+			
+			
+		</div>
+		
+</div>
+<div style="background-color:yellow;  border-color:black; border-style:solid;">
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalKategori">Kategori Ekle</button>
+
+<!-- Modal Kategori Ekle -->
+<div id="modalKategori" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kategori Ekle</h4>
+      </div>
+      <div class="modal-body">
+        
+			<input id="kategoriAd" type="text" placeholder="Kategori Adı"/>
+			<a id="altKategoriEkleLink"  href="#" onclick="$.altKategoriEkle();">Alt Kategori Ekle</a>
+			<div class="container-fluid">
+				<div  id="altKategori" class="row">
+				<!-- 
+					<div class="col-md-10" id="altKategoriInput"><input type="text" placeholder="Alt Kategori Adı"/></div>
+					<div class="com-md-2"><span><a href="#" onclick="$.altKategoriEkle();">Alt Kategori Ekle</a></span></div>
+					 -->
+				</div>
+				<div id="subAltKategori" class="row">
+				<!--  
+					<div class="col-md-10" id="subAltKategoriInput"><input type="text" placeholder="İkinci Alt Kategori Adı"/></div>
+					<div class="col-md-2"><span><a href="#" onclick="$.subAltKategoriEkle();">İkinci Alt Kategori Ekle</a></span></div>
+				-->
+				</div>
+			</div>
+
+			
+			<input onclick="$.kategoriEkle();" type="button" value="Uygula ve Üye Ekle" />
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Kategori Ekle End -->
+
+<div id="addUyeForKategori">
+</div>
+<!-- Modal Kategori Update -->
+<button onclick="$.modalKategoriUpdate();" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalKategoriUpdate">Kategori Düzenle</button>
+
+
+<div id="modalKategoriUpdate" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Kategori Düzenle</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+        <div id="modalKategoriUpdateForm"></div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <!-- Modal Kategori Update End -->
+  <br/>
+  
+  <div th:each="kategori : ${kategoriList}" style="float:left; width: 50%;">
+  	<span th:text="${kategori.kategoriAd}"></span>
+  	<a href="#" th:onclick="'$.altkategoriekle(\''+${kategori.kategoriAd}+'\',\''+${kategori.id}+'\');'">Alt Kategori Ekle</a><br/>
+  	<div th:each="altkat : ${kategori.altKategori}">
+  		<span th:text="${altkat.altKategoriAd}"></span>
+  		<a href="#" th:onclick="'$.subaltkategoriekle(\''+${kategori.id}+'\',\''+${altkat.altKategoriAd}+'\',\''+${altkat.id}+'\');'">İkinci Alt Kategori Ekle</a>
+  	</div>
+  </div>
+  <!-- Modal Alt Kategori Ekle -->
+  <div class="modal fade" id="modalAltKategoriEkle" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Alt Kategori Ekle</h4>
+        </div>
+        <div class="modal-body">
+          <div id="kategoriAdi"></div>
+	
+         		<input id="altKategoriAd" type="text" placeholder="Alt Kategori Ad"/>
+         		<a href="#" onclick="$.subkategoriekle();">İkinci Alt Kategori Ekle</a>
+         		<div id="subkategoridiv"></div>
+         		<input type="button" onclick="$.submitAltKategori();" value="Kaydet"/>
+ 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- Modal Alt Kategori Ekle End -->
+  <!-- İkinci Alt Kategori Modal -->
+    <div class="modal fade" id="modalSubKategoriEkle" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Alt Kategori Ekle</h4>
+        </div>
+        <div class="modal-body">
+          <div id="subkategoriAdi"></div>
+          	<a href="#" onclick="$.subkategoriforinputekle();">İkinci Alt Kategori Ekle</a>
+          	
+			<div id="subkategoriforinput"></div>
+			<input type="button" onclick="$.submitSubKategori()" value="Kaydet" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- İkinci Alt Kategori Modal End -->
+  
+  
+  
+  
+  
+</div>
+
+
+<!-- 
+<form action="/admin/siteGenel/addKategori"  method="POST">
+	<input id="kategoriAd" type="text" th:field="${kategoriler.kategoriAd}" placeholder="Kategori Adı"/><span>Kategori Adı</span><br/>
+	<input type="text" th:field="${altKategori.altKategoriAd}" placeholder="Alt Kategori Adı"/>Alt Kategori Adı<span></span><br/>
+	<input type="text" th:field="${subAltKategori.subAltKategoriAd}" placeholder="İkinci Alt Kategori Adı"/><span>İkinci Alt Kategori</span>
+	<input onclick="$.kategoriEkle();" type="button" value="Uygula ve Üye Ekle" />
+</form>
+ -->
+  <!-- Modal Kategori Uye ekle -->
+			
+
+
+
+<!-- Modal Kategori Uye Ekle end -->
+
+
+ 
+<div style="background-color:yellow;  border-color:black; border-style:solid;">
+<span>Reklam Kontrol</span><br/>
+<table th:if="${reklamList != null}" border="1">
+<tr>
+	<th>Reklam Ad</th>
+	<th>Reklam Image</th>
+	<th>Reklam Link</th>
+	<th>Reklam Position</th>
+</tr>
+<tr th:each="item : ${reklamList}">
+	<td th:text="${item.reklamAd}"></td>
+	<td><img th:src="'/imagesForReklam/'+${item.reklamImage}" width="80" height="80" /></td>
+	<td th:text="${item.reklamLink}"></td>
+	<td th:text="${item.reklamPosition}"></td>
+	<td><a th:onclick="'$.reklamUpdateClick(\'admin/siteGenelEdit/reklamEdit/' + ${item.id} + '\');'">Düzenle</a></td>
+	<td><a th:href="'/siteUpdate/reklamDelete/' + ${item.id}">Sil</a></td>
+</tr>
+</table>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal"  onclick="$.clearInputReklam();" data-target="#modalReklam">Reklam Ekle</button>
+
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalReklam" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reklam Ekle</h4>
+        </div>
+        <div class="modal-body">
+          
+         
+          <form  id="containerReklam" name="containerImage" th:object="${reklam}" enctype="multipart/form-data" action="/addReklam" method="POST">
+          <span><input id="reklamAd" type="text" th:field="*{reklamAd}" required="required" placeholder="Reklam Adı"/></span>
+          <span>Reklam Resim
+          </span>
+          <br/>
+          <input id="reklamLink" required="required" type="text" th:field="*{reklamLink}" placeHolder="Reklam Link"/><br/>
+          <input type="file" name="file" required="required" />
+              <select class="form-control" th:field="*{reklamPosition}" required="required" id="reklamPosition">
+			    <option value="0" label="select operator" ></option>
+			    <option th:each="reklamPosition : *{reklamPositionList}" th:value="${reklamPosition}" th:text="${reklamPosition}"></option>
+			   </select>
+          
+          <span></span>
+          <input type="submit" value="Kaydet" /><br/>
+          
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</body>
+</html>

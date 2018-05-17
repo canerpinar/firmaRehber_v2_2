@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/template.css}"/>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+	
+	<div>
+	<h2>Firmalar</h2>
+		<table class="table">
+			<tr>
+				<th>FİRMA KONTROL:</th>
+				<th>FİRMA AD:</th>
+				<th>FİRMA EMAİL:</th>
+				<th>FİRMA SAHİP:</th>
+				<th colspan="3">FİRMA IMAGE:</th>
+			</tr>
+			
+			<tr th:each="firma : ${firmalar}">
+				<td th:if="${firma.firmaControl == false}">
+					<span><a  style="color:red;" th:href="'/admin/firma/'+${firma.id}">Kontrol Edilmedi.</a></span>
+				</td>
+				<td  th:if="${firma.firmaControl == true}">
+				<span>Kontrol Edildi.</span></td>
+				<td><span th:text="${firma.firmaName}"></span></td>
+				<td><span  th:text="${firma.email}"></span></td>
+				<td><span th:text="${firma.firmaOwner}"></span></td>
+				<td><span  th:text="${firma.firmaImage}"></span></td>
+				
+			</tr>
+		</table>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+<html>
+ 
+<head></head>
+ 
+<body>
+	<b>Aşağıdaki linki tıklayarak üyeliğinizi aktif edebilirsiniz.</b>
+	<a href="${link}">Şimdi devam etmek için ${username}</a> 
+</body>
+ 
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/template.css}"/>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+
+Urun Edit Sayfası
+<form th:object="${urun}" method="POST" action="/admin/firma/urunUpdate">
+<table class="table">
+
+			<tr>
+			<th>Urun Adı</th>
+				<th>Urun Fiyat</th>
+				<th>Urun Detay</th>
+				<th>Urun Kategori Adı</th>
+				<th>Urun Alt Kategori Adı</th>
+				<th>Urun İkinci Alt Kategori Adı</th>
+				<th>Urun Stok Durumu</th>
+				<th>Urun Image</th>
+				<th>Urun Kontrol</th>
+			</tr>
+				<tr>
+				<td><input type="text" th:field="*{urunAd}"/></td>
+				<td><input type="text" th:field="*{urunAd}"/></td>
+				<td><input type="text" th:field="*{urunAd}"/></td>
+				<td><input type="text" th:field="*{urunAd}"/></td>
+				<td><input type="text" th:field="*{urunAd}"/></td>
+				<td><input type="text" th:field="*{urunAd}"/></td>
+
+
+			</tr>
+			
+</table>
+</form>
+
+</body>
+</html>
