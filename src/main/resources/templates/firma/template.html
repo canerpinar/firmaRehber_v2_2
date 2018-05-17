@@ -1873,6 +1873,7 @@
 
                 <li>
                   <strong>Website</strong>
+<<<<<<< HEAD
                   <span th:text="${firma.website}"></span>
                 </li>
 
@@ -1905,6 +1906,39 @@
                   <strong>Su:</strong>
                   <span th:if="{firma.haftasonustatus}">Açık</span>
                   <span th:unless="{firma.haftasonustatus}">Kapalı</span>
+=======
+                  <span>www.example.com</span>
+                </li>
+
+                <li>
+                  <strong>E-mail</strong>
+                  <span th:text="${firma.email}"></span>
+                </li>
+                <li>
+                  <strong><a href="#" onclick="$.modalContactUpdate()">Düzenle</a></strong>
+
+                </li>
+              </ul>
+            </div>
+
+            <div class="opening-hours">
+              <h2>Openig Hours</h2>
+
+              <ul class="list-unstyled">
+                <li>
+                  <strong>Mo-Fr:</strong>
+                  <span>9AM-5PM</span>
+                </li>
+
+                <li>
+                  <strong>Sa:</strong>
+                  <span>10AM-3PM</span>
+                </li>
+
+                <li>
+                  <strong>Su:</strong>
+                  <span>Closed</span>
+>>>>>>> branch 'master' of https://github.com/canerpinar/firmaRehber_v2_2.git
                 </li>
               </ul>
             </div>

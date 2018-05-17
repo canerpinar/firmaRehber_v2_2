@@ -89,6 +89,7 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane" id="satis">
+<<<<<<< HEAD
 			<ul class="nav nav-pills">
 			<li><a data-toggle="tab" href="#satis_noktasi">Satış noktası ekle</a></li>
 			<li><a data-toggle="tab" href="#sube">Satış noktası ekle</a></li>
@@ -113,6 +114,15 @@
 			</div>
 			
 			
+=======
+				<h3>Satış noktası ekle</h3>
+				<form th:object="${sube}" action="/firma/admin/satisNoktasiSave" method="POST">
+					<input th:field="*{ad}" type="text" placeHolder="Kampanya Adı" />
+					
+					
+				</form>
+			</div>
+>>>>>>> branch 'master' of https://github.com/canerpinar/firmaRehber_v2_2.git
 			<div class="tab-pane" id="update">
 			Satış noktası ve Şube listesi
 			</div>

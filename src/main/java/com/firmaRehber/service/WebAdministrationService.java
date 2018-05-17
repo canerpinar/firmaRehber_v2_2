@@ -128,10 +128,12 @@ public class WebAdministrationService {
 		return subeRepository.getSubeForFirma(firmaId);
 	}
 	
+
 	public void saveSube(Sube sube) {
 		subeRepository.save(sube);
 	}
 	
+
 	public void saveFirma(Firma firma){
 		firmaRepository.save(firma);
 	}

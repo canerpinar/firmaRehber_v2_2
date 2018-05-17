@@ -262,6 +262,7 @@ public class FirmaAdminController {
 		_firma.setFirmaName(firma_.getFirmaName());
 		_firma.setFirmaOwner(firma_.getFirmaOwner());
 		_firma.setHaftasonustatus(firma_.isHaftasonustatus());
+
 		_firma.setWebsite(firma_.getWebsite());
 		firmaService.saveFirma(_firma);
 
@@ -277,6 +278,8 @@ public class FirmaAdminController {
 		System.out.println(sube.getEmail());
 		administrationService.saveSube(sube);
 		response.sendRedirect("firma/sube-satis-noktasi.html");
+		response.sendRedirect("/firma/admin/");		
+
 	}
 	
 	
