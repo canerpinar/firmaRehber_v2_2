@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script th:src="@{/js/adminAnasayfa.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/firma.css}"></link>
+  <link rel="stylesheet" th:href="@{/css/template.css}"></link>
+<title>Insert title here</title>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+	
+	<div class="adminFirma">
+		<span th:text="'Firma Email : '+${firma.email}"></span>
+		<span th:text="'Firma İsim : '+${firma.firmaName}"></span>
+		<span th:text="'Firma Sahibi : '+${firma.firmaOwner}"></span>
+		<span>Firma Icon : <img th:src="@{${'/'+firma.email+'/'+firma.firmaImage}}" width="50" height="50" /></span>
+		
+		<div class="adminFirmaRefarans">
+			<table class="table">
+				<tr>
+					<th>Referans Adı</th>
+					<th>Referans Link</th>
+					<th>Referans Icon</th>
+				</tr>				
+				<tr th:each="referans : ${firma.referansList}">
+					<td th:text="${referans.referansAdi}"></td>
+					<td th:text="${referans.referansLink}"></td>
+					<td th:text="${referans.referansImage}"></td>
+					<td></td>
+				</tr>
+				
+			</table>	
+		
+		</div>			
+	</div>
+	
+	<div>
+		<table class="table">
+		<tr>
+			<th>Şube Adı</th>
+			<th>Şube Email</th>
+			<th>Şube Icon</th>
+		</tr>
+		<tr th:each="sube : ${firma.subeList}">
+			<td th:text="${sube.ad}"></td>
+			<td th:text="${sube.email}"></td>
+			<td><a href="#">Mesaj Gönder</a></td>
+		</tr>
+
+		</table>			
+	</div>
+	
+	
+
+</body>
+</html>

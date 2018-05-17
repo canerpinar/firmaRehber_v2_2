@@ -1,0 +1,1 @@
+urunler sayfasında kategorilere göre sıralama arama yapılabilmeli

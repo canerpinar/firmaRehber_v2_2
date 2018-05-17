@@ -1,0 +1,29 @@
+@charset "UTF-8";
+header{
+	background-color:green;
+	width: 25%;
+	float: left;
+	color:white !important;
+}
+#master_panel div{
+	float: left;
+}
+header a{
+	
+	display: list-item;
+}
+#firmaInformation{
+	width: 100%;
+	background-color: black;
+	color:white;
+}
+#content{
+	position:relative;
+	float:left;
+	background-color:olive;
+	width: 75%;
+}
+#page_content input{
+position: relative;
+float: left;
+}

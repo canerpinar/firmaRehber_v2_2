@@ -1,0 +1,14 @@
+header a{
+	
+	margin-left: 10px;
+	margin-right: 10px;
+}
+#kat a{
+	cursor: pointer;
+}
+#altkat a{
+	cursor: pointer;
+}
+#subaltkat a{
+	cursor: pointer;
+}
