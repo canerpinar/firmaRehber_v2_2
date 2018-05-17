@@ -128,6 +128,10 @@ public class WebAdministrationService {
 		return subeRepository.getSubeForFirma(firmaId);
 	}
 	
+	public void deleteSube(int id){
+		subeRepository.deleteSube(id);
+	}
+	
 
 	public void saveSube(Sube sube) {
 		subeRepository.save(sube);

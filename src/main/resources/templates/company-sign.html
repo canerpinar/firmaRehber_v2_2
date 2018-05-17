@@ -1,7 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head  th:include="template :: head">
-<meta charset="utf-8"></meta>
+<head>
+  <link rel="stylesheet" href="/bootstrap-3.3.7/bootstrap-3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script  src="/bootstrap-3.3.7/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+
+  <title>Globo</title>
+
+  <!-- Stylesheets -->
+	  <link href="css/select2.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- GOOGLE FONTS -->
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,600,800%7COpen+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
+
+  <!--[if IE 9]>
+    <script src="js/media.match.min.js"></script>
+  <![endif]-->
+  
+  <script type="text/javascript" src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+  <script type="text/javascript" src="../static/js/company-sign.js" th:src="@{/js/company-sign.js}"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+  #header .header-nav-bar .primary-nav {
+  position: relative;
+  margin-left: 250px;
+
+}
+    </style>
 <script type="text/javascript" th:src="@{/js/company-sign.js}"></script>
 </head>
 <div id="main-wrapper">
@@ -17,12 +47,8 @@
         </div> <!-- END .HEADER-LOGIN -->
 
         <!-- HEADER REGISTER -->
-        <div class="header-register">
-          <a href="#" class=""><i class="fa fa-plus-square"></i> Register</a>
+        <div class="header-register" th:include="template :: header-register">
 
-          <div th:include="template :: sign-up">
-
-          </div>
 
         </div> <!-- END .HEADER-REGISTER -->
 
@@ -183,55 +209,8 @@
     </div> <!-- END .SEARCH and slide-section -->
 
 
-    <div class="header-nav-bar">
-      <div class="container">
-        <nav>
+    <div class="header-nav-bar" th:include="template :: header-navbar">
 
-          <button><i class="fa fa-bars"></i></button>
-
-          <ul class="primary-nav list-unstyled">
-            <li><a href="#">Home<i class="fa fa-angle-down"></i></a>
-              <ul>
-                <li><a href="home-map-grid.html">Home-map(grid)</a></li>
-                <li><a href="home-map-list.html">Home-map(list)</a></li>
-                <li><a href="index.html">Home slider(view-1)</a></li>
-                <li><a href="home-category.html">Home slider(view-2)</a></li>
-              </ul>
-
-            </li>
-
-            <li class=""><a href="#">Company<i class="fa fa-angle-down"></i></a>
-
-              <ul>
-                <li><a href="company-profile.html">Company(Profile)</a></li>
-                <li><a href="company-product.html">Company(Product)</a></li>
-                <li><a href="company-portfolio.html">Company(Portfolio)</a></li>
-                <li><a href="company-events.html">Company(Events)</a></li>
-                <li><a href="company-blog.html">Company(Blog)</a></li>
-                <li><a href="company-contact.html">Company(contact)</a></li>
-              </ul>
-
-            </li>
-
-            <li><a href="sample-page.html">Sample Page</a></li>
-            <li><a href="shortcodes.html">Shortcodes</a></li>
-
-            <li class="">
-              <a href="#">Blog<i class="fa fa-angle-down"></i></a>
-
-              <ul>
-                <li><a href="blog-list.html">Blog list</a></li>
-                <li><a href="blog-post.html">Blog-post</a></li>
-              </ul>
-
-            </li>
-
-            <li><a href="price-listing.html">Price Listing</a></li>
-            <li><a href="about-us.html">About Us</a></li>
-            <li class="bg-color"><a href="contact-us.html">Contact Us</a></li>
-          </ul>
-        </nav>
-      </div> <!-- end .container -->
     </div> <!-- end .header-nav-bar -->
   </header> <!-- end #header -->
 
@@ -359,18 +338,18 @@
 </div> <!-- end #main-wrapper -->
 
 <!-- Scripts -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script src="js/jquery.ba-outside-events.min.js"></script>
-<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="js/gomap.js"></script>
 <script type="text/javascript" src="js/gmaps.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/owl.carousel.js"></script>
-<script src="js/jquery.placeholder.min.js"></script>
-<script src="js/select2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/owl.carousel.js"></script>
+<script src="/js/jquery.placeholder.min.js"></script>
+<script src="/js/select2.min.js"></script>
 
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 </body>
 </html>

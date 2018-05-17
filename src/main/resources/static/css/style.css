@@ -3363,7 +3363,7 @@ fieldset[disabled] .btn-default-inverse.active {
 }
 #header .header-top-bar .header-login div,
 #header .header-top-bar .header-register div {
-  visibility: hidden;
+  visibility: visible;
   opacity: 0;
   position: absolute;
   top: 44px;
@@ -3384,6 +3384,7 @@ fieldset[disabled] .btn-default-inverse.active {
 #header .header-top-bar .header-login div a,
 #header .header-top-bar .header-register div a {
   color: #fdc600;
+  visibility: visible;
 }
 #header .header-top-bar .header-login.active div,
 #header .header-top-bar .header-register.active div {

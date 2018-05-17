@@ -82,7 +82,7 @@
           
 		
 			
-			<a th:if="${username == null }" href="#" class=""><i class="fa fa-power-off"></i>Login</a>
+			<a th:if="${username == null }" href="#" class="" th:text="#{lang.log}"><i class="fa fa-power-off"></i></a>
 			<ul th:if="${username != null}">
 			<li th:text="'Merhaba '+${username}"></li>
 			<li><a th:href="${successPage}">Profil Sayfası</a></li>
@@ -102,9 +102,9 @@
 
         <!-- HEADER REGISTER -->
         <div  class="header-register" th:fragment="header-register">
-          <a th:if="${username == null }" href="company-sign.html" class="" th:text="#{lang.signup}"><i class="fa fa-plus-square"></i></a>
-
-          <div th:fragment="sign-up">
+          <a id="register-button" th:if="${username == null }" href="company-sign.html" class="" th:text="#{lang.signup}"></a>
+<!--  
+          <div>
             <form action="#">
               <input type="text" class="form-control" placeholder="Username" />
               <input type="email" class="form-control" placeholder="Email"/>
@@ -112,7 +112,7 @@
               <input type="submit" class="btn btn-default" value="Register"/>
             </form>
           </div>
-
+-->
         </div> <!-- END .HEADER-REGISTER -->
 
         <!-- HEADER-LOG0 -->

@@ -16,4 +16,5 @@ public interface UrunRepository extends CrudRepository<Urun,Integer> {
 	public List<Urun> getUrunForFirma(@Param("firmaId") int firmaId);
 	
 	
+	
 }

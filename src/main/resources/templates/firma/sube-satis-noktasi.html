@@ -82,6 +82,62 @@
 
   <div id="page-content">
   <div class="container">
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">ŞUBE EKLE</a></li>
+    <li><a data-toggle="tab" href="#menu1">ŞUBE DÜZENLE</a></li>
+    <li><a data-toggle="tab" href="#menu2">SATIŞ NOKTASI EKLE</a></li>
+    <li><a data-toggle="tab" href="#menu3">SATIŞ NOKTASI DÜZENLE</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+ 
+      
+      <p>
+      					<form th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+					<input th:field="*{ad}" type="text" required="required" placeHolder="Şube Adı" />
+					<input th:field="*{email}" type="text" required="required" placeHolder="Şube Email" />
+					<input type="submit" value="Kaydet" />
+					
+				</form>
+
+		</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+		<table class="table">
+			<tr>
+				<th>ŞUBE ADI</th>
+				<th>ŞUBE SORUMLUSU</th>
+				<th>ŞUBE MAİL</th>
+				<th>DÜZENLE</th>
+				<th>SİL</th>
+			</tr>
+			<tr th:each="sube : ${subeList}">
+				<td th:text="${sube.ad}"></td>
+				<td>Sube Sorumlusu Kişi</td>
+				<td th:text="${sube.email}"></td>
+				<td><a href="">Düzenle</a></td>
+				<td><a th:href="'/firma/admin/deleteSube/'+${sube.id}">Sil</a></td>
+			</tr>
+			
+		
+		</table>
+		
+      
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>SATIŞ NOKTASI EKLE</h3>
+      
+
+      
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>SATIŞ NOKTASI DÜZENLE</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+  <!--  
 	<div id="tab1">
 		<ul class="nav nav-pills">
 			<li><a data-toggle="tab" href="#satis">Satış noktası/Şube Ekle</a></li>
@@ -89,15 +145,20 @@
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane" id="satis">
-<<<<<<< HEAD
+
 			<ul class="nav nav-pills">
 			<li><a data-toggle="tab" href="#satis_noktasi">Satış noktası ekle</a></li>
-			<li><a data-toggle="tab" href="#sube">Satış noktası ekle</a></li>
+			<li><a data-toggle="tab" href="#sube">Şube ekle</a></li>
 			</ul>
 
 				<div class="tab-content">
 					<div class="tab-pane" id="satis_noktasi">
-						<h2>Satış Noktası Ekle</h2>
+				<h3>Satış noktası ekle</h3>
+					<form th:object="${sube}" action="/firma/admin/satisNoktasiSave" method="POST">
+						<input th:field="*{ad}" type="text" placeHolder="Kampanya Adı" />
+						
+						
+					</form>
 					</div>
 					<div class="tab-pane" id="sube">
 						<h2>Şube Ekle</h2>
@@ -114,15 +175,10 @@
 			</div>
 			
 			
-=======
-				<h3>Satış noktası ekle</h3>
-				<form th:object="${sube}" action="/firma/admin/satisNoktasiSave" method="POST">
-					<input th:field="*{ad}" type="text" placeHolder="Kampanya Adı" />
-					
-					
-				</form>
+
+
 			</div>
->>>>>>> branch 'master' of https://github.com/canerpinar/firmaRehber_v2_2.git
+			
 			<div class="tab-pane" id="update">
 			Satış noktası ve Şube listesi
 			</div>
@@ -130,6 +186,7 @@
 	
 	</div>
 	</div>
+	-->
   </div> <!-- end #page-content -->
 
 

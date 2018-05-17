@@ -191,6 +191,7 @@ public class FirmaAdminController {
 	@RequestMapping(value="/sube-satis-noktasi.html",method=RequestMethod.GET)
 	public ModelAndView getSubeSatisNoktasiEkle(){
 		ModelAndView model = new ModelAndView("/firma/sube-satis-noktasi");
+		model.addObject("subeList", administrationService.getSubeForFirma(this.firma.getId()));
 		model.addObject("sube", new Sube());
 		model.addObject("firma", firma);
 		return model;
@@ -277,9 +278,16 @@ public class FirmaAdminController {
 		System.out.println(sube.getAd());
 		System.out.println(sube.getEmail());
 		administrationService.saveSube(sube);
-		response.sendRedirect("firma/sube-satis-noktasi.html");
-		response.sendRedirect("/firma/admin/");		
-
+		response.sendRedirect("../../firma/admin/sube-satis-noktasi.html");
+		
+	}
+	
+	@RequestMapping("/deleteSube/{id}")
+	@ResponseBody
+	public void deleteSube(@PathVariable("id") int id,HttpServletResponse response) throws IOException {
+		administrationService.deleteSube(id);
+		response.sendRedirect("/firma/admin/sube-satis-noktasi.html");
+		
 	}
 	
 	
