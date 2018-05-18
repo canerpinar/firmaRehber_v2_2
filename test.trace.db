@@ -13557,3 +13557,6 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/use
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
 	... 91 more
+2018-05-18 17:08:06 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "UPDATE FIRMA SET FIRMA_IMAGE='8JOO3qP.jpg'MA[*] "; SQL statement:
+update firma set firma_image='8JOO3qP.jpg'MA [42000-196]

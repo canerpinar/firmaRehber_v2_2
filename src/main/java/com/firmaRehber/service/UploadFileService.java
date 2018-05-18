@@ -27,6 +27,8 @@ public class UploadFileService {
 
 	            byte[] bytes = files.getBytes();
 	            Path path = Paths.get(uploadFilePath + files.getOriginalFilename());
+	            System.out.println(Files.isWritable(Paths.get(uploadFilePath)));
+	            
 	            Files.write(path, bytes);
 	            //sj.add(file.getOriginalFilename());
 

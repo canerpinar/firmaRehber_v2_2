@@ -49,6 +49,10 @@
     }
 
     function initialize(position) {
+    	var lat = position.coords.latitude;
+    	var lon = position.coords.longitude;
+    	//alert(lat);alert(lon);
+    	
         var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         var mapOptions = {
           zoom: 15,
@@ -83,10 +87,10 @@
 		
 			
 			<a th:if="${username == null }" href="#" class="" th:text="#{lang.log}"><i class="fa fa-power-off"></i></a>
-			<ul th:if="${username != null}">
-			<li th:text="'Merhaba '+${username}"></li>
-			<li><a th:href="${successPage}">Profil Sayfası</a></li>
-			<li><a href="/logout">Çıkış</a></li>
+			<ul th:if="${username != null}" style="list-style-type: none;">
+			<li th:text="'Merhaba '+${username}" style="float: left; margin-left: 5px;margin-right: 5px;"></li>
+			<li style="float: left; margin-left: 5px;margin-right: 5px;"><a th:href="${successPage}">Profil Sayfası</a></li>
+			<li  style="float: left; margin-left: 5px;margin-right: 5px;"><a id="logout-button" href="/logout">Çıkış</a></li>
 			</ul>
 	          <div>
             <form action="/userLoginControl" method="POST">

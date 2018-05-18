@@ -176,6 +176,8 @@ create table if not exists urunler(
 	urunhakkinda text not null,
 	urunsahibi_firma integer not null,
 	urunstokdurumu boolean,
+	urunwhere_is_id int,/* urun hangi şube de ve şube satış noktası mıdır*/
+	urun_adres text,
 	uruncontrol boolean,
 	primary key(id)
 );
@@ -185,6 +187,12 @@ create table if not exists sube(
 	firma_id integer not null,
 	email varchar(60) not null,
 	ad varchar(90) not null,
+	sube_sorumlu varchar(120),
+	sorumlu_cep_tel varchar(20),
+	sube_telefon varchar(20),
+	sube_adres text,
+	sube_durum boolean,
+	sube_location varchar(60),
 	foreign key (firma_id) references firma(id) ON UPDATE CASCADE,
 	primary key (id)
 );

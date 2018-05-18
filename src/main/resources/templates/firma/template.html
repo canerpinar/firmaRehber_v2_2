@@ -16,7 +16,7 @@
   <!-- Stylesheets -->
   <link th:href="@{/css/select2.css}" rel="stylesheet"></link>
   <link rel="stylesheet" th:href="@{/css/style.css}" ></link>
-
+<link rel="stylesheet" th:href="@{/css/urun-ekle.css}" ></link>
   <!-- GOOGLE FONTS -->
   <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,600,800%7COpen+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
 
@@ -28,9 +28,42 @@
    <script type="text/javascript" th:src="@{/js/company-sign.js}"></script>
    <script type="text/javascript" th:src="@{/js/company-profile.js}"></script>
    <script type="text/javascript" th:src="@{/js/urun-ekle.js}"></script>
+   <script type="text/javascript" th:src="@{/js/sube-satis-noktasi.js}"></script>
 </head>
 
 <body>
+<div th:fragment="mapsScript">
+<script>
+ var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
+    function locate(){
+        navigator.geolocation.getCurrentPosition(initialize,fail);
+    }
+
+    function initialize(position) {
+    	var lat = position.coords.latitude;
+    	var lon = position.coords.longitude;
+    	alert(lat);
+    	alert(lon);
+        var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var mapOptions = {
+          zoom: 15,
+          center: myLatLng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('company-map-canvas'),
+                                      mapOptions);
+        var userMarker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            icon: im
+        });
+      }
+
+     function fail(){
+         alert('navigator.geolocation failed, may not be supported');
+     }
+    </script>
+    </div>
 <div id="main-wrapper">
   <header id="header">
     <div class="header-top-bar">
@@ -203,7 +236,8 @@
 
               <div class="logo-image">
               <form id="firmaUploadInformationForm" th:object="${firma}" method="POST" enctype="multipart/form-data" action="/firma/admin/updateFirmaImage">
-                <a id="imageUploadForUpdateFirma"><img style="width: 200px; height: 200px; cursor: pointer;"   th:src="'../../'+${firma.email}+'/'+${firma.firmaImage}" alt=""/></a>
+                <a id="imageUploadForUpdateFirma" style="width: 200px; height: 200px;"><img style="width: 200px; height: 200px; cursor: pointer;"   th:src="'../../'+${firma.email}+'/'+${firma.firmaImage}" alt=""/></a>
+            <input type="hidden" name="username" id="firmaName" th:value="${firma.email}" />
                 <input type="file" name="imageUploadForFirma" id="imageUploadForFirma" />
         	</form>
               </div>

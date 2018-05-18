@@ -95,9 +95,14 @@
  
       
       <p>
-      					<form th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+      				<form th:object="${sube}" action="/firma/admin/subeSave" method="POST">
 					<input th:field="*{ad}" type="text" required="required" placeHolder="Şube Adı" />
 					<input th:field="*{email}" type="text" required="required" placeHolder="Şube Email" />
+					<input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Şube Sorumlusu" />
+					<input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Şube Sorumlu Telefon" />
+					<input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Şube Telefon" />
+					<input th:field="*{subeKonum}" type="text" required="required" placeHolder="Şube Konum" />
+					<input th:field="*{subeAdres}" type="text" required="required" placeHolder="Şube Adres" />
 					<input type="submit" value="Kaydet" />
 					
 				</form>
@@ -108,27 +113,102 @@
 		<table class="table">
 			<tr>
 				<th>ŞUBE ADI</th>
-				<th>ŞUBE SORUMLUSU</th>
 				<th>ŞUBE MAİL</th>
+				<th>ŞUBE SORUMLUSU</th>
+				<th>ŞUBE SORUMLUSU TELEFON</th>
+				<th>KONUM</th>
+				<th>ADRES</th>
 				<th>DÜZENLE</th>
 				<th>SİL</th>
 			</tr>
 			<tr th:each="sube : ${subeList}">
 				<td th:text="${sube.ad}"></td>
-				<td>Sube Sorumlusu Kişi</td>
 				<td th:text="${sube.email}"></td>
-				<td><a href="">Düzenle</a></td>
+				<td th:text="${sube.subeSorumlusu}"></td>
+				<td th:text="${sube.subeSorumlusuTelefon}"></td>
+				<td th:text="${sube.subeKonum}"></td>
+				<td th:text="${sube.subeAdres}"></td>
+				
+				
+				<td><a href="#" th:onclick="'$.updateSube(\''+${sube.id}+'\');'">Düzenle</a></td>
 				<td><a th:href="'/firma/admin/deleteSube/'+${sube.id}">Sil</a></td>
 			</tr>
 			
 		
 		</table>
-		
+		<!-- Modal -->
+<div id="modalSubeForUpdate" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sube Düzenle</h4>
+      </div>
+      <div class="modal-body">
+      <form th:object="${sube}" action="/firma/admin/updateSube">
+      <table>
+      	<tr>
+      		<td>Şube Ad :</td>
+      		<td><input th:field="*{ad}" id="subeAd" type="text" placeHolder="Şube Adı"/></td>
+      	</tr>
+      	<tr>
+      		<td>Email :</td>
+      		<td><input th:field="*{email}" id="subeMail" type="text"placeHolder="Şube Email" /></td>
+      	</tr>
+      	<tr>
+      		<td>Şube Sorumlusu :</td>
+      		<td><input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Şube Sorumlusu"/></td>
+      	</tr>
+      	<tr>
+      		<td>Şube Sorumlusu Telefon :</td>
+      		<td><input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Şube Sorumlusu Telefon" /></td>
+      	</tr>
+      	<tr>
+      		<td>Şube Telefon :</td>
+      		<td><input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Şube Telefon"/></td>      		
+      	</tr>
+      	<tr>
+      		<td>Şube Konum :</td>
+      		<td><input th:field="*{subeKonum}" type="text" required="required" placeHolder="Konum"/></td>
+      		
+      	</tr>
+      	<tr>
+      		<td>Şube Adres :</td>
+      		<td><input th:field="*{subeAdres}" type="text" required="required" placeHolder="Şube Adres"/></td>
+      	</tr>
+      	<tr>
+      		<td><input type="submit" value="KAYDET" /></td>
+      	</tr>
+      </table>
+ 
+        
+      </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
       
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>SATIŞ NOKTASI EKLE</h3>
-      
+            		<form th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+					<input th:field="*{ad}" type="text" required="required" placeHolder="Satış Noktası Adı" />
+					<input th:field="*{email}" type="text" required="required" placeHolder="Satış Noktası Email" />
+					<input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Satış Noktası Sorumlusu" />
+					<input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Satış Noktası Sorumlu Telefon" />
+					<input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Satış Noktası Telefon" />
+					<input th:field="*{subeKonum}" type="text" required="required" placeHolder="Satış Noktası Konum" />
+					<input th:field="*{subeAdres}" type="text" required="required" placeHolder="Satış Noktası Adres" />
+					<input type="submit" value="Kaydet" />
+					
+				</form>
 
       
     </div>

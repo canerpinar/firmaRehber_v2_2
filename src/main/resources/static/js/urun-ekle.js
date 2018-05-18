@@ -61,6 +61,29 @@ $(document).ready(function(){
 	});
 	
 	
+	  function getCookie(name)
+	  {
+		  $("#whereUrun").val("");
+	    var re = new RegExp(name + "=([^;]+)");
+	    var value = re.exec(document.cookie);
+	    return (value != null) ? unescape(value[1]) : null;
+	    
+	  }
+
+	//alert(getCookie("firma_id"));
+	var id = getCookie("firma_id");
+
+	$.get(server+"/firma/admin/getSatisNoktasi/"+id).done(function(data){
+		for(i in data){
+			$("#urunWhereIs").append("<option value='" + data[i].ad + "'>");
+
+		}
+		
+
+	});
+	
+	
+	
 	
 	
 	

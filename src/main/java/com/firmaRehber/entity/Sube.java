@@ -32,6 +32,73 @@ public class Sube {
 	
 	@Column(name="ad")
 	private String ad;
+	
+	@Column(name="sube_sorumlu")
+	private String subeSorumlusu;
+	
+	@Column(name="sorumlu_cep_tel")
+	private String subeSorumlusuTelefon;
+
+	@Column(name="sube_telefon")
+	private String subeTelefon;
+	
+	@Column(name="sube_adres")
+	private String subeAdres;
+	
+	@Column(name="sube_location")
+	private String subeKonum;
+	
+	@Column(name="sube_durum")
+	private boolean satisVarMi;
+		
+	
+	public boolean isSatisVarMi() {
+		return satisVarMi;
+	}
+
+	public void setSatisVarMi(boolean satisVarMi) {
+		this.satisVarMi = satisVarMi;
+	}
+
+	public String getSubeSorumlusu() {
+		return subeSorumlusu;
+	}
+
+	public void setSubeSorumlusu(String subeSorumlusu) {
+		this.subeSorumlusu = subeSorumlusu;
+	}
+
+	public String getSubeSorumlusuTelefon() {
+		return subeSorumlusuTelefon;
+	}
+
+	public void setSubeSorumlusuTelefon(String subeSorumlusuTelefon) {
+		this.subeSorumlusuTelefon = subeSorumlusuTelefon;
+	}
+
+	public String getSubeTelefon() {
+		return subeTelefon;
+	}
+
+	public void setSubeTelefon(String subeTelefon) {
+		this.subeTelefon = subeTelefon;
+	}
+
+	public String getSubeAdres() {
+		return subeAdres;
+	}
+
+	public void setSubeAdres(String subeAdres) {
+		this.subeAdres = subeAdres;
+	}
+
+	public String getSubeKonum() {
+		return subeKonum;
+	}
+
+	public void setSubeKonum(String subeKonum) {
+		this.subeKonum = subeKonum;
+	}
 
 	public int getId() {
 		return id;

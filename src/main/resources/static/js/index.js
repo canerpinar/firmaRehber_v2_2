@@ -35,5 +35,6 @@ $(document).ready(function(){
 	$("#register-button").on("click",function(){
 		window.location.href = "company-sign.html";
 	});
+	
 		
 });

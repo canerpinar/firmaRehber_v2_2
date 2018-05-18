@@ -20,4 +20,8 @@ public class FirmaService {
 		return firmaRepository.getFirma(email);
 	}
 	
+	public Firma getFirma(int id) {
+		return firmaRepository.findOne(id);
+	}
+	
 }

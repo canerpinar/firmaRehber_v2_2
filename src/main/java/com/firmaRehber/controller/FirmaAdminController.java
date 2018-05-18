@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,7 @@ public class FirmaAdminController {
 	
 
 	@RequestMapping("/")
-	public String getFirmaAdminLoadPage(Model model) {
+	public String getFirmaAdminLoadPage(Model model,HttpServletResponse response) {
 		
 		model.addAttribute("message_", "Firma admin sayfası");
 	      /*
@@ -115,6 +116,9 @@ public class FirmaAdminController {
 	      if(!firma.isFirmaActiveStatus()) {
 	    	  return "/firma/company_success_fail";
 	      }
+			Cookie cookie = new Cookie("firma_id", String.valueOf(firma.getId()));
+			//cookie.setPath("firma/admin/urun-ekle.html");
+			response.addCookie(cookie);
 	      urunListForFirma.forEach(urun->{
 	    	  System.out.println(urun.getUrunAd());
 	      });
@@ -247,11 +251,13 @@ public class FirmaAdminController {
 	
 	@RequestMapping("/updateFirmaImage")
 	@ResponseBody
-	public void updateFirmaImage(@RequestParam("imageUploadForFirma")MultipartFile file,HttpServletResponse response) throws IOException{
+	public void updateFirmaImage(@RequestParam("imageUploadForFirma")MultipartFile file,@RequestParam("username")String username,HttpServletResponse response) throws IOException{
 		
-		this.firma.setFirmaImage(file.getOriginalFilename());
-		firmaService.saveFirma(this.firma);
-		fileService.saveFileForSlider(file, context.getRealPath("")+this.firma.getEmail()+"\\");
+		
+		Firma firma = firmaService.getFirma(username);
+		firma.setFirmaImage(file.getOriginalFilename());
+		firmaService.saveFirma(firma);
+		fileService.saveFileForSlider(file, context.getRealPath("")+username+"\\");
 		response.sendRedirect("/firma/admin/");		
 	}
 	
@@ -290,5 +296,23 @@ public class FirmaAdminController {
 		
 	}
 	
+	@RequestMapping("/updateSube/{id}")
+	@ResponseBody
+	public Sube getSube(@PathVariable("id") int id) {
+		return genelController.getSube(id);
+	}
+	
+	@RequestMapping("/updateSube")
+	@ResponseBody
+	public void updateSaveSube(@ModelAttribute("sube") Sube sube,HttpServletResponse response) {
+		System.out.println(sube.getAd());
+		System.out.println(sube.getEmail());		
+	}
+	
+	@RequestMapping("/getSatisNoktasi/{id}")
+	@ResponseBody
+	public List<Sube> getSatisNoktasi(@PathVariable("id") int id) {
+		return genelController.getSatisNoktasiForFirma(id);
+	}
 	
 }

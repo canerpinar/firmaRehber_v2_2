@@ -53,4 +53,14 @@ $(document).ready(function() {
 		$(".company-heading-view").css("backgroundImage" , res);
 		//alert("seçildi");
 	});
+	$("#imageUploadForUpdateFirma").on("click",function(){
+		//alert("defw");
+		$("#imageUploadForFirma").click();
+		
+	});
+	
+	$("#imageUploadForFirma").change(function(){
+		$("#firmaUploadInformationForm").submit();
+	});
+	
 });

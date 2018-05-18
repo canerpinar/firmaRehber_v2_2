@@ -26,6 +26,8 @@ import com.firmaRehber.entity.Reklam;
 import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.SubAltKategoriSeo;
+import com.firmaRehber.entity.Sube;
+import com.firmaRehber.service.FirmaService;
 import com.firmaRehber.service.KategoriService;
 import com.firmaRehber.service.UploadFileService;
 import com.firmaRehber.service.WebAdministrationService;
@@ -127,8 +129,7 @@ public class SiteGenelController {
 			altKategori.setSeoAvaliable(false);
 			kategoriService.saveAltKategori(altKategori);
 		}
-	}
-	
+	}	
 	
 	@PostMapping(value="/deleteSubAltKategoriSeo/{subId}/{id}")
 	public void deleteSubAltKategoriSeo(@PathVariable("subId") int subaltId,@PathVariable("id") int id) {
@@ -141,14 +142,18 @@ public class SiteGenelController {
 		}
 	}
 	
-	/*
+	
 	@GetMapping(value="/seoUpdate/{id}")
-	public Seo getSeo(@PathVariable("id") String id,HttpServletResponse response) {
-		
+	public Sube getSube(@PathVariable("id") int id) {
+		return administrationService.getSube(id);		
 	}
 	
-	*/
-	
+	@Autowired
+	private FirmaService firmaService;
+	@GetMapping(value="/getSatisNoktasi/{id}")
+	public List<Sube> getSatisNoktasiForFirma(@PathVariable("id")int id){
+		return administrationService.getSatisNoktasiForFirma(id);
+	}
 
 	
 

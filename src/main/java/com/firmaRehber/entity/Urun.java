@@ -56,6 +56,28 @@ public class Urun {
 	@Column(name="image")
 	private String image;
 	
+	@Column(name="urunwhereis_id")
+	private int bulunduguSubeorFirma;
+
+	@Column(name="urun_adres")
+	private int bulunduguAdres;	
+	
+
+	public int getBulunduguAdres() {
+		return bulunduguAdres;
+	}
+
+	public void setBulunduguAdres(int bulunduguAdres) {
+		this.bulunduguAdres = bulunduguAdres;
+	}
+
+	public int getBulunduguSubeorFirma() {
+		return bulunduguSubeorFirma;
+	}
+
+	public void setBulunduguSubeorFirma(int bulunduguSubeorFirma) {
+		this.bulunduguSubeorFirma = bulunduguSubeorFirma;
+	}
 
 	public String getKategoriAd() {
 		return kategoriAd;
@@ -90,19 +112,29 @@ public class Urun {
 		this.image = image;
 	}
 
-	public Urun(int katagoriId, int altKatagoriId, int subKategoriId, String urunAd, float urunFiyat,
-			String urunHakkinda, int urunSahibiFirma, boolean stokDurumu) {
+
+	
+	public Urun(int katagoriId, int altKatagoriId, int subKategoriId, String kategoriAd, String altKategoriAd,
+			String subKategoriAd, String urunAd, float urunFiyat, String urunHakkinda, int urunSahibiFirma,
+			boolean stokDurumu, boolean urunControl, String image, int bulunduguSubeorFirma, int bulunduguAdres) {
 		super();
 		this.katagoriId = katagoriId;
 		this.altKatagoriId = altKatagoriId;
 		this.subKategoriId = subKategoriId;
+		this.kategoriAd = kategoriAd;
+		this.altKategoriAd = altKategoriAd;
+		this.subKategoriAd = subKategoriAd;
 		this.urunAd = urunAd;
 		this.urunFiyat = urunFiyat;
 		this.urunHakkinda = urunHakkinda;
 		this.urunSahibiFirma = urunSahibiFirma;
 		this.stokDurumu = stokDurumu;
+		this.urunControl = urunControl;
+		this.image = image;
+		this.bulunduguSubeorFirma = bulunduguSubeorFirma;
+		this.bulunduguAdres = bulunduguAdres;
 	}
-	
+
 	public Urun(){}
 
 	public int getId() {

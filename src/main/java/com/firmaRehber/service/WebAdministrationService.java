@@ -128,6 +128,12 @@ public class WebAdministrationService {
 		return subeRepository.getSubeForFirma(firmaId);
 	}
 	
+	public Sube getSube(Integer firmaId){
+		return subeRepository.findOne(firmaId);
+	}
+	
+	
+	
 	public void deleteSube(int id){
 		subeRepository.deleteSube(id);
 	}
@@ -197,6 +203,10 @@ public class WebAdministrationService {
 				messageHelper.setText("text/plain",sendText);				
 			}
 		});
+	}
+	
+	public List<Sube> getSatisNoktasiForFirma(int id){
+		return subeRepository.getSatisNoktasiForFirma(id);
 	}
 	
 }

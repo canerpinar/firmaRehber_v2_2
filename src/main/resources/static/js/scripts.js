@@ -185,9 +185,9 @@
   $("#company_map_canvas").goMap({
 
     maptype: 'ROADMAP',
-    zoom: 15,
-    scrollwheel: false,
-    address: '26-98 U.S. 101, San Francisco, CA 94103, USA',
+    zoom: 5,
+    scrollwheel: true,
+    address: 'Turkey',
     markers: [{
         latitude: 37.7762546,
         longitude: -122.43277669999998,

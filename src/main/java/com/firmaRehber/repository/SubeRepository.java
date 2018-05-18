@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Sube;
 public interface SubeRepository extends CrudRepository<Sube,Integer> {
 
@@ -20,4 +21,6 @@ public interface SubeRepository extends CrudRepository<Sube,Integer> {
 	@Query("delete from Sube sube where sube.id=:sube_id")
 	public void deleteSube(@Param("sube_id")int id);
 	
+	@Query("select sube from Sube sube,Firma firma where sube.firma=firma.id and firma.id=:firma_id and sube.satisVarMi=true")
+	public List<Sube> getSatisNoktasiForFirma(@Param("firma_id") int firma_id);
 }
