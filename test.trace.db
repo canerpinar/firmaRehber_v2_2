@@ -13566,3 +13566,12 @@ update sube set sube_durum='true where id=8' [22018-196]
 2018-05-19 16:25:07 jdbc[14]: exception
 org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "update sube set sube_durum='true where id='8[*]';"; SQL statement:
 update sube set sube_durum='true where id='8'; [42000-196]
+2018-05-21 13:56:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "STRINGDECODE('Mecidiye \u015eube') (URUNLER: URUN_ADRES INTEGER)"; SQL statement:
+insert into urunler (id, urunaltkategori_id, urunaltkategori_ad, urun_adres, urunwhereis_id, image, urunkategori_id, urunkategori_ad, urunstokdurumu, urunsubkategori_ad, urunsubkategori_id, urunad, uruncontrol, urunfiyat, urunhakkinda, urunsahibi_firma) values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) -- (NULL, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15) [22018-196]
+2018-05-21 14:08:14 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (URUNLER: URUN_ADRES INTEGER)"; SQL statement:
+insert into urunler (id, urunaltkategori_id, urunaltkategori_ad, urun_adres, urunwhereis_id, image, urunkategori_id, urunkategori_ad, urunstokdurumu, urunsubkategori_ad, urunsubkategori_id, urunad, uruncontrol, urunfiyat, urunhakkinda, urunsahibi_firma) values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) -- (NULL, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15) [22018-196]
+2018-05-21 14:10:31 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "STRINGDECODE('TR Merkez Mahallesi \u015ei\u015fli') (URUNLER: URUN_ADRES INTEGER)"; SQL statement:
+insert into urunler (id, urunaltkategori_id, urunaltkategori_ad, urun_adres, urunwhereis_id, image, urunkategori_id, urunkategori_ad, urunstokdurumu, urunsubkategori_ad, urunsubkategori_id, urunad, uruncontrol, urunfiyat, urunhakkinda, urunsahibi_firma) values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) -- (NULL, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15) [22018-196]

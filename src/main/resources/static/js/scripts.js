@@ -144,36 +144,36 @@
 
     maptype: 'ROADMAP',
     scrollwheel: false,
-    zoom: 6,
+    //zoom: 15,
     markers: [{
-        latitude: 46.454889270677576,
-        longitude: 7.45697021484375,
+//        latitude: 46.454889270677576,
+//        longitude: 7.45697021484375,
         icon: 'img/content/map-marker.png',
         html: 'Globo'
       },{
-        latitude: 49.31079887964633,
-        longitude: 4.361572265625,
+/*        latitude: 49.31079887964633,
+        longitude: 4.361572265625,*/
         icon: 'img/content/map-derection-100.png',
         html: 'Globo'
       },{
-        latitude: 44.96479793033104,
-        longitude: 4.691162109375,
+/*        latitude: 44.96479793033104,
+        longitude: 4.691162109375,*/
         icon: 'img/content/map-direction-1000.png',
         html: 'Globo'
       },{
-        latitude: 45.39844997630408,
-        longitude: 11.019287109375,
+/*        latitude: 45.39844997630408,
+        longitude: 11.019287109375,*/
         icon: 'img/content/map-direction-20.png',
         html: 'Globo'
 
       },{
-        latitude: 45.69083283645816,
-        longitude: 16.336669921875,
+/*        latitude: 45.69083283645816,
+        longitude: 16.336669921875,*/
         icon: 'img/content/map-direction-8.png',
         html: 'Globo'
       },{
-        latitude: 47.56170075451973,
-        longitude: 14.315185546875,
+/*        latitude: 47.56170075451973,
+        longitude: 14.315185546875,*/
         icon: 'img/content/map-direction-50.png',
         html: 'Globo'
     }]
@@ -185,17 +185,17 @@
   $("#company_map_canvas").goMap({
 
     maptype: 'ROADMAP',
-    zoom: 5,
+    //zoom: 15,
     scrollwheel: true,
     address: 'Turkey',
     markers: [{
-        latitude: 37.7762546,
-        longitude: -122.43277669999998,
+//        latitude: 37.7762546,
+//        longitude: -122.43277669999998,
         icon: 'img/content/map-marker-company.png',
         html: 'Globo'
       },{
-        latitude: 37.77013804160774,
-        longitude: -122.40819811820984,
+//        latitude: 37.77013804160774,
+//        longitude: -122.40819811820984,
         icon: 'img/content/map-marker-company.png',
         html: 'Globo'
     }]
@@ -212,12 +212,12 @@
 
   $("#contact_map_canvas").goMap({
     maptype: 'ROADMAP',
-    zoom: 13,
+    //zoom: 13,
     scrollwheel: false,
 
     markers: [{
-      latitude: 37.793100669930396,
-      longitude: -122.41769313812256,
+/*      latitude: 37.793100669930396,
+      longitude: -122.41769313812256,*/
       icon: 'img/content/map-marker-company.png',
       html: 'Globo'
     }]
@@ -234,12 +234,12 @@
     if(event.target.outerText == 'CONTACT'){
       $("#contact_map_canvas_one").goMap({
         maptype: 'ROADMAP',
-        zoom: 13,
+        //zoom: 13,
         scrollwheel: false,
 
         markers: [{
-          latitude: 37.792218928191865,
-          longitude: -122.43700504302979,
+/*          latitude: 37.792218928191865,
+          longitude: -122.43700504302979,*/
           icon: 'img/content/map-marker-company.png'
         }]
       });
@@ -248,12 +248,12 @@
       $("#contact_map_canvas_two").goMap({
 
         maptype: 'ROADMAP',
-        zoom: 13,
+        //zoom: 13,
         scrollwheel: false,
 
         markers: [{
-          latitude: 37.77125750792944,
-          longitude: -122.4085521697998,
+/*          latitude: 37.77125750792944,
+          longitude: -122.4085521697998,*/
           icon: 'img/content/map-marker-company.png'
         }]
       });
@@ -278,6 +278,7 @@
     max: 100,
     slide: function( event, ui ) {
       $( "#amount" ).val( ui.value +   "km" );
+      console.log("mesafe : " + ui.value);
     }
   });
   $( "#amount" ).val( $( "#slider-range-min" ).slider( "value" ) +   "km");

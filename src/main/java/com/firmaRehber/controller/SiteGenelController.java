@@ -27,6 +27,7 @@ import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.SubAltKategoriSeo;
 import com.firmaRehber.entity.Sube;
+import com.firmaRehber.entity.Urun;
 import com.firmaRehber.service.FirmaService;
 import com.firmaRehber.service.KategoriService;
 import com.firmaRehber.service.UploadFileService;
@@ -153,6 +154,11 @@ public class SiteGenelController {
 	@GetMapping(value="/getSatisNoktasi/{id}")
 	public List<Sube> getSatisNoktasiForFirma(@PathVariable("id")int id){
 		return administrationService.getSatisNoktasiForFirma(id);
+	}
+	
+	@GetMapping(value="/getUrunList")
+	public List<Urun> geturunList(){
+		return administrationService.getAllUrun();
 	}
 
 	

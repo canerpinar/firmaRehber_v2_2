@@ -73,7 +73,7 @@ $(document).ready(function(){
 	//alert(getCookie("firma_id"));
 	var id = getCookie("firma_id");
 
-	$.get(server+"/firma/admin/getSatisNoktasi/"+id).done(function(data){
+	$.get(server+"/firma/admin/getAllSatisNoktasi/"+id).done(function(data){
 		for(i in data){
 			$("#whereUrun").append("<option value='" + data[i].id + "'>"+data[i].ad+"</option>");
 
@@ -82,11 +82,14 @@ $(document).ready(function(){
 
 	});
 	
-	
-	
-	
-	
-	
-	
-	
+	$("#whereUrun").on("change",function(){
+		$.get(server + "/firma/admin/updateSube/"+$(this).val).done(function(data){
+			alert(data.subeAdres);
+			$("#urunAdres").val(data.subeAdres);
+		});
+		
+		
+		
+	});
+
 });

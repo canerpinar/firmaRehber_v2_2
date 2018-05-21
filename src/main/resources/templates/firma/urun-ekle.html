@@ -141,12 +141,12 @@
   	<tr>
   		<td>Urun Nerede :</td>
   		<td>
-  		<select id="whereUrun" th:field="*{bulunduguSubeorFirma}">
-			
+  		<select id="whereUrun" th:field="*{bulunduguSubeorFirma}">			
 		</select>
+		<input id="urunAdres" type="hidden" th:field="*{bulunduguAdres}"/>
 		</td>
   	</tr>
-  	<tr><td><input type="submit" value="Kaydet" /></td></tr>
+  	<tr><td><input type="submit" value="Kaydet" onsubmit="$.urunSaveFormSubmit()"/></td></tr>
   </table>
 	</form>
      </div> <!-- end #page-content -->

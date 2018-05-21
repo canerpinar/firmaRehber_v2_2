@@ -313,10 +313,12 @@ public class FirmaAdminController {
 		System.out.println(sube.getEmail());		
 	}
 	
-	@RequestMapping("/getSatisNoktasi/{id}")
+	@RequestMapping("/getAllSatisNoktasi/{id}")
 	@ResponseBody
-	public List<Sube> getSatisNoktasi(@PathVariable("id") int id) {
+	public List<Sube> getAllSatisNoktasi(@PathVariable("id") int id) {
 		return genelController.getSatisNoktasiForFirma(id);
 	}
+	
+
 	
 }

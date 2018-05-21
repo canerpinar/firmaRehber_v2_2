@@ -60,14 +60,14 @@ public class Urun {
 	private int bulunduguSubeorFirma;
 
 	@Column(name="urun_adres")
-	private int bulunduguAdres;	
+	private String bulunduguAdres;	
 	
 
-	public int getBulunduguAdres() {
+	public String getBulunduguAdres() {
 		return bulunduguAdres;
 	}
 
-	public void setBulunduguAdres(int bulunduguAdres) {
+	public void setBulunduguAdres(String bulunduguAdres) {
 		this.bulunduguAdres = bulunduguAdres;
 	}
 
@@ -114,9 +114,12 @@ public class Urun {
 
 
 	
+
+
+
 	public Urun(int katagoriId, int altKatagoriId, int subKategoriId, String kategoriAd, String altKategoriAd,
 			String subKategoriAd, String urunAd, float urunFiyat, String urunHakkinda, int urunSahibiFirma,
-			boolean stokDurumu, boolean urunControl, String image, int bulunduguSubeorFirma, int bulunduguAdres) {
+			boolean stokDurumu, boolean urunControl, String image, int bulunduguSubeorFirma, String bulunduguAdres) {
 		super();
 		this.katagoriId = katagoriId;
 		this.altKatagoriId = altKatagoriId;

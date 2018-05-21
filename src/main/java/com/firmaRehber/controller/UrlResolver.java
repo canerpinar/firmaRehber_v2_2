@@ -52,6 +52,7 @@ import com.firmaRehber.entity.Images;
 import com.firmaRehber.entity.Kategori;
 import com.firmaRehber.entity.Reklam;
 import com.firmaRehber.entity.SubAltKategori;
+import com.firmaRehber.entity.Urun;
 import com.firmaRehber.entity.User;
 import com.firmaRehber.entity.UserAuthenticaion;
 import com.firmaRehber.entity.UserRole;
@@ -111,7 +112,6 @@ public class UrlResolver {
 	@RequestMapping(value="admin/mesajlar")
 	public ModelAndView mesajPage(){
 		ModelAndView model = new ModelAndView("admin/mesaj");
-
 		return model;
 	}
 	
@@ -615,6 +615,12 @@ public class UrlResolver {
 	 
 			model.addObject("successPage", authenticationPageValue);
 			return model;
+	}
+	
+	@RequestMapping(value="getUrunler")
+	@ResponseBody
+	public List<Urun> getUrunler(){
+		return siteGenelController.geturunList();
 	}
 	
 }
