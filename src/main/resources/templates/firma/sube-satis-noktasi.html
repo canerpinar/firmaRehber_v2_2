@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
 </head>
 
 <body>
@@ -83,7 +84,7 @@
   <div id="page-content">
   <div class="container">
 
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs" id="navs">
     <li class="active"><a data-toggle="tab" href="#home">ŞUBE EKLE</a></li>
     <li><a data-toggle="tab" href="#menu1">ŞUBE DÜZENLE</a></li>
     <li><a data-toggle="tab" href="#menu2">SATIŞ NOKTASI EKLE</a></li>
@@ -93,21 +94,23 @@
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
  
+      <h3>ŞUBE EKLE</h3>
       
-      <p>
-      				<form th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+      				<form id="subeForm_sube" th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+      				<input type="hidden" value="sube" name="subeSatisStatus" />
 					<input th:field="*{ad}" type="text" required="required" placeHolder="Şube Adı" />
 					<input th:field="*{email}" type="text" required="required" placeHolder="Şube Email" />
 					<input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Şube Sorumlusu" />
 					<input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Şube Sorumlu Telefon" />
 					<input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Şube Telefon" />
-					<input th:field="*{subeKonum}" type="text" required="required" placeHolder="Şube Konum" />
+					<input id="subeKonum" style="width: 25%;" th:field="*{subeKonum}" type="text" required="required" placeHolder="Şube Konum" />
+					<a style="width: 25%;position:relative; right; left:100px; cursor: pointer;" onclick="$.mapsLoad()">Konumu Haritada Ara</a>
 					<input th:field="*{subeAdres}" type="text" required="required" placeHolder="Şube Adres" />
 					<input type="submit" value="Kaydet" />
 					
 				</form>
 
-		</p>
+		
     </div>
     <div id="menu1" class="tab-pane fade">
 		<table class="table">
@@ -136,80 +139,26 @@
 			
 		
 		</table>
-		<!-- Modal -->
-<div id="modalSubeForUpdate" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Sube Düzenle</h4>
-      </div>
-      <div class="modal-body">
-      <form th:object="${sube}" action="/firma/admin/updateSube">
-      <table>
-      	<tr>
-      		<td>Şube Ad :</td>
-      		<td><input th:field="*{ad}" id="subeAd" type="text" placeHolder="Şube Adı"/></td>
-      	</tr>
-      	<tr>
-      		<td>Email :</td>
-      		<td><input th:field="*{email}" id="subeMail" type="text"placeHolder="Şube Email" /></td>
-      	</tr>
-      	<tr>
-      		<td>Şube Sorumlusu :</td>
-      		<td><input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Şube Sorumlusu"/></td>
-      	</tr>
-      	<tr>
-      		<td>Şube Sorumlusu Telefon :</td>
-      		<td><input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Şube Sorumlusu Telefon" /></td>
-      	</tr>
-      	<tr>
-      		<td>Şube Telefon :</td>
-      		<td><input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Şube Telefon"/></td>      		
-      	</tr>
-      	<tr>
-      		<td>Şube Konum :</td>
-      		<td><input th:field="*{subeKonum}" type="text" required="required" placeHolder="Konum"/></td>
-      		
-      	</tr>
-      	<tr>
-      		<td>Şube Adres :</td>
-      		<td><input th:field="*{subeAdres}" type="text" required="required" placeHolder="Şube Adres"/></td>
-      	</tr>
-      	<tr>
-      		<td><input type="submit" value="KAYDET" /></td>
-      	</tr>
-      </table>
- 
-        
-      </form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
 
-  </div>
-</div>
       
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>SATIŞ NOKTASI EKLE</h3>
-            		<form th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+            		<form id="subeForm_satis" th:object="${sube}" action="/firma/admin/subeSave" method="POST">
+            		<input type="hidden" value="satisNoktasi" name="subeSatisStatus" />
 					<input th:field="*{ad}" type="text" required="required" placeHolder="Satış Noktası Adı" />
 					<input th:field="*{email}" type="text" required="required" placeHolder="Satış Noktası Email" />
 					<input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Satış Noktası Sorumlusu" />
 					<input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Satış Noktası Sorumlu Telefon" />
 					<input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Satış Noktası Telefon" />
-					<input th:field="*{subeKonum}" type="text" required="required" placeHolder="Satış Noktası Konum" />
-					<input th:field="*{subeAdres}" type="text" required="required" placeHolder="Satış Noktası Adres" />
-					<input type="submit" value="Kaydet" />
-					
+					<input id="subeKonum" style="width: 25%;" th:field="*{subeKonum}" type="text" required="required" placeHolder="Satış Noktası Konum" />
+					<a style="width: 25%;position:relative; right; left:100px; cursor: pointer;" onclick="$.mapsLoad()">Konumu Haritada Ara</a>
+					<input id="subeAdres" th:field="*{subeAdres}" type="text" required="required" placeHolder="Satış Noktası Adres" />
+					<input type="submit" value="Kaydet" />					
 				</form>
-
+<!-- modal burdaydı -->
       
     </div>
     <div id="menu3" class="tab-pane fade">
@@ -372,30 +321,213 @@
       </div> <!-- END .container -->
     </div> <!-- end .copyright-->
   </footer> <!-- end #footer -->
-
+</div>
 </div> <!-- end #main-wrapper -->
 
+		<!-- Modal -->
+<div id="modalSubeForUpdate" class="modal fade" role="dialog" style="z-index: 9999;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Sube Düzenle</h4>
+      </div>
+      <div class="modal-body">
+      <form th:object="${sube}" action="/firma/admin/updateSube">
+      <table>
+      	<tr>
+      		<td>Şube Ad :</td>
+      		<td><input th:field="*{ad}" id="subeAd" type="text" placeHolder="Şube Adı"/></td>
+      	</tr>
+      	<tr>
+      		<td>Email :</td>
+      		<td><input th:field="*{email}" id="subeMail" type="text"placeHolder="Şube Email" /></td>
+      	</tr>
+      	<tr>
+      		<td>Şube Sorumlusu :</td>
+      		<td><input th:field="*{subeSorumlusu}" type="text" required="required" placeHolder="Şube Sorumlusu"/></td>
+      	</tr>
+      	<tr>
+      		<td>Şube Sorumlusu Telefon :</td>
+      		<td><input th:field="*{subeSorumlusuTelefon}" type="text" required="required" placeHolder="Şube Sorumlusu Telefon" /></td>
+      	</tr>
+      	<tr>
+      		<td>Şube Telefon :</td>
+      		<td><input th:field="*{subeTelefon}" type="text" required="required" placeHolder="Şube Telefon"/></td>      		
+      	</tr>
+      	<tr>
+      		<td>Şube Konum :</td>
+      		<td><input th:field="*{subeKonum}" type="text" required="required" placeHolder="Konum"/></td>
+      		
+      	</tr>
+      	<tr>
+      		<td>Şube Adres :</td>
+      		<td><input th:field="*{subeAdres}" type="text" required="required" placeHolder="Şube Adres"/></td>
+      	</tr>
+      	<tr>
+      		<td><input type="submit" value="KAYDET" /></td>
+      	</tr>
+      </table>
+ 
+        
+      </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div id="mapsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content -->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Modal Header</h4>
+			      </div>
+			      <div class="modal-body">
+			      <!-- maps load -->
+						
+							<div class="pac-card" id="pac-card">
+			  <div>
+			
+			    <div id="type-selector" class="pac-controls">
+			
+			    </div>
+			
+			  </div>
+				  <div id="pac-container">
+				    <input id="pac-input" style="height: 40px;" type="text"
+				        placeholder="Adres giriniz.">
+				  </div>
+				</div>
+				<div id="map" style="height: 400px;"></div>
+				<div id="infowindow-content">
+				  <img src="" width="16" height="16" id="place-icon">
+				  <span id="place-name"  class="title"></span><br>
+				  <span id="place-address"></span>
+				</div>
+						
+			<!-- maps load -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 <!-- Scripts -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script th:src="@{/js/jquery.ba-outside-events.min.js}"></script>
-<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" th:src="@{/js/gomap.js}"></script>
-<script type="text/javascript" th:src="@{/js/gmaps.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/owl.carousel.js}"></script>
-<script th:src="@{/js/jquery.placeholder.min.js}"></script>
-<script th:src="@{/js/select2.min.js}"></script>
+
 
 <script src="js/scripts.js"></script>
-<script>
+<script type="text/javascript">
+
+	  function initMap() {
+	    var map = new google.maps.Map(document.getElementById('map'), {
+	      center: {lat: -33.8688, lng: 151.2195},
+	      zoom: 13
+	    });
+	    var card = document.getElementById('pac-card');
+	    var input = document.getElementById('pac-input');
+	    var types = document.getElementById('type-selector');
+	    var strictBounds = document.getElementById('strict-bounds-selector');
+
+	    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+
+	    var autocomplete = new google.maps.places.Autocomplete(input);
+
+	    // Bind the map's bounds (viewport) property to the autocomplete object,
+	    // so that the autocomplete requests use the current map bounds for the
+	    // bounds option in the request.
+	    autocomplete.bindTo('bounds', map);
+
+	    var infowindow = new google.maps.InfoWindow();
+	    var infowindowContent = document.getElementById('infowindow-content');
+	    infowindow.setContent(infowindowContent);
+	    var marker = new google.maps.Marker({
+	      map: map,
+	      anchorPoint: new google.maps.Point(0, -29)
+	    });
+
+	    autocomplete.addListener('place_changed', function() {
+	      infowindow.close();
+	      marker.setVisible(false);
+	      var place = autocomplete.getPlace();
+	      if (!place.geometry) {
+	        // User entered the name of a Place that was not suggested and
+	        // pressed the Enter key, or the Place Details request failed.
+	        window.alert("No details available for input: '" + place.name + "'");
+	        return;
+	      }
+
+	      // If the place has a geometry, then present it on a map.
+	      if (place.geometry.viewport) {
+	        map.fitBounds(place.geometry.viewport);
+	      } else {
+	        map.setCenter(place.geometry.location);
+	        map.setZoom(17);  // Why 17? Because it looks good.
+	      }
+	      $('input[id="subeKonum"]').val(place.geometry.location);
+	      marker.setPosition(place.geometry.location);
+	      marker.setVisible(true);
+	      $("#mapsLoad").modal("hide");
+	      var address = '';
+	      if (place.address_components) {
+	        address = [
+	          (place.address_components[0] && place.address_components[0].short_name || ''),
+	          (place.address_components[1] && place.address_components[1].short_name || ''),
+	          (place.address_components[2] && place.address_components[2].short_name || '')
+	        ].join(' ');
+	      }
+			$('input[id="subeAdres"]').val(address);
+	      infowindowContent.children['place-icon'].src = place.icon;
+	      infowindowContent.children['place-name'].textContent = place.name;
+	      infowindowContent.children['place-address'].textContent = address;
+	      infowindow.open(map, marker);
+	    });
+	    
+
+	    // Sets a listener on a radio button to change the filter type on Places
+	    // Autocomplete.
+
+	  }
+	  
+	  
+	
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnPlYtr2-O1O7lmFcPGod4Wm9lzGQrpQI&libraries=places&callback=initMap" async defer></script>
+<script th:src="@{/js/owl.carousel.js}"></script>
+<script type="text/javascript" th:src="@{/js/gomap.js}"></script>
+<script type="text/javascript" th:src="@{/js/gmaps.js}"></script>
+<script th:src="@{/js/jquery.placeholder.min.js}"></script>
+<script th:src="@{/js/select2.min.js}"></script>
+<script type="text/javascript">
   // gmap for street view
   panorama = GMaps.createPanorama({
     el: '#company_map_canvas_street',
     lat : 37.7762546,
     lng : -122.43277669999998,
   });
-</script>
-<!-- Modal -->
+  </script>
+  
+  
+
+
 </body>
 </html>

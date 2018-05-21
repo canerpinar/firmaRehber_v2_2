@@ -13560,3 +13560,9 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/use
 2018-05-18 17:08:06 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "UPDATE FIRMA SET FIRMA_IMAGE='8JOO3qP.jpg'MA[*] "; SQL statement:
 update firma set firma_image='8JOO3qP.jpg'MA [42000-196]
+2018-05-19 16:24:50 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'true where id=8' (SUBE: SUBE_DURUM BOOLEAN)"; SQL statement:
+update sube set sube_durum='true where id=8' [22018-196]
+2018-05-19 16:25:07 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "update sube set sube_durum='true where id='8[*]';"; SQL statement:
+update sube set sube_durum='true where id='8'; [42000-196]

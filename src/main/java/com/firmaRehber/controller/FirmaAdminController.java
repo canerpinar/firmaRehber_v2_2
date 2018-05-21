@@ -170,7 +170,7 @@ public class FirmaAdminController {
 		System.out.println("alt kat id" + urun.getSubKategoriId());
 		urun.setImage(file.getOriginalFilename());
 		urun.setUrunSahibiFirma(firma.getId());
-		
+
 		File directory = new File(context.getRealPath("")+firma.getEmail()+"\\"+urun.getUrunAd());
 		if(!directory.exists()){
 			directory.mkdirs();
@@ -278,9 +278,13 @@ public class FirmaAdminController {
 	
 	@RequestMapping("/subeSave")
 	@ResponseBody
-	public void saveSube(@ModelAttribute("sube") Sube sube,HttpServletResponse response) throws IOException {
+	public void saveSube(@ModelAttribute("sube") Sube sube,@RequestParam("subeSatisStatus")String subeStatus,HttpServletResponse response) throws IOException {
 		Firma firma=firmaService.getFirma(this.firma.getEmail());
 		sube.setFirma(firma);
+		if(subeStatus.equals("sube")){
+			
+		}else if(subeStatus.equals("satisNoktasi")) sube.setSatisVarMi(true);
+		
 		System.out.println(sube.getAd());
 		System.out.println(sube.getEmail());
 		administrationService.saveSube(sube);

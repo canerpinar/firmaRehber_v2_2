@@ -16,6 +16,23 @@ $(document).ready(function(){
 
 	}
 	
+	$.mapsLoad = function(){
+		$("#mapsModal").modal();
+		
+	}
 	
+	$('#navs a[data-toggle="tab"]').bind('click', function (e) {
+		
+		$('#subeForm_satis input[type="text"]').each(function(){
+			$(this).val("");
+			
+		});
+		
+		$('#subeForm_sube input[type="text"]').each(function(){
+			$(this).val("");
+			
+		});
+		
+		});
 	
 });

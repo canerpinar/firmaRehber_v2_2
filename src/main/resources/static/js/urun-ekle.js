@@ -75,7 +75,7 @@ $(document).ready(function(){
 
 	$.get(server+"/firma/admin/getSatisNoktasi/"+id).done(function(data){
 		for(i in data){
-			$("#urunWhereIs").append("<option value='" + data[i].ad + "'>");
+			$("#whereUrun").append("<option value='" + data[i].id + "'>"+data[i].ad+"</option>");
 
 		}
 		
