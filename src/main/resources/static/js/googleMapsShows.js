@@ -2,16 +2,17 @@
  * 
  */ $(document).ready(function(){
 	 var server = "http://localhost:8080";
-	 $.mapsGoogle = function(ltd,lon){
+	 var adress;
+	 $.mapsGoogle = function(){
 
-		 var origin = new google.maps.LatLng(ltd, lon);
+		 var origin = new google.maps.LatLng();
 		 
 		 
-		 var adress;
+		 
 		 $.get(server + "/getUrunler").done(function(data){
 
 			 var dest = data[0].bulunduguAdres;
-			 
+			 adress = data[0].bulunduguAdres;
 			  var service = new google.maps.DistanceMatrixService;
 			  service.getDistanceMatrix({
 			    origins: [origin],
@@ -28,9 +29,9 @@
 			    }
 			  });
 			 
-
+			  alert(" donen " + adress);
 		 });
-		 alert(adress);
+		 
 
 
 		 //alert(ltd);alert(lon);
