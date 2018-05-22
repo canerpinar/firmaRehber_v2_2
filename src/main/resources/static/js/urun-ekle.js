@@ -83,7 +83,7 @@ $(document).ready(function(){
 	});
 	
 	$("#whereUrun").on("change",function(){
-		$.get(server + "/firma/admin/updateSube/"+$(this).val).done(function(data){
+		$.get(server + "/firma/admin/updateSube/"+$(this).val()).done(function(data){
 			alert(data.subeAdres);
 			$("#urunAdres").val(data.subeAdres);
 		});
@@ -91,5 +91,7 @@ $(document).ready(function(){
 		
 		
 	});
+	
+	
 
 });
