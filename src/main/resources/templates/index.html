@@ -16,13 +16,14 @@ xmlns:th="http://www.thymeleaf.org">
       // locate you.
       
        var map, infoWindow;
- var urunler = [];
  var server = "http://localhost:8080";
- var currentLocation;
- var infowindow = [];
-var marker = [];
-var urunAd;
+var adress = [];
+var urunAd = [];
+var urunAd_ = 0;
+var urunDetay=[];
+
      function initMap() {
+    	 geocoder = new google.maps.Geocoder()
        map = new google.maps.Map(document.getElementById('map'), {
          center: {lat: 41.015137, lng: 28.979530},
          zoom: 12
@@ -37,12 +38,12 @@ var urunAd;
              lat: position.coords.latitude,
              lng: position.coords.longitude
            };
-			
+		   
            infoWindow.setPosition(pos);
            infoWindow.setContent('Location found.');
            infoWindow.open(map);
-
-           mapsGoogle(pos);
+			distance(pos);
+           
          }, function() {
            handleLocationError(true, infoWindow, map.getCenter());
           
@@ -53,73 +54,74 @@ var urunAd;
          handleLocationError(false, infoWindow, map.getCenter());
        }
         
-
-     } 
+     }
      
-     function mapsGoogle(pos){
- 
-		 currentLocation = pos;
-		 var geocoder = new google.maps.Geocoder();
-		 geocodeAddress(geocoder, map);
-       }
-     
-    
-     function geocodeAddress(geocoder, resultsMap) {
-         //var address = document.getElementById('address').value;
-        	$.get(server + "/getUrunler").done(function(data){
+     function distance(pos){
+    	 var service = new google.maps.DistanceMatrixService();
+		$.get(server + "/getUrunler").done(function(data){
 			for(i in data){
-	      		var dest = data[i].bulunduguAdres;
-				 //alert(data[0].bulunduguAdres);
-				  var service = new google.maps.DistanceMatrixService;
-				  service.getDistanceMatrix({
-				    origins: [currentLocation],
-				    destinations: ["'"+dest+"'"],
-				    travelMode: google.maps.TravelMode.DRIVING,
-				    unitSystem: google.maps.UnitSystem.METRIC,
-				    avoidHighways: false,
-				    avoidTolls: false
-				  }, function(response, status) {
-				    if (status !== google.maps.DistanceMatrixStatus.OK) {
-				      alert('Error was: ' + status);
-				    } else {
-				      //alert(response.originAddresses[0] + ' --> ' + response.destinationAddresses + ' ==> ' + response.rows[0].elements[0].distance.text);
-				    }
-				  });
-				  
-			urunAd = data[i].urunAd;
-			console.log(urunAd);
-
-	    geocoder.geocode({'address': data[i].bulunduguAdres}, function(results, status) {
-
-	        resultsMap.setCenter(results[0].geometry.location);
-	          infowindow[i] = new google.maps.InfoWindow({
-	              content: urunAd
-	            });
-	       marker[i] = new google.maps.Marker({
-	          map : resultsMap,
-	          position : results[0].geometry.location
-	        });
-	        marker[i].addListener('click', function() {
-	            infowindow[i].open(resultsMap, marker[i]);
-	          });
-	      
-	    });
-
+				adress[i] = data[i].bulunduguAdres;
+				urunAd[i] = data[i].urunAd;
+				urunDetay[i] = data[i].urunHakkinda;
 			}
-		 });
-
-
-       }
+				service.getDistanceMatrix(
+						  {
+						    origins: [pos],
+						    destinations: adress,
+						    travelMode: 'DRIVING',
+						  }, callback);
+			
+			
+		});
+     }
+     
      
 
-/*       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      } */
+     
+     
+     function callback(response, status) {
+			
+			for(t = 0; t < adress.length; t++){
+				//alert(response.destinationAddresses[t] + "uzaklık " + response.rows[0].elements[t].distance.text);
+				//alert("urun Ad " + urunAd[t]);
+			
 
+		    geocoder.geocode({'address': adress[t]}, denemece);
+			
+			}
+			
+    }
+     
+     function denemece(results,status){
+	var content ='<div><a href="sdf">'+urunAd[urunAd_]+'</a><br/><span style="color:green;">Ürün Detay:</span>'+urunDetay[urunAd_]+'</div>';
+         var infowindow = new google.maps.InfoWindow({
+             content: content
+           });
+      var marker = new google.maps.Marker({
+         map : map,
+         position : results[0].geometry.location
+       });
+       marker.addListener('click', function() {
+           infowindow.open(map, marker);
+         });
+       urunAd_++;
+    }
+     
+     
+     var city;
+     function basla(sehir,callback){
+    	 city = sehir;
+    	 console.log(sehir +" arıyorum");
+    	 callback();
+     }
+     
+     function bitir() {
+		console.log(city +" buldum");
+	}
+     
+     basla("izmir",bitir);
+     
+   
     </script>
 <div th:include="template :: script"></div>
 <div id="main-wrapper">
