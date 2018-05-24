@@ -287,6 +287,7 @@ public class UrlResolver {
 		ModelAndView model = new ModelAndView("index");
 		List<Kategori> listKategori = (List<Kategori>) kategoriService.getAllKategori();
 		List<Images> listImagesForSlider = uploadFileService.getAllImagesForSlider();
+		List<Urun> urunList = administrationService.getAllUrun();
 		model.addObject("username", request.getSession().getAttribute("username"));
 		String authenticationPageValue="";
 		
@@ -296,6 +297,7 @@ public class UrlResolver {
 		if(yetki.equals("ROLE_ADMIN")) authenticationPageValue="/admin/";
 		else authenticationPageValue="/firma/admin/";
  
+		model.addObject("urunList", urunList);
 		model.addObject("successPage", authenticationPageValue);
 		model.addObject("images", listImagesForSlider);
 		model.addObject("kategoriler", listKategori);

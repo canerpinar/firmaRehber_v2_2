@@ -211,7 +211,9 @@ var urunDetay=[];
                   <input type="text" placeholder="Filter by Keywords" />
                 </div>
               </div> <!-- end .change-view -->
-				<div class="col-sm-4 col-xs-6">
+              
+              
+				<div class="col-sm-4 col-xs-6" th:each="urun : ${urunList}">
                       <div class="single-product">
                         <figure>
                           <img src="img/content/company-product.jpg" alt="">
@@ -234,52 +236,7 @@ var urunDetay=[];
                       </div> <!-- end .single-product -->
                     </div> <!-- end .grid-layout -->
 				
-				
-								<div class="col-sm-4 col-xs-6">
-                      <div class="single-product">
-                        <figure>
-                          <img src="img/content/company-product.jpg" alt="">
 
-                          <figcaption>
-                            <div class="bookmark">
-                              <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                            </div>
-
-                            <div class="read-more">
-                              <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                            </div>
-                        <h6><a href="#">Product Name</a></h6>
-
-                        <h6><a href="#">Category</a></h6>
-                          </figcaption>
-                        </figure>
-
-
-                      </div> <!-- end .single-product -->
-                    </div> <!-- end .grid-layout -->
-				
-								<div class="col-sm-4 col-xs-6">
-                      <div class="single-product">
-                        <figure>
-                          <a href=""><img src="img/content/company-product.jpg" alt=""></a>
-
-                          <figcaption>
-                            <div class="bookmark">
-                              <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                            </div>
-
-                            <div class="read-more">
-                              <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                            </div>
-                        <h6><a href="#">Product Name</a></h6>
-
-                        <h6><a href="#">Category</a></h6>
-                          </figcaption>
-                        </figure>
-
-
-                      </div> <!-- end .single-product -->
-                    </div> <!-- end .grid-layout -->
 				
 				
              

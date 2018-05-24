@@ -179,6 +179,8 @@ create table if not exists urunler(
 	urunwhere_is_id int,/* urun hangi şube de ve şube satış noktası mıdır*/
 	urun_adres varchar(255),
 	uruncontrol boolean,
+	urun_link varchar(255),
+	urun_image_path varchar(255),
 	primary key(id)
 );
 

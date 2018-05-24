@@ -60,8 +60,29 @@ public class Urun {
 	private int bulunduguSubeorFirma;
 
 	@Column(name="urun_adres")
-	private String bulunduguAdres;	
+	private String bulunduguAdres;
 	
+	@Column(name="urun_link")
+	private String urunLink;
+	
+	@Column(name="urun_image_path")
+	private String imagePath;	
+	
+	public String getUrunLink() {
+		return urunLink;
+	}
+
+	public void setUrunLink(String urunLink) {
+		this.urunLink = urunLink;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
 	public String getBulunduguAdres() {
 		return bulunduguAdres;
