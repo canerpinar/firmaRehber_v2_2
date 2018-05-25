@@ -15,6 +15,7 @@ public interface UrunRepository extends CrudRepository<Urun,Integer> {
 	@Query("select urun from Urun urun where urun.urunSahibiFirma=:firmaId")
 	public List<Urun> getUrunForFirma(@Param("firmaId") int firmaId);
 	
-	
+	@Query("select urun from Urun urun where urun.urunLink=:urunLink")
+	public Urun getUrunWithLink(@Param("urunLink")String urunLink);
 	
 }

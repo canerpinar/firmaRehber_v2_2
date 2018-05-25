@@ -79,7 +79,7 @@
 
     </div> <!-- end .header-nav-bar -->
   </header> <!-- end #header -->
-
+<!-- URUN EKLE -->
   <div id="page-content">
   <form action="/firma/admin/urunEkle" th:object="${urun}" method="POST" enctype="multipart/form-data">
   <input type="hidden" th:field="*{urunSahibiFirma}" th:value="${firma.id}" />
@@ -124,8 +124,20 @@
   		</td>
   	</tr>
   	<tr>
+  	<td>Ürün Ana Resim</td>
+  	<td><input type="file" name="urun_image" id="urun_image" required="required"/></td>
+  	</tr>
+  	  	<tr>
   	<td>Ürün Resim</td>
   	<td><input type="file" name="urun_image" id="urun_image" required="required"/></td>
+  	</tr>
+  	  	<tr>
+  	<td>Ürün Resim</td>
+  	<td><input type="file" name="urun_image" id="urun_image" /></td>
+  	</tr>
+  	<tr>
+  	<td>Ürün Resim</td>
+  	<td><input type="file" name="urun_image" id="urun_image" /></td>
   	</tr>
   	<tr>
   	<td>Stok Durumu</td>
@@ -145,6 +157,9 @@
 		</select>
 		<input id="urunAdres" type="hidden" th:field="*{bulunduguAdres}"/>
 		</td>
+  	</tr>
+  	<tr>
+  		<td>PID Kodu:</td><td><input type="text" th:field="*{pidKod}" placeholder="PID Kodu"/></td>
   	</tr>
   	<tr><td><input type="submit" value="Kaydet" onsubmit="$.urunSaveFormSubmit()"/></td></tr>
   </table>

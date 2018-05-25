@@ -209,4 +209,8 @@ public class WebAdministrationService {
 		return subeRepository.getSatisNoktasiForFirma(id);
 	}
 	
+	public Urun getUrunWithLink(String link) {
+		return urunRepository.getUrunWithLink(link);
+	}
+	
 }

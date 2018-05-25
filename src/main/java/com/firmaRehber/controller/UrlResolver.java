@@ -625,4 +625,11 @@ public class UrlResolver {
 		return siteGenelController.geturunList();
 	}
 	
+	@RequestMapping(value="/{urunAd}")
+	public ModelAndView getUrunler(@PathVariable("urunAd") String urunAd) {
+		ModelAndView model = new ModelAndView("urun");
+		model.addObject("urun", administrationService.getUrunWithLink(urunAd));
+		return model;
+	}
+	
 }

@@ -162,26 +162,33 @@ public class FirmaAdminController {
 	}
 	
 	@RequestMapping(value="/urunEkle",method=RequestMethod.POST)
-	public void saveUrunEkle(@ModelAttribute("urun")Urun urun,@RequestParam("urun_image") MultipartFile file,HttpServletResponse response) throws IOException{
+	public void saveUrunEkle(@ModelAttribute("urun")Urun urun,@RequestParam("urun_image") MultipartFile files[],HttpServletResponse response) throws IOException{
 		
 		System.out.println("sahip id" + firma.getId());
 		System.out.println("kat id" + urun.getKatagoriId());
 		System.out.println("alt kat id" + urun.getAltKatagoriId());
 		System.out.println("alt kat id" + urun.getSubKategoriId());
-		urun.setImage(file.getOriginalFilename());
+		urun.setImage(files[0].getOriginalFilename());
+		urun.setImageOne(files[1].getOriginalFilename());
+		urun.setImageOne(files[2].getOriginalFilename());
+		urun.setImageOne(files[3].getOriginalFilename());
 		urun.setUrunSahibiFirma(firma.getId());
+		urun.setPidKod("PID"+urun.getPidKod());
+		String urunLink = "/" + urun.getUrunAd().replace(" ", "-")+"-"+urun.getPidKod();
+		urun.setUrunLink(urunLink);
+		urun.setImagePath(firma.getEmail()+"/"+urun.getUrunAd());
 
 		File directory = new File(context.getRealPath("")+firma.getEmail()+"\\"+urun.getUrunAd());
-		if(!directory.exists()){
+		if(!directory.exists())
 			directory.mkdirs();
-			 fileService.saveFileForSlider(file, directory.toString()+"\\");				
-		}else 
-			{
+		for(MultipartFile file :files) {
 			fileService.saveFileForSlider(file, directory.toString()+"\\");	
-			}
+		}
+			
+			
 
 		
-		System.out.println(file.getOriginalFilename());
+		//System.out.println(file.getOriginalFilename());
 		
 		administrationService.saveUrun(urun);
 		Firma firma_ = firmaService.getFirma(firma.getEmail());

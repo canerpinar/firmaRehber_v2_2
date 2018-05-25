@@ -56,6 +56,41 @@ public class Urun {
 	@Column(name="image")
 	private String image;
 	
+	@Column(name="imageone")
+	private String imageOne;
+	
+	@Column(name="imagetwo")
+	private String imageTwo;
+	
+	@Column(name="imagethree")
+	private String imageThree;
+	
+	
+	
+	public String getImageOne() {
+		return imageOne;
+	}
+
+	public void setImageOne(String imageOne) {
+		this.imageOne = imageOne;
+	}
+
+	public String getImageTwo() {
+		return imageTwo;
+	}
+
+	public void setImageTwo(String imageTwo) {
+		this.imageTwo = imageTwo;
+	}
+
+	public String getImageThree() {
+		return imageThree;
+	}
+
+	public void setImageThree(String imageThree) {
+		this.imageThree = imageThree;
+	}
+
 	@Column(name="urunwhereis_id")
 	private int bulunduguSubeorFirma;
 
@@ -68,6 +103,18 @@ public class Urun {
 	@Column(name="urun_image_path")
 	private String imagePath;	
 	
+	@Column(name="urun_pid")
+	private String pidKod;
+	
+	
+	public String getPidKod() {
+		return pidKod;
+	}
+
+	public void setPidKod(String pidKod) {
+		this.pidKod = pidKod;
+	}
+
 	public String getUrunLink() {
 		return urunLink;
 	}
