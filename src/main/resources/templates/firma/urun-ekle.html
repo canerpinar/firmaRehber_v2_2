@@ -81,7 +81,19 @@
   </header> <!-- end #header -->
 <!-- URUN EKLE -->
   <div id="page-content">
-  <form action="/firma/admin/urunEkle" th:object="${urun}" method="POST" enctype="multipart/form-data">
+  
+  
+    <div class="container">
+
+  <ul class="nav nav-tabs" id="navs">
+    <li class="active"><a data-toggle="tab" href="#home">ÜRÜN EKLE</a></li>
+    <li><a data-toggle="tab" href="#menu1">ÜRÜN DÜZENLE</a></li>
+
+  </ul>
+  
+  <div class="tab-content">
+  	<div id="home" class="tab-pane fade in active">
+  		  <form action="/firma/admin/urunEkle" th:object="${urun}" method="POST" enctype="multipart/form-data">
   <input type="hidden" th:field="*{urunSahibiFirma}" th:value="${firma.id}" />
   <table>
   	<tr>
@@ -164,6 +176,20 @@
   	<tr><td><input type="submit" value="Kaydet" onsubmit="$.urunSaveFormSubmit()"/></td></tr>
   </table>
 	</form>
+  		
+  		
+  	
+  	
+  	</div>
+  	
+  	<div id="menu1" class="tab-pane fade">
+  		<h3>Ürün Düzenle</h3>
+  	</div>
+  	
+  </div>
+  
+  </div>
+  
      </div> <!-- end #page-content -->
 
 

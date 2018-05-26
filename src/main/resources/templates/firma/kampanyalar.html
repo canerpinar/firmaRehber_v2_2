@@ -121,8 +121,88 @@
   </header> <!-- end #header -->
 
   <div id="page-content">
-			Kampanyalar
-     </div> <!-- end #page-content -->
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#kampanyaEkle">Kampanya Ekle</a></li>
+			<li><a data-toggle="tab" href="#kampanyaDuzenle">Kampanya Düzenle</a></li>
+		</ul>
+		
+		<div class="tab-content">
+			<div id="kampanyaEkle" class="tab-pane fade in active">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-toggle="tab" href="#indirimKam">İNDİRİM KAMPANYASI</a>
+					</li>
+					<li>
+						<a data-toggle="tab" href="#urunHediye">ÜRÜN HEDİYE KAMPANYASI</a>
+					</li>
+					
+					<li><a data-toggle="tab" href="#ziyaretKam">BUGÜNE ÖZEL ZİYARET KAMPANYASI</a></li>
+					
+					<li><a data-toggle="tab" href="#ozelgunKam">ÖZEL GÜN KAMPANYASI</a></li>
+					
+				</ul>
+				<div class="tab-content">
+					<div id="indirimKam" class="tab-pane fade in active">
+					<form action="firma/admin/kampanyaEkle">
+						<table class="table">
+			<tr>
+				<td>ÜRÜN SEÇİNİZ</td>
+				<td>
+				<select id="urunler">
+					<option value="1">KANON</option>
+					<option value="1">CASPER</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+
+				<td>ŞİMDİKİ FİYATI</td>
+				<td><span id="urunCurrentFiyat"></span></td>
+			</tr>
+			<tr>
+
+				<td>İNDİRİM ORANI</td>
+				<td><input type="text" name="T5" size="26"></td>
+			</tr>
+			<tr>
+				<td>BAŞLANGIÇ TARİHİ</td>
+				<td>gün/ay </td>
+			</tr>
+			<tr>
+				
+				<td>BİTİŞ TARİHİ</td>
+				<td>gün/ay /saat</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="KAYDET"/></td>
+			</tr>
+		</table>
+</form>
+					</div>
+					<div id="urunHediye" class="tab-pane fade">
+						Ürün Hediye Kampanyası
+					</div>
+					<div id="ziyaretKam" class="tab-pane fade">
+						Bugüne Özel Ziyaret Kampanyası
+					</div>
+					<div id="ozelgunKam" class="tab-pane fade">
+						Özel Gün Kampanyası
+					</div>
+					
+					
+				</div>
+				
+			</div>
+			
+			<div id="kampanyaDuzenle" class="tab-pane fade">
+				KAMPANYA DÜZENLE
+			</div>
+			
+		</div>
+		
+	</div>
+  </div> <!-- end #page-content -->
 
 
   <footer id="footer">

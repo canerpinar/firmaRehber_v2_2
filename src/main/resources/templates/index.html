@@ -39,10 +39,18 @@ var urunLink = [];
              lat: position.coords.latitude,
              lng: position.coords.longitude
            };
-		   
+           var img = "http://localhost:8080/img/content/currentLocation_.png";
+           var marker = new google.maps.Marker({
+        	    position: pos,
+        	    map: map,
+        	    title: 'Buradasınız.',
+        	    icon : img
+        	  });
+           /*
            infoWindow.setPosition(pos);
            infoWindow.setContent('Location found.');
            infoWindow.open(map);
+*/
 			distance(pos);
            
          }, function() {
@@ -61,10 +69,10 @@ var urunLink = [];
     	 var service = new google.maps.DistanceMatrixService();
 		$.get(server + "/getUrunler").done(function(data){
 			for(i in data){
-				adress[i] = data[i].bulunduguAdres;
-				urunAd[i] = data[i].urunAd;
-				urunDetay[i] = data[i].urunHakkinda;
-				urunLink[i] = data[i].urunLink;
+				adress.push(data[i].bulunduguAdres);
+				urunAd.push(data[i].urunAd);
+				urunDetay.push(data[i].urunHakkinda);
+				urunLink.push(data[i].urunLink);
 					}
 				service.getDistanceMatrix(
 						  {

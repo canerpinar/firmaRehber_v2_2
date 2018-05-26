@@ -74,6 +74,7 @@ $(document).ready(function(){
 	var id = getCookie("firma_id");
 
 	$.get(server+"/firma/admin/getAllSatisNoktasi/"+id).done(function(data){
+		$("#whereUrun").append("<option>Şube Seçiniz.</option>");
 		for(i in data){
 			$("#whereUrun").append("<option value='" + data[i].id + "'>"+data[i].ad+"</option>");
 
@@ -91,7 +92,6 @@ $(document).ready(function(){
 		
 		
 	});
-	
 	
 
 });

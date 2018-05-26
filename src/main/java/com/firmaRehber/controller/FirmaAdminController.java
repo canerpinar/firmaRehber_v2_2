@@ -2,6 +2,7 @@ package com.firmaRehber.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.Collection;
 import java.util.List;
 
@@ -175,6 +176,7 @@ public class FirmaAdminController {
 		urun.setUrunSahibiFirma(firma.getId());
 		urun.setPidKod("PID"+urun.getPidKod());
 		String urunLink = "/" + urun.getUrunAd().replace(" ", "-")+"-"+urun.getPidKod();
+		urunLink=Normalizer.normalize(urunLink.toLowerCase(), Normalizer.Form.NFD);
 		urun.setUrunLink(urunLink);
 		urun.setImagePath(firma.getEmail()+"/"+urun.getUrunAd());
 
