@@ -328,6 +328,10 @@ public class FirmaAdminController {
 		return genelController.getSatisNoktasiForFirma(id);
 	}
 	
+	@RequestMapping("/getAllUrunForFirma/{firmaId}")
+	@ResponseBody
+	public List<Urun> getUrunForFirma(@PathVariable("firmaId")Integer firmaId){
+		return genelController.getUrunListForFirma(firmaId);
+	}
 
-	
 }

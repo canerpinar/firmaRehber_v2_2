@@ -213,4 +213,8 @@ public class WebAdministrationService {
 		return urunRepository.getUrunWithLink(link);
 	}
 	
+	public List<Urun> getAllUrunForFirma(Integer firmaId){
+		return urunRepository.getUrunForFirma(firmaId);
+	}
+	
 }
