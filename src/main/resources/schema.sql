@@ -7,9 +7,9 @@ DROP TABLE IF EXISTS firma;
 DROP TABLE IF EXISTS referanslar;
 DROP TABLE IF EXISTS sube;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS user_role;
+DROP TABLE IF EXISTS user_role;*/
 DROP TABLE IF EXISTS urunler;
-*/
+DROP TABLE IF EXISTS kampanya;
 
 create table if not exists users(
 	id integer not null auto_increment,
@@ -182,6 +182,11 @@ create table if not exists urunler(
 	urun_pid varchar(10),
 	urun_link varchar(255),
 	urun_image_path varchar(255),
+	urun_kampanya boolean default false,
+	urun_kampanya_fiyat float default null,
+	urun_kampanya_oran varchar(5) default null,
+	kampanya_id int default null,
+	foreign key (kampanya_id) references kampanya(id) ON UPDATE CASCADE,
 	primary key(id)
 );
 
@@ -198,6 +203,20 @@ create table if not exists sube(
 	sube_location varchar(60),
 	foreign key (firma_id) references firma(id) ON UPDATE CASCADE,
 	primary key (id)
+);
+
+create table if not exists kampanya(
+	id integer not null auto_increment,
+	urun_id integer not null,
+	kampanya_turu smallint not null,
+	current_fiyat float,
+	kampanya_fiyat float,
+	kampanya_oran varchar(5),
+	kampanya_urunu int default null,
+	start_date date,
+	end_date date,
+	foreign key (kampanya_urunu) references urunler(id) ON UPDATE CASCADE,
+	primary key(id)
 );
 
 

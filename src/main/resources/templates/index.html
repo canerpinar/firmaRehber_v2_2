@@ -226,8 +226,14 @@ var urunLink = [];
 				<div class="col-sm-4 col-xs-6" th:each="urun : ${urunList}">
                       <div class="single-product">
                         <figure>
-                          <img src="img/content/company-product.jpg" alt="">
-
+                          <img width="150" height="150" th:src="${urun.imagePath}+'/'+${urun.image}" alt="">
+                          
+						<div th:if="${urun.isKampanyaStatus()}" style="height: 50px;width: 150px; background-color: transparent; position:absolute; float:right; margin-top: -100px; margin-right: 13px;">
+						<img src="img/content/kampanya_icon.png" width="70" height="70" /><br/>
+							<span style="font-weight:bolder; font-size:small; color:black;" th:text="'Bu ürün de %'+${urun.kampanyaOran}+' indirim'">
+								
+							</span>
+						</div>
                           <figcaption>
                             <div class="bookmark">
                               <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
@@ -236,9 +242,8 @@ var urunLink = [];
                             <div class="read-more">
                               <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
                             </div>
-                        <h6><a href="#">Product Name</a></h6>
+                        <h6><a href="#" th:text="${urun.urunAd}"></a></h6>
 
-                        <h6><a href="#">Category</a></h6>
                           </figcaption>
                         </figure>
 

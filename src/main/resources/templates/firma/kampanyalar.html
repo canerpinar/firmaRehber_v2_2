@@ -144,33 +144,39 @@
 				</ul>
 				<div class="tab-content">
 					<div id="indirimKam" class="tab-pane fade in active">
-					<form action="firma/admin/kampanyaEkle">
+					<form id="kampanyaEkle_1" action="/firma/admin/kampanyaEkle" th:object=${kampanya} method="POST">
 						<table class="table">
 			<tr>
 				<td>ÜRÜN SEÇİNİZ</td>
 				<td>
-				<select id="urunlerForKampanya">
+				<select name="urunId" id="urunlerForKampanya">
 				</select>
 				</td>
 			</tr>
 			<tr>
 
 				<td>ŞİMDİKİ FİYATI</td>
-				<td><span id="urunCurrentFiyat"></span></td>
+				<td>
+				<input th:field="*{currentFiyat}" id="urunCurrentFiyat" style="border-style: solid;" type="text" />
+				<span id="kampanyaFiyatSpan"></span>
+				<input id="kampanyaFiyat" type="hidden" th:field="*{kampanyaFiyat}"  />
+				<input type="hidden" th:field="*{kampanyaTuru}" value="1" />
+				</td>
+				
 			</tr>
 			<tr>
 
 				<td>İNDİRİM ORANI</td>
-				<td><input style="border-style: solid;" type="text" /></td>
+				<td><input id="kampanyaOranInput" th:field="*{kampanyaOran}" style="border-style: solid;" type="text" /></td>
 			</tr>
 			<tr>
 				<td>BAŞLANGIÇ TARİHİ</td>
-				<td><input type="date" name="bday" /></td>
+				<td><input type="date" th:field="*{startDate}" /></td>
 			</tr>
 			<tr>
 				
 				<td>BİTİŞ TARİHİ</td>
-				<td><input type="date" name="bday" /></td>
+				<td><input type="date" th:field="*{endDate}" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="KAYDET"/></td>
@@ -178,14 +184,140 @@
 		</table>
 </form>
 					</div>
+					<!-- üRÜN HEDİYE KAMPANYASI -->
 					<div id="urunHediye" class="tab-pane fade">
-						Ürün Hediye Kampanyası
+					<form id="kampanyaEkle_2" th:object="${kampanya}" action="/firma/admin/kampanyaEkle" method="POST">
+												<table class="table">
+						<tr>
+	
+							<td>KAMPANYANIN UYGULANACAĞI ÜRÜN</td>
+							<td>
+								<select th:field=*{urunId} id="urunlerForKampanya2_">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>HEDİYE VERİLECEK ÜRÜN</td>
+							<td>
+								<select th:field="*{kampanyaUrun}" id="urunlerForKampanya2">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>ŞUAN Kİ FİYAT</td>
+							<td>
+							<input th:field="*{currentFiyat}" id="urunCurrentFiyat2" style="border-style: solid;" type="text" />
+							<input id="kampanyaTuru_2" type="hidden" th:field="*{kampanyaTuru}" value="2"/>
+							</td>
+						</tr>
+						<tr>
+							<td>KAMPANYA FİYATI</td>
+							<td><input th:field="*{kampanyaFiyat}" type="text" style="border-style:solid;"/></td>
+						</tr>
+						
+						<tr>
+
+							<td>BAŞLANGIÇ TARİHİ</td>
+							<td><input th:field="*{startDate}" type="date" /></td>
+						</tr>
+						<tr>
+
+							<td>BİTİŞ TARİHİ</td>
+							<td><input th:field="*{endDate}" type="date" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="submit" value="KAYDET" /></td>
+						</tr>
+					</table>
+					</form>
+
+
 					</div>
 					<div id="ziyaretKam" class="tab-pane fade">
-						Bugüne Özel Ziyaret Kampanyası
+						<!-- ziyaret kampanyası -->
+						<table class="table">
+			<tr>
+				<td>KAMPANYA BAŞLIĞI </td>
+				<td><input type="text" style="border-style:solid;" /></td>
+			</tr>
+			<tr>
+
+				<td>KAMPANYANIN DETAYI</td>
+				<td><input type="text" style="border-style:solid;" /></td>
+			</tr>
+			<tr>
+
+				<td>HANGİ ŞUBELERDE GEÇERLİ</td>
+				<td>
+				<table class="table">
+					<tr>
+						<td>TÜM ŞUBELERDE</td>
+						<td><input id="allSubeForChecked" type="checkbox" name="C1" value="ON"/></td>
+					</tr>
+					<tr id="subelerForKampanya">
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+
+				<td>BAŞLANGIÇ TARİHİ</td>
+				<td><input type="date" /></td>
+			</tr>
+			<tr>
+				<td>BİTİŞ TARİHİ</td>
+				<td><input type="date" /></td>
+			</tr>
+			<tr>
+
+				<td colspan="2"><input type="submit" value="KAYDET" /></td>
+			</tr>
+		</table>
+						
+						<!-- ziyaret kampanyası end -->
 					</div>
 					<div id="ozelgunKam" class="tab-pane fade">
-						Özel Gün Kampanyası
+		<table class="table">
+			<tr>
+
+				<td>KAMPANYA BAŞLIĞI</td>
+				<td><input type="text" style="border-style:solid;"/></td>
+			</tr>
+			<tr>
+
+				<td>KAMPANYA KONUSU</td>
+				<td><input type="text" /></td>
+			</tr>
+			<tr>
+				<td>HANGİ ŞUBELERDE GEÇERLİ</td>
+					<td>
+				<table class="table">
+					<tr>
+						<td>TÜM ŞUBELERDE</td>
+						<td><input id="allSubeForChecked_" type="checkbox" name="C1" value="ON"/></td>
+					</tr>
+					<tr id="subelerForKampanya_">
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+			
+				<td>BAŞLANGIÇ TARİHİ</td>
+				<td><input type="date" /></td>
+			</tr>
+			<tr>
+
+				<td>BİTİŞ TARİHİ</td>
+				<td><input type="date" /></td>
+			</tr>
+			<tr>
+
+				<td><input type="submit" value="KAYDET" /></td>
+			</tr>
+		</table>
+
+
 					</div>
 					
 					

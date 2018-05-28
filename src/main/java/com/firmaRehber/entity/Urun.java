@@ -1,10 +1,14 @@
 package com.firmaRehber.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -65,8 +69,52 @@ public class Urun {
 	@Column(name="imagethree")
 	private String imageThree;
 	
+	@Column(name="urun_kampanya")
+	private boolean kampanyaStatus;
 	
+	@Column(name="urun_kampanya_fiyat")
+	private float kampanyaliFiyat;
 	
+	@Column(name="urun_kampanya_oran")
+	private String kampanyaOran;
+	
+	@JoinColumn(name="kampanya_id")
+	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	private Kampanya kampanyaId;
+	
+
+	public Kampanya getKampanyaId() {
+		return kampanyaId;
+	}
+
+	public void setKampanyaId(Kampanya kampanyaId) {
+		this.kampanyaId = kampanyaId;
+	}
+
+	public String getKampanyaOran() {
+		return kampanyaOran;
+	}
+
+	public void setKampanyaOran(String kampanyaOran) {
+		this.kampanyaOran = kampanyaOran;
+	}
+
+	public float getKampanyaliFiyat() {
+		return kampanyaliFiyat;
+	}
+
+	public void setKampanyaliFiyat(float kampanyaliFiyat) {
+		this.kampanyaliFiyat = kampanyaliFiyat;
+	}
+
+	public boolean isKampanyaStatus() {
+		return kampanyaStatus;
+	}
+
+	public void setKampanyaStatus(boolean kampanyaStatus) {
+		this.kampanyaStatus = kampanyaStatus;
+	}
+
 	public String getImageOne() {
 		return imageOne;
 	}
@@ -180,8 +228,6 @@ public class Urun {
 		this.image = image;
 	}
 
-
-	
 
 
 

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.firmaRehber.entity.AltKategoriSeo;
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Images;
+import com.firmaRehber.entity.Kampanya;
 import com.firmaRehber.entity.KategoriSeo;
 import com.firmaRehber.entity.Message;
 import com.firmaRehber.entity.Reklam;
@@ -24,6 +25,7 @@ import com.firmaRehber.entity.Urun;
 import com.firmaRehber.repository.AltKategoriSeoRepository;
 import com.firmaRehber.repository.FirmaRepository;
 import com.firmaRehber.repository.ImagesRepository;
+import com.firmaRehber.repository.KampanyaRepository;
 import com.firmaRehber.repository.KategoriSeoRepository;
 import com.firmaRehber.repository.MessageRepository;
 import com.firmaRehber.repository.ReklamRepository;
@@ -64,6 +66,9 @@ public class WebAdministrationService {
 	
 	@Autowired
 	private SubAltKategoriSeoRepository subAltKategoriSeoRepository;
+	
+	@Autowired
+	private KampanyaRepository kampanyaRepository;
 	
 	@Autowired
 	private JavaMailSender javaMailSender; 
@@ -215,6 +220,10 @@ public class WebAdministrationService {
 	
 	public List<Urun> getAllUrunForFirma(Integer firmaId){
 		return urunRepository.getUrunForFirma(firmaId);
+	}
+	
+	public void saveKampanya(Kampanya kampanya) {
+		kampanyaRepository.save(kampanya); 
 	}
 	
 }

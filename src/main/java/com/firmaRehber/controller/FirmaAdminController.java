@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.firmaRehber.entity.AltKategori;
 import com.firmaRehber.entity.Firma;
+import com.firmaRehber.entity.Kampanya;
 import com.firmaRehber.entity.Kategori;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.Sube;
@@ -213,6 +214,7 @@ public class FirmaAdminController {
 	@RequestMapping(value="/kampanyalar.html",method=RequestMethod.GET)
 	public ModelAndView getKampanyalar(){
 		ModelAndView model = new ModelAndView("/firma/kampanyalar");
+		model.addObject("kampanya", new Kampanya());
 		model.addObject("firma", firma);
 		return model;
 	}
@@ -332,6 +334,31 @@ public class FirmaAdminController {
 	@ResponseBody
 	public List<Urun> getUrunForFirma(@PathVariable("firmaId")Integer firmaId){
 		return genelController.getUrunListForFirma(firmaId);
+	}
+	
+	@RequestMapping(value="/kampanyaEkle",method=RequestMethod.POST)
+	@ResponseBody
+	public void saveKampanya(@ModelAttribute("kampanya") Kampanya kampanya,HttpServletResponse response) throws IOException {
+		Urun urun = administrationService.getUrun(kampanya.getUrunId());
+		if(kampanya.getKampanyaTuru()==1) {
+			urun.setKampanyaStatus(true);
+			urun.setKampanyaliFiyat(kampanya.getKampanyaFiyat());
+			urun.setKampanyaOran(kampanya.getKampanyaOran());
+			urun.setKampanyaId(kampanya);
+			System.out.println("kampanya turu 1 başarılı");
+			System.out.println("kampanya id :"+ kampanya.getId());
+		}else if(kampanya.getKampanyaTuru()==2) {
+			urun.setKampanyaStatus(true);			
+			urun.setKampanyaliFiyat(kampanya.getKampanyaFiyat());
+			urun.setKampanyaId(kampanya);
+			System.out.println("kampanya turu 2 başarılı");
+			System.out.println("kampanya id :"+ kampanya.getId());
+		}
+		System.out.println("kampanya turu :" + kampanya.getKampanyaTuru());
+		
+		administrationService.saveUrun(urun);
+		administrationService.saveKampanya(kampanya);
+		response.sendRedirect("/firma/admin/kampanyalar.html");
 	}
 
 }
