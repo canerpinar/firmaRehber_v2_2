@@ -165,7 +165,7 @@ public class SiteGenelController {
 	public List<Urun> getUrunListForFirma(@PathVariable("firmaId") Integer firmaId){
 		return administrationService.getAllUrunForFirma(firmaId);
 	}
-
+	
 	
 
 	

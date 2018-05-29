@@ -1651,66 +1651,26 @@ position:relative;
 
               <!-- Category accordion -->
               <div id="categories">
-                <div class="accordion">
+                <div class="accordion" th:fragment="categories">
                   <ul class="nav nav-tabs home-tab" role="tablist">
                     <li class="active">
                       <a href="#all-categories"  role="tab" data-toggle="tab">All Categories
                         <span>Display all sub-categories</span>
                       </a>
                     </li>
-
-                    <li>
-                      <a href="#advertisemnet" role="tab" data-toggle="tab">advertisement
-                        <span>Agencies, Marketing</span>
+                    <li th:each="kategori : ${kategoriler}">
+                      <a class="dropdown-toggle" th:href="'#'+${kategori.id}" role="tab" data-toggle="tab" th:text="${kategori.kategoriAd}">                      
                       </a>
-                    </li>
-
-                    <li>
-                      <a href="#e-commerce"  role="tab" data-toggle="tab">E-commerce
-                        <span>Boutiques, Shop</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#education" role="tab" data-toggle="tab">Education
-                        <span>Private School, Universities</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#entertainment" role="tab" data-toggle="tab">Entertainment
-                        <span>Sport, Toys, Travels</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#home-garder" role="tab" data-toggle="tab">Home &amp; Garden
-                        <span>Accessories, Furniture, Plants</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#industry" role="tab" data-toggle="tab">Industry
-                        <span>Accessories, Products, Services</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#libraries-public" role="tab" data-toggle="tab">Libraries &amp; Public
-                        <span>Libraries, Postal, Public Offices</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#real-estate" role="tab" data-toggle="tab">Real Estate
-                        <span>Apartments, Commercial, House</span>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#resturants" role="tab" data-toggle="tab">Resturants &amp; Pubs
-                        <span>Bars, Fast Food, Resturants</span>
-                      </a>
+                     
+                     	
+                      	<div th:each="altKategori : ${kategori.altKategori}" style="background-color: white;">
+                      		<ul>
+	                      		<li>
+							    <a class="dropdown-toggle" role="tab" data-toggle="tab" href="#" th:text="${altKategori.altKategoriAd}"></a>
+							    <div  th:each="subalt : ${altKategori.subaltKategori}"><a th:text="${subalt.subAltKategoriAd}" href="#"></a></div>
+							    </li>
+						    </ul>
+						</div>               
                     </li>
 
                     <li>

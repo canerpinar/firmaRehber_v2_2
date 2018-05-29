@@ -226,4 +226,7 @@ public class WebAdministrationService {
 		kampanyaRepository.save(kampanya); 
 	}
 	
+	public List<Firma> getFirmaWithUrunForKategori(String kategoriAd){
+		return firmaRepository.getFirmaWithUrunForKategori(kategoriAd);
+	}
 }

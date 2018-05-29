@@ -339,25 +339,28 @@ public class FirmaAdminController {
 	@RequestMapping(value="/kampanyaEkle",method=RequestMethod.POST)
 	@ResponseBody
 	public void saveKampanya(@ModelAttribute("kampanya") Kampanya kampanya,HttpServletResponse response) throws IOException {
+		
+		administrationService.saveKampanya(kampanya);
 		Urun urun = administrationService.getUrun(kampanya.getUrunId());
+		System.out.println("----kampanya id :"+ kampanya.getId());
 		if(kampanya.getKampanyaTuru()==1) {
 			urun.setKampanyaStatus(true);
 			urun.setKampanyaliFiyat(kampanya.getKampanyaFiyat());
 			urun.setKampanyaOran(kampanya.getKampanyaOran());
-			urun.setKampanyaId(kampanya);
+			urun.setKampanya(kampanya);
 			System.out.println("kampanya turu 1 başarılı");
-			System.out.println("kampanya id :"+ kampanya.getId());
+			
 		}else if(kampanya.getKampanyaTuru()==2) {
 			urun.setKampanyaStatus(true);			
 			urun.setKampanyaliFiyat(kampanya.getKampanyaFiyat());
-			urun.setKampanyaId(kampanya);
+			urun.setKampanya(kampanya);
 			System.out.println("kampanya turu 2 başarılı");
 			System.out.println("kampanya id :"+ kampanya.getId());
 		}
 		System.out.println("kampanya turu :" + kampanya.getKampanyaTuru());
 		
 		administrationService.saveUrun(urun);
-		administrationService.saveKampanya(kampanya);
+		
 		response.sendRedirect("/firma/admin/kampanyalar.html");
 	}
 

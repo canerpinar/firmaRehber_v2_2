@@ -191,9 +191,16 @@ public class UrlResolver {
 		String yetki = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
 		if(yetki.equals("ROLE_ADMIN")) authenticationPageValue="/admin/";
 		else authenticationPageValue="/firma/admin/";
- 
+		List<Kategori> listKategori = (List<Kategori>) kategoriService.getAllKategori();
+		model.addObject("kategoriler", listKategori);
 		model.addObject("successPage", authenticationPageValue);
-
+		model.addObject("firmalar", administrationService.getAllFirma());
+		/*
+		List<Firma> listFirmaForKategori = administrationService.getFirmaWithUrunForKategori(listKategori.get(0).getKategoriAd()); 
+		listFirmaForKategori.forEach(firma ->{
+			System.out.println(firma.getEmail());
+		});
+		*/
 		return model;
 
 	}
@@ -631,5 +638,7 @@ public class UrlResolver {
 		model.addObject("urun", administrationService.getUrunWithLink(urunAd));
 		return model;
 	}
+	
+	
 	
 }

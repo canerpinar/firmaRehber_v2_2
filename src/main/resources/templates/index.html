@@ -230,8 +230,10 @@ var urunLink = [];
                           
 						<div th:if="${urun.isKampanyaStatus()}" style="height: 50px;width: 150px; background-color: transparent; position:absolute; float:right; margin-top: -100px; margin-right: 13px;">
 						<img src="img/content/kampanya_icon.png" width="70" height="70" /><br/>
-							<span style="font-weight:bolder; font-size:small; color:black;" th:text="'Bu ürün de %'+${urun.kampanyaOran}+' indirim'">
-								
+							<span th:each="kampanya : ${urun.kampanya}" th:if="${kampanya.kampanyaTuru==1}" style="background-color:white; font-weight:bolder; font-size:small; color:black;" th:text="'Bu ürün de %'+${urun.kampanyaOran}+' indirim'">								
+							</span>
+							<span th:each="kampanya : ${urun.kampanya}" th:if="${kampanya.kampanyaTuru==2}" style="background-color:white;font-weight:bolder; font-size:small; color:black;">
+								Bu üründe hediye var.
 							</span>
 						</div>
                           <figcaption>
@@ -242,7 +244,7 @@ var urunLink = [];
                             <div class="read-more">
                               <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
                             </div>
-                        <h6><a href="#" th:text="${urun.urunAd}"></a></h6>
+                        <h6><a th:href="${urun.urunLink}" th:text="${urun.urunAd}"></a></h6>
 
                           </figcaption>
                         </figure>
@@ -312,34 +314,8 @@ var urunLink = [];
 
               <!-- Category accordion -->
               <div id="categories">
-                <div class="accordion">
-                  <ul class="nav nav-tabs home-tab" role="tablist">
-                    <li class="active">
-                      <a href="#all-categories"  role="tab" data-toggle="tab">All Categories
-                        <span>Display all sub-categories</span>
-                      </a>
-                    </li>
-                    <li th:each="kategori : ${kategoriler}">
-                      <a class="dropdown-toggle" th:href="'#'+${kategori.id}" role="tab" data-toggle="tab" th:text="${kategori.kategoriAd}">                      
-                      </a>
-                     
-                     	
-                      	<div th:each="altKategori : ${kategori.altKategori}" style="background-color: white;">
-                      		<ul>
-	                      		<li>
-							    <a class="dropdown-toggle" role="tab" data-toggle="tab" href="#" th:text="${altKategori.altKategoriAd}"></a>
-							    <div  th:each="subalt : ${altKategori.subaltKategori}"><a th:text="${subalt.subAltKategoriAd}" href="#"></a></div>
-							    </li>
-						    </ul>
-						</div>               
-                    </li>
-
-                    <li>
-                      <a href="#" role="tab" data-toggle="tab"><i class="fa fa-angle-right"></i>See More</a>
-
-                    </li>
-
-                  </ul>
+                <div class="accordion" th:include="template :: categories">
+                  
                 </div> <!-- end .accordion -->
               </div> <!-- end #categories -->
 
@@ -348,6 +324,7 @@ var urunLink = [];
         </div> <!-- end .row -->
       </div> <!-- end .home-with-slide -->
     </div> <!-- end .container -->
+  
   </div>  <!-- end #page-content -->
 
 

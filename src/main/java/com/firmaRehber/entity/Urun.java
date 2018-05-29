@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -80,15 +81,16 @@ public class Urun {
 	
 	@JoinColumn(name="kampanya_id")
 	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-	private Kampanya kampanyaId;
+	private Kampanya kampanya;
 	
 
-	public Kampanya getKampanyaId() {
-		return kampanyaId;
+
+	public Kampanya getKampanya() {
+		return kampanya;
 	}
 
-	public void setKampanyaId(Kampanya kampanyaId) {
-		this.kampanyaId = kampanyaId;
+	public void setKampanya(Kampanya kampanya) {
+		this.kampanya = kampanya;
 	}
 
 	public String getKampanyaOran() {
