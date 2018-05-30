@@ -38,7 +38,7 @@
 						<img width="250" height="250" th:src="'../../../'+${urun.imagePath}+'/'+${urun.image}"/>		
 					</td>
 					<td colspan="2">
-			<table >
+			<table style="width: 100%;">
 			
 				<tr>			
 					<td>Kategori Düzenle</td>
@@ -88,7 +88,7 @@
 				<tr>
 					
 					<td>Ürün Hakkında Özellikler</td>
-					<td><textarea></textarea></td>
+					<td><textarea th:text="${urun.urunHakkinda}"></textarea></td>
 				</tr>
 				
 				<tr>
