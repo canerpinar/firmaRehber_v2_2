@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.User;
+import com.firmaRehber.service.KategoriService;
 import com.firmaRehber.service.UserService;
 import com.firmaRehber.service.WebAdministrationService;
 
@@ -23,6 +24,8 @@ public class FirmaController {
 	@Autowired
 	private WebAdministrationService administrationService;
 	
+	@Autowired
+	private KategoriService kategoriService;
 
 	
 	@RequestMapping("/")
@@ -37,6 +40,7 @@ public class FirmaController {
 		ModelAndView model=new ModelAndView("admin/firmaInformation");		
 		Firma firma = administrationService.getFirma(id);
 		model.addObject("firma", firma);
+
 		model.addObject("urunler", administrationService.getAllUrunForFirma(Integer.parseInt(id)));
 		
 		return model;		
@@ -44,7 +48,8 @@ public class FirmaController {
 	
 	@RequestMapping("/urunEdit/{id}")//urun id
 	public ModelAndView getUrunForEdit(@PathVariable("id")int id){
-		ModelAndView model=new ModelAndView("admin/urunEdit");		
+		ModelAndView model=new ModelAndView("admin/urunEdit");
+		model.addObject("kategoriler",kategoriService.getAllKategori());
 		model.addObject("urun", administrationService.getUrun(id));
 		return model;		
 	}

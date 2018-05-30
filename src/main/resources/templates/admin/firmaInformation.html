@@ -37,54 +37,82 @@
 		</div>			
 	</div>
 	
-	<div>
-		<table class="table">
-		<tr>
-			<th>Şube Adı</th>
-			<th>Şube Email</th>
-			<th>Şube Icon</th>
-		</tr>
-		<tr th:each="sube : ${firma.subeList}">
-			<td th:text="${sube.ad}"></td>
-			<td th:text="${sube.email}"></td>
-			<td><a href="#">Mesaj Gönder</a></td>
-		</tr>
+	<div class="container">
+		  <h3>Inline List</h3>
+		  <ul class="list-inline">
+		    <li><a data-toggle="tab" href="#subeler">ŞUBELER</a></li>
+		    <li><a data-toggle="tab" href="#urunler">ÜRÜNLER</a></li>
+		    <li><a data-toggle="tab" href="#kampanyalar">KAMPANYALAR</a></li>
+		    <li><a data-toggle="tab" href="#kampanyalar">Menu 3</a></li>
+		  </ul>
+		  <div class="tab-content">
+		  			  <div class="tab-pane" id="subeler">
+					  		<div>
+							<table class="table">
+							<tr>
+								<th>Şube Adı</th>
+								<th>Şube Email</th>
+								<th>Şube Icon</th>
+							</tr>
+							<tr th:each="sube : ${firma.subeList}">
+								<td th:text="${sube.ad}"></td>
+								<td th:text="${sube.email}"></td>
+								<td><a href="#">Mesaj Gönder</a></td>
+							</tr>
+					
+							</table>			
+						</div>
+					  </div>
+					  
+					  <div class="tab-pane" id="urunler">
+					  		<div>
+							<table class="table">
+							<tr>
+								<th>Urun Adı</th>
+								<th>Urun Fiyat</th>
+								<th>Urun Detay</th>
+								<th>Urun Kategori Adı</th>
+								<th>Urun Alt Kategori Adı</th>
+								<th>Urun İkinci Alt Kategori Adı</th>
+								<th>Urun Stok Durumu</th>
+								<th>Urun Image</th>
+								<th>Kampanya Durum</th>
+								<th>Urun Kontrol</th>
 
-		</table>			
-	</div>
-	
-		<div>
-		<table class="table">
-		<tr>
-			<th>Urun Adı</th>
-			<th>Urun Fiyat</th>
-			<th>Urun Detay</th>
-			<th>Urun Kategori Adı</th>
-			<th>Urun Alt Kategori Adı</th>
-			<th>Urun İkinci Alt Kategori Adı</th>
-			<th>Urun Stok Durumu</th>
-			<th>Urun Image</th>
-			<th>Urun Kontrol</th>
-		</tr>
-		<tr th:each="urun : ${urunler}">
-			<td th:text="${urun.urunAd}"></td>
-			<td th:text="${urun.urunFiyat}"></td>
-			<td th:text="${urun.urunHakkinda}"></td>
-			<td th:text="${urun.kategoriAd}"></td>
-			<td th:text="${urun.altKategoriAd}"></td>
-			<td th:text="${urun.subKategoriAd}"></td>
-			<td th:if="${urun.stokDurumu==false}" th:text="Yok"></td>
-			<td th:if="${urun.stokDurumu==true}" th:text="Var"></td>
-			<td><img style="height: 100px; width: 100px;" th:src="@{${'/'+firma.email+'/'+firma.firmaImage}}"></img></td>
-			<td th:if="${urun.urunControl==false}"><a style="color:red;" th:href="'/admin/firma/urunEdit/'+${urun.id}">Kontrol Et</a></td>
-			<td th:if="${urun.urunControl==true}">Kontrol Edildi</td>
+							</tr>
+							<tr th:each="urun : ${urunler}">
+								<td th:text="${urun.urunAd}"></td>
+								<td th:text="${urun.urunFiyat}"></td>
+								<td th:text="${urun.urunHakkinda}"></td>
+								<td th:text="${urun.kategoriAd}"></td>
+								<td th:text="${urun.altKategoriAd}"></td>
+								<td th:text="${urun.subKategoriAd}"></td>
+								<td th:if="${urun.stokDurumu==false}" th:text="Yok"></td>
+								<td th:if="${urun.stokDurumu==true}" th:text="Var"></td>
+								<td><img style="height: 100px; width: 100px;" th:src="@{${'/'+firma.email+'/'+firma.firmaImage}}"></img></td>
+								
+								<td th:if="${urun.kampanyaStatus==true}"><a href="#">Kampanyaya Git</a></td>
+								<td th:if="${urun.kampanyaStatus==false}"><a href="#">Kampanya Aktif Değil</a></td>
+								<td th:if="${urun.urunControl==true}">Kontrol Edildi</td>
+								<td th:if="${urun.urunControl==false}"><a style="color:red;" th:href="'/admin/firma/urunEdit/'+${urun.id}">Kontrol Et</a></td>
+							</tr>
+					
+							</table>			
+						</div>
+					  </div>
+					  
+					  <div class="tab-pane" id="kampanyalar">
+					  	<div>
+					  		Kampanyalar
+					  	</div>
+					  </div>
+					  
+					  
+					  
+		  </div>
 
-		</tr>
-
-		</table>			
-	</div>
-	
-	
+		  
+		</div>
 
 </body>
 </html>

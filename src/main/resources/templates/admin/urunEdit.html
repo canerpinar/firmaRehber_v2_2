@@ -6,14 +6,116 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- 
   <link rel="stylesheet" type="text/css" th:href="@{/css/template.css}"/>
+   -->
+  <script th:src="@{/js/urun-edit-admin.js}"></script>
+  <style type="text/css">
+  	table{
+
+  		 margin-left:auto; margin-right:auto; width: 60%; margin-top: 50px;
+  	}
+  </style>
 </head>
 <body>
 <header th:include="admin/template :: header"></header>
 
-Urun Edit Sayfası
+
 <form th:object="${urun}" method="POST" action="/admin/firma/urunUpdate">
-<table class="table">
+<table>
+	
+				<tr>
+					<td colspan="3">Bu ilanı sosyal medyada paylaş</td>
+				</tr>
+				<tr>
+					<td>Title Ekle</td>
+					<td>Keywords Ekle</td>
+					<td>Description Ekle</td>
+				</tr>
+				
+				<tr>
+					<td rowspan="8">
+						<img width="250" height="250" th:src="'../../../'+${urun.imagePath}+'/'+${urun.image}"/>		
+					</td>
+					<td colspan="2">
+			<table >
+			
+				<tr>			
+					<td>Kategori Düzenle</td>
+					<td><select style="width: 150px;" id="kategoriSelect" th:field="${urun.kategoriAd}">
+							
+							<option selected="selected" th:value="${urun.katagoriId}" th:text="${urun.kategoriAd}"></option>
+							<option value="0">Seçiniz</option>
+							<option th:each="kategori : ${kategoriler}" th:value="${kategori.id}" th:text="${kategori.kategoriAd}"></option>
+						</select></td>
+				</tr>
+				<tr>
+					
+					<td>Alt Kategori Düzenle</td>
+					<td>
+						<select  style="width: 150px;" id="altKategoriSelect">
+							<option value="0">Seçiniz</option>
+							<option selected="selected" th:value="${urun.altKatagoriId}" th:text="${urun.altKategoriAd}">Seçiniz</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					
+					<td>İkinci Alt Kategori Düzenle</td>
+					<td><select  style="width: 150px;" id="ikinciAltKategoriSelect">
+						<option selected="selected" th:value="${urun.subKategoriId}" th:text="${urun.subKategoriAd}"></option>
+					</select></td>
+				</tr>
+				
+					
+				<tr>
+					
+					<td>Ürün Marka</td>
+					<td><input type="text"/></td>
+				</tr>
+				
+				<tr>					
+					<td>Ürün Ad</td>
+					<td><input type="text" th:field="${urun.urunAd}"/></td>
+				</tr>
+				<tr>
+					
+					<td>Ürün Fiyat</td>
+					<td><input type="text"  th:field="${urun.urunFiyat}"/></td>
+				</tr>
+				
+				<tr>
+					
+					<td>Ürün Hakkında Özellikler</td>
+					<td><textarea></textarea></td>
+				</tr>
+				
+				<tr>
+					
+					<td>Ürün Stok Durumu</td>
+					<td>Var/Yok</td>
+				</tr>
+				
+				<tr>
+					
+					<td>Ödeme Bilgisi</td>
+					<td><input type="checkbox" value="0"/>Kredi Kartı<br/>
+					<input type="checkbox" value="0"/>Kapıda Ödeme<br/>
+					<input type="checkbox" value="0"/>Havale<br/></td>
+				</tr>
+				
+				</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td><a href="#">Firmaya Mesaj At</a></td>
+		<td><a href="#">İlanı Düzeltmesini İste</a></td>
+		<td><a href="#">İlanı Sil</a></td>
+	</tr>
+
+<!--  
 
 			<tr>
 			<th>Urun Adı</th>
@@ -36,7 +138,7 @@ Urun Edit Sayfası
 
 
 			</tr>
-			
+	-->		
 </table>
 </form>
 

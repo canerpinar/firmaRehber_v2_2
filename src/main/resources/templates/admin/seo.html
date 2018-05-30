@@ -67,11 +67,11 @@
 						<td th:text="${kategori.kategoriAd}"></td>
 						<td>
 							<span th:if="${kategori.seoAvaliable}">
-								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/seo_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{img/content/seo_avaliable.png}"/>
 								<a th:onclick="'$.kategoriSeoDuzenle('+${kategori.id}+')'">Seo Düzenle</a>								
 							</span>
 							<span th:unless="${kategori.seoAvaliable}">
-								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/seo_not_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/content/seo_not_avaliable.png}"/>
 								<a th:onclick="'$.kategoriSeoEkle('+${kategori.id}+')'">Seo Ekle</a>								
 							</span>							
 						</td>
@@ -97,11 +97,11 @@
 						<td th:text="${altkategori.altKategoriAd}"></td>
 						<td>
 							<span th:if="${altkategori.seoAvaliable}">
-								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/seo_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/content/seo_avaliable.png}"/>
 								<a  th:each="kategori : ${altkategori.kategori}" th:onclick="'$.altkategoriSeoDuzenle('+${kategori.id}+','+${altkategori.id}+')'">Seo Düzenle</a>								
 							</span>
 							<span th:unless="${altkategori.seoAvaliable}">
-								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/seo_not_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/content/seo_not_avaliable.png}"/>
 								<a th:each="kategori : ${altkategori.kategori}" th:onclick="'$.altkategoriSeoEkle('+${kategori.id}+','+${altkategori.id}+')'">Seo Ekle</a>								
 							</span>							
 						</td>
@@ -123,11 +123,11 @@
 						<td th:text="${subaltkategori.subAltKategoriAd}"></td>
 						<td>
 							<span th:if="${subaltkategori.seoAvaliable}" th:each="altkategori : ${subaltkategori.altKategori}">
-								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/seo_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/content/seo_avaliable.png}"/>
 								<a  th:each="kategori : ${subaltkategori.kategori}" th:onclick="'$.subaltkategoriSeoDuzenle('+${kategori.id}+','+${altkategori.id}+','+${subaltkategori.id}+')'">Seo Düzenle</a>								
 							</span>
 							<span th:unless="${subaltkategori.seoAvaliable}" th:each="altkategori : ${subaltkategori.altKategori}">
-								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/seo_not_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eksik" th:src="@{/img/content/seo_not_avaliable.png}"/>
 								<a th:each="kategori : ${subaltkategori.kategori}" th:onclick="'$.subaltkategoriSeoEkle('+${kategori.id}+','+${altkategori.id}+','+${subaltkategori.id}+')'">Seo Ekle</a>								
 							</span>
 							
