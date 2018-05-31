@@ -8,6 +8,13 @@
   <link rel="stylesheet" th:href="@{/css/firma.css}"></link>
   <link rel="stylesheet" th:href="@{/css/template.css}"></link>
 <title>Insert title here</title>
+<style type="text/css">
+	   header a {
+
+   margin-left: 20px;
+   margin-right: 20px;
+   }
+</style>
 </head>
 <body>
 <header th:include="admin/template :: header"></header>
@@ -103,7 +110,27 @@
 					  
 					  <div class="tab-pane" id="kampanyalar">
 					  	<div>
-					  		Kampanyalar
+					  		<table class="table">
+					  			<tr th:each="kampanya :${kampanyalar}">
+									<td>
+										<table>
+											<tr>
+												<td>Kampanya Ad :</td>
+								  				<td><span th:text="${kampanya.id}"></span></td>	
+							  				</tr>
+							  				<tr>
+							  					<td>Kampanya Id :</td>
+							  					<td><span th:text="${kampanya.urunId}"></span></td>	
+							  				</tr>
+							  				
+							  											  				<tr>
+							  					<td>Kampanya Fiyat :</td>
+							  					<td><span th:text="${kampanya.kampanyaFiyat}"></span></td>	
+							  				</tr>
+										</table>
+									</td>				  				
+					  			</tr>
+					  		</table>
 					  	</div>
 					  </div>
 					  <div class="tab-pane" id="hizmetler">

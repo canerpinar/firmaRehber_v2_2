@@ -26,6 +26,18 @@ public class Kampanya {
 	@Column(name="urun_id")
 	private int urunId;
 	
+	@Column(name="kampanya_ad")
+	private String kampanyaAd;
+	
+	
+	public String getKampanyaAd() {
+		return kampanyaAd;
+	}
+
+	public void setKampanyaAd(String kampanyaAd) {
+		this.kampanyaAd = kampanyaAd;
+	}
+
 	@Column(name="kampanya_turu")
 	private short kampanyaTuru;
 	

@@ -271,7 +271,7 @@ public class UrlResolver {
 		
 		roleService.saveRole(userRole);
 	}
-	
+	/*
 	@RequestMapping("/admin/kampanyalar")
 	public String pageKampanyalar(){
 		return "admin/kampanyalar";
@@ -281,7 +281,7 @@ public class UrlResolver {
 	public String pageHizmetler(){
 		return "admin/hizmetler";
 	}
-	
+	*/
 	
 	@RequestMapping("/admin")
 	public String loginpage(Model model){

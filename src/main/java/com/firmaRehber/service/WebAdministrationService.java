@@ -229,4 +229,8 @@ public class WebAdministrationService {
 	public List<Firma> getFirmaWithUrunForKategori(String kategoriAd){
 		return firmaRepository.getFirmaWithUrunForKategori(kategoriAd);
 	}
+	
+	public List<Kampanya> getKampanyaForFirma(int firmaId){
+		return kampanyaRepository.getKampanyaForFirma(firmaId);
+	}
 }

@@ -166,6 +166,7 @@ create table if not exists referanslar(
 create table if not exists kampanya(
 	id integer not null auto_increment,
 	urun_id integer not null,
+	kampanya_ad varchar(255),
 	kampanya_turu smallint not null,
 	current_fiyat float,
 	kampanya_fiyat float,
@@ -187,9 +188,13 @@ create table if not exists urunler(
 	urunsubkategori_ad varchar(90) not null,
 	urunad varchar(60) not null,
 	urunfiyat float not null,
+	urun_odeme_kart boolean,
+	urun_odeme_kapida boolean,
+	urun_odeme_havale boolean,
 	urunhakkinda text not null,
 	urunsahibi_firma integer not null,
 	urunstokdurumu boolean,
+	urun_marka varchar(120),
 	urunwhere_is_id int,/* urun hangi şube de ve şube satış noktası mıdır*/
 	urun_adres varchar(255),
 	uruncontrol boolean,
@@ -203,6 +208,7 @@ create table if not exists urunler(
 	foreign key(kampanya_id) references kampanya(id) ON UPDATE CASCADE,
 	primary key(id)
 );
+
 
 create table if not exists sube(
 	id integer not null auto_increment,

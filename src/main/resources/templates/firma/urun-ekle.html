@@ -95,11 +95,17 @@
   	<div id="home" class="tab-pane fade in active">
   		  <form action="/firma/admin/urunEkle" th:object="${urun}" method="POST" enctype="multipart/form-data">
   <input type="hidden" th:field="*{urunSahibiFirma}" th:value="${firma.id}" />
-  <table>
+  <table class="table">
   	<tr>
   		<td><span>Ürün Adı :</span></td>
   		<td><input type="text"  th:field="*{urunAd}" placeholder="Ürün Adı" /></td>  		
   	</tr>
+  	
+  	  	<tr>
+  		<td><span>Ürün Marka :</span></td>
+  		<td><input type="text"  th:field="*{marka}" placeholder="Ürün Adı" /></td>  		
+  	</tr>
+  	
   	<tr>
   		<td><span>Ürün Fiyat :</span></td>
   		<td><input type="text" th:field="*{urunFiyat}" placeholder="Ürün Fiyat" /></td>
@@ -170,6 +176,35 @@
 		<input id="urunAdres" type="hidden" th:field="*{bulunduguAdres}"/>
 		</td>
   	</tr>
+  	
+  	
+  	<tr>
+		<td>Urun Ödeme Türü :</td>
+		<td>
+		<table style="width: 100%;">
+			<tr>
+				<td  style="width: 80%;">Kredi Kartı</td>
+				<td style="width: 20%;"><input th:field="*{odemeKrediKarti}" type="checkbox" value="1"/></td>
+			</tr>
+			<tr>
+				<td>Kapıda Ödeme</td>
+				<td><input th:field="*{odemeKapida}" type="checkbox" value="2"/></td>
+			</tr>
+			
+			<tr>
+				<td>Havale</td>
+				<td><input th:field="*{odemeHavale}" type="checkbox" value="3"/></td>
+			</tr>
+		</table>
+
+					
+					
+					
+					
+		</td>
+  	</tr>
+  	
+  	
   	<tr>
   		<td>PID Kodu:</td><td><input type="text" th:field="*{pidKod}" placeholder="PID Kodu"/></td>
   	</tr>

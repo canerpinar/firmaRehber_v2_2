@@ -1,17 +1,24 @@
 package com.firmaRehber.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.firmaRehber.entity.Firma;
+import com.firmaRehber.entity.Kampanya;
 import com.firmaRehber.entity.Sube;
+import com.firmaRehber.entity.Urun;
 import com.firmaRehber.entity.User;
 import com.firmaRehber.service.KategoriService;
 import com.firmaRehber.service.UserService;
@@ -40,7 +47,13 @@ public class FirmaController {
 		ModelAndView model=new ModelAndView("admin/firmaInformation");		
 		Firma firma = administrationService.getFirma(id);
 		model.addObject("firma", firma);
-
+		List<Kampanya> kampanyalar = administrationService.getKampanyaForFirma(firma.getId());
+		System.out.println("kampanya length : "+ kampanyalar.size());
+		model.addObject("kampanyalar", kampanyalar);
+		kampanyalar.forEach(kampanya->{
+			System.out.println("-------- kampanya id" + kampanya.getId());
+		});
+		
 		model.addObject("urunler", administrationService.getAllUrunForFirma(Integer.parseInt(id)));
 		
 		return model;		
@@ -52,6 +65,44 @@ public class FirmaController {
 		model.addObject("kategoriler",kategoriService.getAllKategori());
 		model.addObject("urun", administrationService.getUrun(id));
 		return model;		
+	}
+	
+	@RequestMapping(value="/urunUpdate",method=RequestMethod.POST)
+	@ResponseBody
+	public void urunUpdate(@ModelAttribute("urun")Urun urun,HttpServletResponse response) throws IOException{
+		Urun getUrun = administrationService.getUrun(urun.getId());
+		/*
+		System.out.println("urun id " +urun.getId());
+		System.out.println("urun kat id " +urun.getKatagoriId());
+		System.out.println("urun kat ad " +urun.getKategoriAd());
+		
+		
+		
+		System.out.println("-----alt kat urun alt kat ad " +urun.getAltKategoriAd());
+		System.out.println("-----alt kat urun alt kat id " +urun.getAltKatagoriId());
+		
+		System.out.println("---ikinci alt kat ad " +urun.getSubKategoriAd());
+		System.out.println("---ikinci alt kat id " +urun.getSubKategoriId());
+		
+		System.out.println("urun ad "+ urun.getUrunAd());
+		System.out.println("urun marka "+ urun.getMarka());
+		*/
+		
+		getUrun.setKategoriAd(urun.getKategoriAd());
+		getUrun.setSubKategoriId(urun.getSubKategoriId());
+		getUrun.setUrunControl(true);
+		getUrun.setAltKategoriAd(urun.getAltKategoriAd());
+		getUrun.setAltKatagoriId(urun.getAltKatagoriId());
+
+		getUrun.setSubKategoriAd(urun.getSubKategoriAd());
+		getUrun.setSubKategoriId(urun.getSubKategoriId());
+		
+		getUrun.setMarka(urun.getMarka());
+		getUrun.setUrunAd(urun.getUrunAd());
+		
+		administrationService.saveUrun(getUrun);
+		response.sendRedirect("/admin/firma/"+String.valueOf(urun.getUrunSahibiFirma()));
+		
 	}
 	
 

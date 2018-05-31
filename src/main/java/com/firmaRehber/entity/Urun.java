@@ -79,6 +79,52 @@ public class Urun {
 	@Column(name="urun_kampanya_oran")
 	private String kampanyaOran;
 	
+	@Column(name="urun_odeme_kart")
+	private boolean odemeKrediKarti;
+	
+	@Column(name="urun_odeme_kapida")
+	private boolean odemeKapida;
+	
+	@Column(name="urun_odeme_havale")
+	private boolean odemeHavale;
+	
+	@Column(name="urun_marka")
+	private String marka;
+	
+	
+
+	public String getMarka() {
+		return marka;
+	}
+
+	public void setMarka(String marka) {
+		this.marka = marka;
+	}
+
+	public boolean isOdemeKrediKarti() {
+		return odemeKrediKarti;
+	}
+
+	public void setOdemeKrediKarti(boolean odemeKrediKarti) {
+		this.odemeKrediKarti = odemeKrediKarti;
+	}
+
+	public boolean isOdemeKapida() {
+		return odemeKapida;
+	}
+
+	public void setOdemeKapida(boolean odemeKapida) {
+		this.odemeKapida = odemeKapida;
+	}
+
+	public boolean isOdemeHavale() {
+		return odemeHavale;
+	}
+
+	public void setOdemeHavale(boolean odemeHavale) {
+		this.odemeHavale = odemeHavale;
+	}
+
 	@JoinColumn(name="kampanya_id")
 	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private Kampanya kampanya;

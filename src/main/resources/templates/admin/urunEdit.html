@@ -25,7 +25,11 @@
 <table>
 	
 				<tr>
-					<td colspan="3">Bu ilanı sosyal medyada paylaş</td>
+					<td colspan="2">Bu ilanı sosyal medyada paylaş</td>
+					<td>
+					<input type="hidden" th:field="*{id}" th:value="${urun.id}"/>
+					<input type="hidden" th:field="*{urunSahibiFirma}" th:value="${urun.urunSahibiFirma}"/>
+					</td>
 				</tr>
 				<tr>
 					<td>Title Ekle</td>
@@ -42,37 +46,50 @@
 			
 				<tr>			
 					<td>Kategori Düzenle</td>
-					<td><select style="width: 150px;" id="kategoriSelect" th:field="${urun.kategoriAd}">
+					<td><select style="width: 150px;" id="kategoriSelect" th:field="*{katagoriId}">
 							
 							<option selected="selected" th:value="${urun.katagoriId}" th:text="${urun.kategoriAd}"></option>
 							<option value="0">Seçiniz</option>
 							<option th:each="kategori : ${kategoriler}" th:value="${kategori.id}" th:text="${kategori.kategoriAd}"></option>
-						</select></td>
+							
+						</select>
+						<input type="hidden" id="kategoriName" th:field="*{kategoriAd}" />
+						
+						</td>
 				</tr>
 				<tr>
 					
 					<td>Alt Kategori Düzenle</td>
 					<td>
-						<select  style="width: 150px;" id="altKategoriSelect">
+						<select  style="width: 150px;" id="altKategoriSelect" th:field="*{altKatagoriId}">
 							<option value="0">Seçiniz</option>
 							<option selected="selected" th:value="${urun.altKatagoriId}" th:text="${urun.altKategoriAd}">Seçiniz</option>
 						</select>
+						<input type="hidden" id="altKategoriName" th:value="${urun.altKategoriAd}" th:field="*{altKategoriAd}" />
+						<input type="hidden" id="altKategoriId" th:value="${urun.altKatagoriId}" th:field="*{altKatagoriId}" />
+						
 					</td>
 				</tr>
 				
 				<tr>
 					
 					<td>İkinci Alt Kategori Düzenle</td>
-					<td><select  style="width: 150px;" id="ikinciAltKategoriSelect">
+					<td><select  style="width: 150px;" id="ikinciAltKategoriSelect" th:field="*{subKategoriId}">
+					<option value="0">Seçiniz</option>
 						<option selected="selected" th:value="${urun.subKategoriId}" th:text="${urun.subKategoriAd}"></option>
-					</select></td>
+						
+					</select>
+						<input type="hidden" id="subKategoriName" th:value="${urun.subKategoriAd}" th:field="*{subKategoriAd}" />
+						<input type="hidden" id="subategoriId" th:value="${urun.subKategoriId}" th:field="*{subKategoriId}" />
+						
+					</td>
 				</tr>
 				
 					
 				<tr>
 					
 					<td>Ürün Marka</td>
-					<td><input type="text"/></td>
+					<td><input type="text" th:field="${urun.marka}"/></td>
 				</tr>
 				
 				<tr>					
@@ -100,9 +117,17 @@
 				<tr>
 					
 					<td>Ödeme Bilgisi</td>
-					<td><input type="checkbox" value="0"/>Kredi Kartı<br/>
-					<input type="checkbox" value="0"/>Kapıda Ödeme<br/>
-					<input type="checkbox" value="0"/>Havale<br/></td>
+					<td>
+					<input th:field="${urun.odemeKrediKarti}" th:if="${urun.odemeKrediKarti == true}" checked="checked" type="checkbox" value="1" />
+					<input th:field="${urun.odemeKrediKarti}" th:if="${urun.odemeKrediKarti == false}" type="checkbox" value="1" />Kredi Kartı
+					<br/>
+					<input th:field="${urun.odemeKapida}" th:if="${urun.odemeKapida == true}" checked="checked" type="checkbox" value="2"/>
+					<input th:field="${urun.odemeKapida}" th:if="${urun.odemeKapida == false}" type="checkbox" value="2"/>Kapıda Ödeme
+					<br/>
+					<input th:field="${urun.odemeHavale}" th:if="${urun.odemeHavale == true}" checked="checked" type="checkbox" value="3"/>
+					<input th:field="${urun.odemeHavale}" th:if="${urun.odemeHavale == false}" type="checkbox" value="3"/>
+					Havale<br/>
+					</td>
 				</tr>
 				
 				</table>
@@ -115,6 +140,11 @@
 		<td><a href="#">İlanı Sil</a></td>
 	</tr>
 
+	<tr>
+		<td colspan="3">
+			<input type="submit" value="DEĞİŞİKLİKLERİ UYGULA"/>
+		</td>
+	</tr>
 <!--  
 
 			<tr>
