@@ -7,10 +7,11 @@ DROP TABLE IF EXISTS firma;
 DROP TABLE IF EXISTS referanslar;
 DROP TABLE IF EXISTS sube;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS kampanya;
 DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS urunler;
-DROP TABLE IF EXISTS kampanya;
 */
+
 create table if not exists users(
 	id integer not null auto_increment,
 	username varchar(45) not null unique,
@@ -201,6 +202,7 @@ create table if not exists urunler(
 	urun_pid varchar(10),
 	urun_link varchar(255),
 	urun_image_path varchar(255),
+	urun_seo_status boolean default false,
 	urun_kampanya boolean default false,
 	urun_kampanya_fiyat float default null,
 	urun_kampanya_oran varchar(5) default null,

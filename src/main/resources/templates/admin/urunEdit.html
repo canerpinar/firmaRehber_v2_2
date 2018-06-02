@@ -19,22 +19,72 @@
 </head>
 <body>
 <header th:include="admin/template :: header"></header>
+<!-- Title Modal -->
+<div id="urunSeoModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Title Ekle</h4>
+      </div>
+      <div class="modal-body">
+        <div id="seoForUpdate">
+        	
+        </div>
+        <div id="newTittleContent">
+        <form onsubmit="$.seoSaveForUrunSubmit()" th:object="${seo}"  method="POST" action="/admin/seo/seoSaveForUrun">
+        	    <div id="seoForUrunUpdate"  th:if="${seo != null}">
+        			<table class="table">
+        				<tr th:each="content : ${seo.seoContentList}">
+        					<td>Seo Name</td>
+        					<td><input type="text" th:placeHolder="${content.metaName}" /></td>
+        					<td>Seo Content</td>
+        					<td><input type="text" th:placeHolder="${content.content}" /></td>
+        					<td><a th:onclick="'$.deleteSeoContent('+${content.id}+')'">Sil</a></td>
+        				</tr>
+        			</table>
+        		</div>
+        		<div id="seoForUrunAdd"></div>
+        	    <input type="text" name="seoName" placeholder="SEO NAME"/>
+        		<input type="text" name="seoContent" placeholder="SEO CONTENT"/><a id="addSeoForUrun">Seo Ekle</a><br/>
+
+        		<input id="urunPageNameForSeo" type="hidden" th:field="*{pageName}"/>
+        		<input id="urunIdForSeo" type="hidden" name="urunIdForSeo" /> 
+        		<input type="submit" value="KAYDET" />
+        </form>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Tittle Modal End -->
 
 <form th:object="${urun}" method="POST" action="/admin/firma/urunUpdate">
 <table>
 	
 				<tr>
-					<td colspan="2">Bu ilanı sosyal medyada paylaş</td>
+					<td colspan="2"><a href="#">Bu ilanı sosyal medyada paylaş</a></td>
 					<td>
-					<input type="hidden" th:field="*{id}" th:value="${urun.id}"/>
+					<input id="urunIdForUrun" type="hidden" th:field="*{id}" th:value="${urun.id}"/>
 					<input type="hidden" th:field="*{urunSahibiFirma}" th:value="${urun.urunSahibiFirma}"/>
+					
 					</td>
 				</tr>
 				<tr>
-					<td>Title Ekle</td>
-					<td>Keywords Ekle</td>
-					<td>Description Ekle</td>
+					<td colspan="2"><a id="seoAdd" href="#">SEO Ekle</a></td>
+					<td><a href="#ekle">Ekle</a></td>
+					<!--  
+					<td><a id="keywordsAdd" href="#">Keywords Ekle</a></td>
+					<td><a id="descriptionAdd" href="#">Description Ekle</a></td>
+					-->
 				</tr>
 				
 				<tr>
@@ -106,6 +156,12 @@
 					
 					<td>Ürün Hakkında Özellikler</td>
 					<td><textarea th:text="${urun.urunHakkinda}"></textarea></td>
+					
+				</tr>
+				
+				<tr>
+					<td>Ürün Link :</td>
+					<td><input  id="urunPageNameForUrun" type="text" th:field="*{urunLink}" th:value="${urun.urunLink}" /></td>
 				</tr>
 				
 				<tr>
@@ -129,6 +185,7 @@
 					Havale<br/>
 					</td>
 				</tr>
+				
 				
 				</table>
 		</td>

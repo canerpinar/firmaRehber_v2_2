@@ -85,6 +85,7 @@
 								<th>Urun Image</th>
 								<th>Kampanya Durum</th>
 								<th>Urun Kontrol</th>
+								<th>Urun Seo</th>
 
 							</tr>
 							<tr th:each="urun : ${urunler}">
@@ -100,8 +101,10 @@
 								
 								<td th:if="${urun.kampanyaStatus==true}"><a href="#">Kampanyaya Git</a></td>
 								<td th:if="${urun.kampanyaStatus==false}"><a href="#">Kampanya Aktif Değil</a></td>
-								<td th:if="${urun.urunControl==true}">Kontrol Edildi</td>
+								<td th:if="${urun.urunControl==true}"><a th:href="'/admin/firma/urunEdit/'+${urun.id}">Kontrol Edildi</a></td>
 								<td th:if="${urun.urunControl==false}"><a style="color:red;" th:href="'/admin/firma/urunEdit/'+${urun.id}">Kontrol Et</a></td>
+								<td th:if="${urun.seoStatus}"><img style="height: 100px; width: 100px;" src="/img/content/seo_avaliable.png" /></td>
+								<td th:if="${urun.seoStatus!=true}"><img style="height: 100px; width: 100px;" src="/img/content/seo_not_avaliable.png" /></td>
 							</tr>
 					
 							</table>			

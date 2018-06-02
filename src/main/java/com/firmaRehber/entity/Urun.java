@@ -49,6 +49,18 @@ public class Urun {
 	@Column(name="urunhakkinda")
 	private String urunHakkinda;
 	
+	@Column(name="urun_seo_status")
+	private boolean seoStatus;
+	
+	
+	public boolean isSeoStatus() {
+		return seoStatus;
+	}
+
+	public void setSeoStatus(boolean seoStatus) {
+		this.seoStatus = seoStatus;
+	}
+
 	@Column(name="urunsahibi_firma")
 	private int urunSahibiFirma;
 	

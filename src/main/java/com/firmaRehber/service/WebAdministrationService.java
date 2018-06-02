@@ -29,6 +29,7 @@ import com.firmaRehber.repository.KampanyaRepository;
 import com.firmaRehber.repository.KategoriSeoRepository;
 import com.firmaRehber.repository.MessageRepository;
 import com.firmaRehber.repository.ReklamRepository;
+import com.firmaRehber.repository.SeoContentRepository;
 import com.firmaRehber.repository.SeoRepository;
 import com.firmaRehber.repository.SubAltKategoriSeoRepository;
 import com.firmaRehber.repository.SubeRepository;
@@ -72,6 +73,9 @@ public class WebAdministrationService {
 	
 	@Autowired
 	private JavaMailSender javaMailSender; 
+	
+	@Autowired
+	private SeoContentRepository seoContentRepository;
 	
 	public void saveImages(Images images) {
 		imagesRepository.save(images);
@@ -233,4 +237,17 @@ public class WebAdministrationService {
 	public List<Kampanya> getKampanyaForFirma(int firmaId){
 		return kampanyaRepository.getKampanyaForFirma(firmaId);
 	}
+	
+	public void saveSeoForUrun(Seo seo){
+		seoRepository.save(seo);
+	}
+	
+	public Seo getSeoForUrun(String urunLink){
+		return seoRepository.getSeoWithUrunLink(urunLink);
+	}
+	
+	public void deleteSeoContentWithId(int id){
+		seoContentRepository.deleteSeoContentWithId(id);
+	}
+	
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Kampanya;
+import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.Urun;
 import com.firmaRehber.entity.User;
@@ -63,7 +64,15 @@ public class FirmaController {
 	public ModelAndView getUrunForEdit(@PathVariable("id")int id){
 		ModelAndView model=new ModelAndView("admin/urunEdit");
 		model.addObject("kategoriler",kategoriService.getAllKategori());
-		model.addObject("urun", administrationService.getUrun(id));
+		Urun urun = administrationService.getUrun(id);
+		model.addObject("urun", urun);
+		
+		Seo seo = administrationService.getSeoForUrun(urun.getUrunLink());
+		if(seo != null)model.addObject("seo", seo);
+		else model.addObject("seo", new Seo());
+		
+		
+		//model.addObject("seo_", administrationService.getSeoForUrun(urun.getUrunLink()));
 		return model;		
 	}
 	

@@ -50,5 +50,25 @@ $(document).ready(function(){
 		$("#subKategoriId").val(subKategoriId);
 	});
 	
+	$("#seoAdd").on("click",function(){
+		$("#urunSeoModal").modal();
+	});
+	
+	$("#addSeoForUrun").on("click",function(){
+		$("#seoForUrunAdd").append('<input type="text" name="seoName" placeHolder="SEO NAME" /><input type="text" name="seoContent" placeHolder="SEO CONTENT" /><br/>');
+	});
+	
+
+	$.seoSaveForUrunSubmit = function(){
+		$("#urunPageNameForSeo").val($("#urunPageNameForUrun").val());
+		$("#urunIdForSeo").val($("#urunIdForUrun").val());
+	}
+	
+	$.deleteSeoContent = function(id){
+		$.post(server + "/admin/seo/deleteSeoContent/"+id).done(function(data){
+			
+			alert("Seo Content silme başarılı");
+		});
+	}
 	
 });

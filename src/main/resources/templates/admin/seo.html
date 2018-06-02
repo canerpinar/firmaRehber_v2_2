@@ -74,7 +74,7 @@
 						<td th:text="${kategori.kategoriAd}"></td>
 						<td>
 							<span th:if="${kategori.seoAvaliable}">
-								<img width="30" height="30" title="Seo Eklendi" th:src="@{img/content/seo_avaliable.png}"/>
+								<img width="30" height="30" title="Seo Eklendi" th:src="@{/img/content/seo_avaliable.png}"/>
 								<a th:onclick="'$.kategoriSeoDuzenle('+${kategori.id}+')'">Seo Düzenle</a>								
 							</span>
 							<span th:unless="${kategori.seoAvaliable}">

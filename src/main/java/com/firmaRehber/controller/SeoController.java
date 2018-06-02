@@ -2,6 +2,7 @@ package com.firmaRehber.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +31,7 @@ import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.SeoContent;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.SubAltKategoriSeo;
+import com.firmaRehber.entity.Urun;
 import com.firmaRehber.service.KategoriService;
 import com.firmaRehber.service.WebAdministrationService;
 
@@ -102,6 +106,51 @@ public class SeoController {
 		subAltKategori.setSeoAvaliable(true);
 		kategoriService.saveSubKategori(subAltKategori);
 		response.sendRedirect("/admin/seo/");		
+	}
+	
+	@RequestMapping(value="seoSaveForUrun",method=RequestMethod.POST)
+	@ResponseBody
+	public void saveSeoForUrun(@ModelAttribute("seo")Seo seo,@RequestParam("seoName")String[] seoName,
+			@RequestParam("seoContent")String[] seoContent,@RequestParam("urunIdForSeo")int urunId,HttpServletResponse response) throws IOException{
+		List<SeoContent> listSeo = new ArrayList<>();
+		
+		Urun urun = administrationService.getUrun(urunId);
+		Seo seoIsCreated = administrationService.getSeoForUrun(urun.getUrunLink());
+		if(seoIsCreated != null){
+			listSeo = seoIsCreated.getSeoContentList();
+			for(String content_ :seoContent){
+				SeoContent seo_ = new SeoContent();
+				seo_.setContent(content_);
+				seo_.setMetaName(seoName[Arrays.asList(seoContent).indexOf(content_)]);
+				seo_.setSeo(seoIsCreated);
+				listSeo.add(seo_);
+			}
+			administrationService.saveSeoForUrun(seoIsCreated);
+		}else{
+			for(String content_ :seoContent){
+				SeoContent seo_ = new SeoContent();
+				seo_.setContent(content_);
+				seo_.setMetaName(seoName[Arrays.asList(seoContent).indexOf(content_)]);
+				seo_.setSeo(seo);
+				listSeo.add(seo_);
+			}
+			seo.setSeoContentList(listSeo);
+			urun.setSeoStatus(true);
+			administrationService.saveSeoForUrun(seo);
+		}
+	
+		administrationService.saveUrun(urun);
+
+		//System.out.println(seo.getPageName());
+		response.sendRedirect("/admin/firma/urunEdit/"+urunId);
+		
+	}
+	
+	@RequestMapping(value="/deleteSeoContent/{id}",method=RequestMethod.POST)
+	@ResponseBody
+	public void deleteSeoContent(@PathVariable("id")String id){
+		administrationService.deleteSeoContentWithId(Integer.parseInt(id));
+		
 	}
 
 	
