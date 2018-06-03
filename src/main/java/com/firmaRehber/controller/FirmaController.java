@@ -3,12 +3,14 @@ package com.firmaRehber.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,6 +116,29 @@ public class FirmaController {
 		
 	}
 	
+	@RequestMapping(value="/kampanya/{id}")
+	public ModelAndView getKampanyaForUpdate(@PathVariable("id")int id)
+	{
+		ModelAndView model = new ModelAndView("admin/kampanya");
+		Kampanya kampanya = administrationService.getKampanya(id);
+		Urun urun = administrationService.getUrun(kampanya.getUrunId());
+		model.addObject("urun", urun);
+		model.addObject("kampanya", kampanya);
+		return model;
+	}
+	
+
+	@RequestMapping(value="/kampanyaUpdate",method=RequestMethod.POST)
+	@ResponseBody
+	public void kampanyaUpdate(@ModelAttribute("kampanya")Kampanya kampanya,HttpServletResponse response,
+			HttpServletRequest request,@RequestParam("firma_id")String firma_id) throws IOException{
+		Kampanya kampanya_ = administrationService.getKampanya(kampanya.getId());
+		kampanya_.setKampanyaAd(kampanya.getKampanyaAd());
+		kampanya_.setKampanyaControl(true);
+		administrationService.saveKampanya(kampanya_);
+		System.out.println("kampanya güncellendi");
+		response.sendRedirect("/admin/firma/"+firma_id);
+	}
 
 	
 	

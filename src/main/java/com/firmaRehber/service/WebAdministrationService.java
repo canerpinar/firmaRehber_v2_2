@@ -249,5 +249,9 @@ public class WebAdministrationService {
 	public void deleteSeoContentWithId(int id){
 		seoContentRepository.deleteSeoContentWithId(id);
 	}
+	public Kampanya getKampanya(int id)
+	{
+		return kampanyaRepository.findOne(id);
+	}
 	
 }

@@ -129,6 +129,7 @@ public class UrlResolver {
 	    SecurityContext sc = SecurityContextHolder.getContext();
 	    sc.setAuthentication(auth);
 	    HttpSession session = request.getSession(true);
+	    
 	    session.setAttribute("username", auth.getName());
 
 		redirect.onAuthenticationSuccess(request, response, auth);

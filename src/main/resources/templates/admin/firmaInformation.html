@@ -114,22 +114,35 @@
 					  <div class="tab-pane" id="kampanyalar">
 					  	<div>
 					  		<table class="table">
-					  			<tr th:each="kampanya :${kampanyalar}">
+					  			<tr>
 									<td>
-										<table>
-											<tr>
-												<td>Kampanya Ad :</td>
-								  				<td><span th:text="${kampanya.id}"></span></td>	
+										<table class="table">
+										<tr>
+											<th>Kampanya Ad</th>
+											<th>Kampanya Kontrol</th>
+											<th>Kontrol Et</th>
+										</tr>
+											<tr  th:each="kampanya :${kampanyalar}">
+												
+								  				<td><span th:text="${kampanya.kampanyaAd}"></span></td>
+								  				<td>
+								  				<img style="height: 50px; width: 50px;" th:if="${kampanya.kampanyaControl==true}" src="/img/content/seo_avaliable.png"></img>
+								  				<img style="height: 50px; width: 50px;" th:if="${kampanya.kampanyaControl==false}" src="/img/content/seo_not_avaliable.png"></img>
+								  				</td>
+								  				<td><a th:href="'kampanya/'+${kampanya.id}">Kontrol Et</a></td>
 							  				</tr>
-							  				<tr>
+							  				<!-- 
+							  											  				<tr>
 							  					<td>Kampanya Id :</td>
-							  					<td><span th:text="${kampanya.urunId}"></span></td>	
+							  					<td><span th:text="${kampanya.id}"></span></td>	
 							  				</tr>
 							  				
-							  											  				<tr>
+							  				<tr>
 							  					<td>Kampanya Fiyat :</td>
 							  					<td><span th:text="${kampanya.kampanyaFiyat}"></span></td>	
 							  				</tr>
+							  				 -->
+
 										</table>
 									</td>				  				
 					  			</tr>

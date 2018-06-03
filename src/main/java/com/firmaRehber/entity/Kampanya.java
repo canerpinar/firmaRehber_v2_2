@@ -56,6 +56,19 @@ public class Kampanya {
 	@Column(name="end_date")
 	private Date endDate;
 	
+	@Column(name="kampanya_kontrol")
+	private boolean kampanyaControl;
+	
+	
+	
+	public boolean isKampanyaControl() {
+		return kampanyaControl;
+	}
+
+	public void setKampanyaControl(boolean kampanyaControl) {
+		this.kampanyaControl = kampanyaControl;
+	}
+
 	@JoinColumn(name="kampanya_urunu")
 	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private Urun kampanyaUrun;

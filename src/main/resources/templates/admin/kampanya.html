@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script th:src="@{/js/adminAnasayfa.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/firma.css}"></link>
+  <link rel="stylesheet" th:href="@{/css/template.css}"></link>
+<title>Insert title here</title>
+<style type="text/css">
+	   header a {
+
+   margin-left: 20px;
+   margin-right: 20px;
+   }
+</style>
+</head>
+<body>
+<header th:include="admin/template :: header"></header>
+	
+	
+	<form th:object="${kampanya}" method="POST" action="/admin/firma/kampanyaUpdate">
+		<table class="table" style="width: 50%;">
+		
+			<tr>
+				<td>Kampanya Ad</td>
+				<td><input type="text" th:field="*{kampanyaAd}" th:placeHolder="${kampanya.kampanyaAd}"/>
+					<input type="hidden" th:field="*{id}" th:value="${kampanya.id}" />
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Kampanya Urun</td>
+				<td><input type="text" th:placeHolder="${urun.urunAd}" readonly="readonly"/>
+				<input type="hidden" name="firma_id" th:value="${urun.urunSahibiFirma}" />
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Kampanya Turu</td>
+				<td>
+				<select th:field="*{kampanyaTuru}">
+					<option th:if="${kampanya.kampanyaTuru==1}" value="1">İndirim Kampanyası</option>
+					<option th:if="${kampanya.kampanyaTuru==2}" value="2">Ürün Hediye Kampanyası</option>
+				</select>
+				<!--  
+					<input type="text" th:placeHolder="${kampanya.kampanyaTuru}" readonly="readonly"/>
+				-->
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Urun Fiyat</td>
+				<td><input type="text" th:placeHolder="${kampanya.currentFiyat}"/></td>
+			</tr>
+			
+			<tr>
+				<td>Kampanyalı Fiyat</td>
+				<td><input type="text" th:placeHolder="${kampanya.kampanyaFiyat}"/></td>
+			</tr>
+			
+			<tr>
+				<td>Kampanyalı Oran</td>
+				<td><input type="text" th:placeHolder="${kampanya.kampanyaOran}"/></td>
+			</tr>
+			
+			<tr>
+				
+				<td colspan="2"><input type="submit" value="Onayla"/></td>
+			</tr>
+			
+		</table>
+	
+	</form>
+	
+
+</body>
+</html>

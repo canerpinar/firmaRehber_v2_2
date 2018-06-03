@@ -7,8 +7,9 @@ DROP TABLE IF EXISTS firma;
 DROP TABLE IF EXISTS referanslar;
 DROP TABLE IF EXISTS sube;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS kampanya;
+
 DROP TABLE IF EXISTS user_role;
+DROP TABLE IF EXISTS kampanya;
 DROP TABLE IF EXISTS urunler;
 */
 
@@ -173,6 +174,7 @@ create table if not exists kampanya(
 	kampanya_fiyat float,
 	kampanya_oran varchar(5),
 	kampanya_urunu int default null,
+	kampanya_kontrol boolean default false,
 	start_date date,
 	end_date date,
 	primary key(id)
