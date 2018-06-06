@@ -1,6 +1,8 @@
 package com.firmaRehber.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,9 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="kampanya")
@@ -29,7 +33,19 @@ public class Kampanya {
 	@Column(name="kampanya_ad")
 	private String kampanyaAd;
 	
-	
+	@OneToMany(mappedBy="kampanya",cascade={CascadeType.ALL,CascadeType.REMOVE},orphanRemoval=true)
+	@JsonManagedReference
+	private List<SubeKampanya> subeKampanyaList = new ArrayList<SubeKampanya>();
+
+
+	public List<SubeKampanya> getSubeKampanyaList() {
+		return subeKampanyaList;
+	}
+
+	public void setSubeKampanyaList(List<SubeKampanya> subeKampanyaList) {
+		this.subeKampanyaList = subeKampanyaList;
+	}
+
 	public String getKampanyaAd() {
 		return kampanyaAd;
 	}

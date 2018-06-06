@@ -21,6 +21,7 @@ import com.firmaRehber.entity.Reklam;
 import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.SubAltKategoriSeo;
 import com.firmaRehber.entity.Sube;
+import com.firmaRehber.entity.SubeKampanya;
 import com.firmaRehber.entity.Urun;
 import com.firmaRehber.repository.AltKategoriSeoRepository;
 import com.firmaRehber.repository.FirmaRepository;
@@ -32,6 +33,7 @@ import com.firmaRehber.repository.ReklamRepository;
 import com.firmaRehber.repository.SeoContentRepository;
 import com.firmaRehber.repository.SeoRepository;
 import com.firmaRehber.repository.SubAltKategoriSeoRepository;
+import com.firmaRehber.repository.SubeKampanyaRepository;
 import com.firmaRehber.repository.SubeRepository;
 import com.firmaRehber.repository.UrunRepository;
 
@@ -76,6 +78,9 @@ public class WebAdministrationService {
 	
 	@Autowired
 	private SeoContentRepository seoContentRepository;
+	
+	@Autowired
+	private SubeKampanyaRepository subeKampanyaRepository;
 	
 	public void saveImages(Images images) {
 		imagesRepository.save(images);
@@ -252,6 +257,10 @@ public class WebAdministrationService {
 	public Kampanya getKampanya(int id)
 	{
 		return kampanyaRepository.findOne(id);
+	}
+	
+	public boolean isKampanyaIsActiveForSube(int id){
+		return subeKampanyaRepository.exists(id);
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.firmaRehber.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import com.firmaRehber.entity.Kampanya;
 import com.firmaRehber.entity.Kategori;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.Sube;
+import com.firmaRehber.entity.SubeKampanya;
 import com.firmaRehber.entity.Urun;
 import com.firmaRehber.entity.User;
 import com.firmaRehber.entity.UserAuthenticaion;
@@ -338,8 +340,7 @@ public class FirmaAdminController {
 	
 	@RequestMapping(value="/kampanyaEkle",method=RequestMethod.POST)
 	@ResponseBody
-	public void saveKampanya(@ModelAttribute("kampanya") Kampanya kampanya,HttpServletResponse response) throws IOException {
-		
+	public void saveKampanya(@ModelAttribute("kampanya") Kampanya kampanya,HttpServletResponse response) throws IOException {		
 		administrationService.saveKampanya(kampanya);
 		Urun urun = administrationService.getUrun(kampanya.getUrunId());
 		System.out.println("----kampanya id :"+ kampanya.getId());
@@ -348,8 +349,7 @@ public class FirmaAdminController {
 			urun.setKampanyaliFiyat(kampanya.getKampanyaFiyat());
 			urun.setKampanyaOran(kampanya.getKampanyaOran());
 			urun.setKampanya(kampanya);
-			System.out.println("kampanya turu 1 başarılı");
-			
+			System.out.println("kampanya turu 1 başarılı");			
 		}else if(kampanya.getKampanyaTuru()==2) {
 			urun.setKampanyaStatus(true);			
 			urun.setKampanyaliFiyat(kampanya.getKampanyaFiyat());
@@ -357,11 +357,30 @@ public class FirmaAdminController {
 			System.out.println("kampanya turu 2 başarılı");
 			System.out.println("kampanya id :"+ kampanya.getId());
 		}
-		System.out.println("kampanya turu :" + kampanya.getKampanyaTuru());
-		
-		administrationService.saveUrun(urun);
-		
+		System.out.println("kampanya turu :" + kampanya.getKampanyaTuru());		
+		administrationService.saveUrun(urun);		
 		response.sendRedirect("/firma/admin/kampanyalar.html");
 	}
+	
+	@RequestMapping(value="/ziyaretKampanyaEkle",method=RequestMethod.POST)
+	@ResponseBody
+	public void saveZiyaretKampanya(@RequestParam("subeForKampanya")String[] subeler,@ModelAttribute("kampanya")Kampanya kampanya
+			,HttpServletResponse response){
+						
+		System.out.println("kampanya ad : " + kampanya.getKampanyaAd());
+		List<SubeKampanya> subeList = new ArrayList<SubeKampanya>();
+		for(String sube :subeler){
+			Sube sube_ = administrationService.getSube(Integer.parseInt(sube));
+			SubeKampanya subeKampanya = new SubeKampanya();
+			subeKampanya.setKampanya(kampanya);
+			subeKampanya.setSube(sube_);
+			subeList.add(subeKampanya);
+			System.out.println(" sube id : "+sube);
+		}
+		kampanya.setSubeKampanyaList(subeList);
+		administrationService.saveKampanya(kampanya);
+	}
+
+	
 
 }

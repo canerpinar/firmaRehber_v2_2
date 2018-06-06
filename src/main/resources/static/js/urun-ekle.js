@@ -85,7 +85,7 @@ $(document).ready(function(){
 	
 	$("#whereUrun").on("change",function(){
 		$.get(server + "/firma/admin/updateSube/"+$(this).val()).done(function(data){
-			alert(data.subeAdres);
+			$("#whereUrun").val(data.id);
 			$("#urunAdres").val(data.subeAdres);
 		});
 		

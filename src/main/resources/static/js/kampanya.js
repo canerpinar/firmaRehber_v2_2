@@ -95,4 +95,9 @@ $(document).ready(function(){
 		$("#kampanyaEkle_1 input[name=kampanyaTuru]").val("1");
 		alert(currentFiyat);
 	});
+	
+	$.ziyaretKampanyaSubmit = function(){
+		$("#ziyaretKampanyaTur").val(3);
+		return true;
+	}
 });

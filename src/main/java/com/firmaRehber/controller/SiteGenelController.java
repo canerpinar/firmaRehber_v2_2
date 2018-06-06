@@ -166,7 +166,7 @@ public class SiteGenelController {
 		return administrationService.getAllUrunForFirma(firmaId);
 	}
 	
-	
+
 
 	
 }

@@ -640,6 +640,12 @@ public class UrlResolver {
 		return model;
 	}
 	
+	@RequestMapping(value="/getSubeKampanyaStatus/{id}",method=RequestMethod.GET)
+	public @ResponseBody boolean getSubeKampanyaStatus(@PathVariable("id")int id){
+		return administrationService.isKampanyaIsActiveForSube(id);
+	}
+	
+	
 	
 	
 }

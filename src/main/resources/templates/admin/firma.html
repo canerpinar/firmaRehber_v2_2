@@ -24,6 +24,7 @@
 				<th>FİRMA AD:</th>
 				<th>FİRMA EMAİL:</th>
 				<th>FİRMA SAHİP:</th>
+				<th>FİRMA KONTROL DURUMU:</th>
 				<th colspan="3">FİRMA IMAGE:</th>
 			</tr>
 			
@@ -31,7 +32,9 @@
 				<td><span><a th:text="${firma.firmaName}" th:href="'/admin/firma/'+${firma.id}"></a></span></td>
 				<td><span data-toggle="tab" th:text="${firma.email}"></span></td>
 				<td><span data-toggle="tab" th:text="${firma.firmaOwner}"></span></td>
-				<td><span data-toggle="tab" th:text="${firma.firmaImage}"></span></td>
+				<td th:if="${firma.firmaControl==true}"><img src="/img/content/seo_avaliable.png"  style="width:100px; heidht:100px;"/></td>
+				<td th:if="${firma.firmaControl==false}"><img src="/img/content/seo_avaliable.png"  style="width:100px; heidht:100px;"/></td>
+				<td><span data-toggle="tab"><img th:src="'../../'+${firma.email}+'/'+${firma.firmaImage}" style="width:100px; heidht:100px;"/></span></td>
 				<td><a th:onclick="'$.messageSent(\'siteGenelEdit/messageSent/'+${firma.id}+'\');'" data-toggle="tab">MESAJ</a></td>
 				<td><a th:onclick="'$.referansReview(\'siteGenelEdit/referansReview/'+${firma.id}+'\');'" th:href="${'#'+firma.id}" data-toggle="tab">REFERANSLARA GİT</a></td>
 			</tr>

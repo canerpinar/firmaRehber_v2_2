@@ -229,14 +229,7 @@ position:relative;
 
         <div id="home-slider" class="owl-carousel owl-theme">
 
-          <div  th:each="image : ${images}" class="item"><img th:src="@{${'/imagesForSlider/'+image.resimName}}" alt="">
-            <div class="slide-content">
-              <a href="#"><img src="img/slider-logo.png" alt=""></a>
-              <h1>The <span>Right</span> Place</h1>
-              <h2>For Business</h2>
 
-            </div>
-          </div>
 
           
           <div class="item"><img src="img/content/home-slide-img.jpg" alt="">
@@ -244,6 +237,17 @@ position:relative;
 				<div id="map"></div>
 
             </div>
+          </div>
+                    <div  th:each="image : ${images}" class="item"><img th:src="@{${'/imagesForSlider/'+image.resimName}}" alt=""/>
+            <div class="slide-content">
+            
+              <a href="#"><img src="img/slider-logo.png" alt=""></a>
+              
+              <h1>The <span>Right</span> Place</h1>
+              <h2>For Business</h2>
+
+            </div>
+            
           </div>
         </div>
 

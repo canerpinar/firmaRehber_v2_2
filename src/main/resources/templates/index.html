@@ -22,6 +22,7 @@ var urunAd = [];
 var urunAd_ = 0;
 var urunDetay=[];
 var urunLink = [];
+var kampanyaStatus = [];
 
      function initMap() {
     	 geocoder = new google.maps.Geocoder()
@@ -73,6 +74,10 @@ var urunLink = [];
 				urunAd.push(data[i].urunAd);
 				urunDetay.push(data[i].urunHakkinda);
 				urunLink.push(data[i].urunLink);
+				$.get("http://localhost:8080/getSubeKampanyaStatus/"+data[i].bulunduguSubeorFirma).done(function(data){
+					
+					alert(data);
+				});
 					}
 				service.getDistanceMatrix(
 						  {

@@ -107,9 +107,14 @@ public class FirmaController {
 
 		getUrun.setSubKategoriAd(urun.getSubKategoriAd());
 		getUrun.setSubKategoriId(urun.getSubKategoriId());
+		getUrun.setOdemeKrediKarti(urun.isOdemeKrediKarti());
 		
+		getUrun.setOdemeHavale(urun.isOdemeHavale());
+		getUrun.setOdemeKapida(urun.isOdemeKapida());
+		getUrun.setUrunLink(urun.getUrunLink());
 		getUrun.setMarka(urun.getMarka());
 		getUrun.setUrunAd(urun.getUrunAd());
+		getUrun.setUrunFiyat(urun.getUrunFiyat());
 		
 		administrationService.saveUrun(getUrun);
 		response.sendRedirect("/admin/firma/"+String.valueOf(urun.getUrunSahibiFirma()));

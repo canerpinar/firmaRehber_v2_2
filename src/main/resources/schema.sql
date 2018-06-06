@@ -11,8 +11,9 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS kampanya;
 DROP TABLE IF EXISTS urunler;
-*/
 
+drop table if exists sube_kampanya;
+*/
 create table if not exists users(
 	id integer not null auto_increment,
 	username varchar(45) not null unique,
@@ -227,6 +228,15 @@ create table if not exists sube(
 	sube_location varchar(60),
 	foreign key (firma_id) references firma(id) ON UPDATE CASCADE,
 	primary key (id)
+);
+
+create table if not exists sube_kampanya(
+id integer not null auto_increment,
+kampanya_id integer not null,
+sube_id integer not null,
+foreign key(kampanya_id) references kampanya(id) on update cascade,
+foreign key(sube_id) references sube(id) on update cascade,
+primary key(id)
 );
 
 

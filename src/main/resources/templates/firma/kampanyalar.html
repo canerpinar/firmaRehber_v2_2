@@ -241,44 +241,63 @@
 					</div>
 					<div id="ziyaretKam" class="tab-pane fade">
 						<!-- ziyaret kampanyası -->
-						<table class="table">
-			<tr>
-				<td>KAMPANYA BAŞLIĞI </td>
-				<td><input type="text" style="border-style:solid;" /></td>
-			</tr>
-			<tr>
+						<form onsubmit="$.ziyaretKampanyaSubmit()" id="ziyaretKampanyaForm" th:object="${kampanya}" method="POST" action="/firma/admin/ziyaretKampanyaEkle">
+							
+							
+							<table class="table">
+							<tr>
+								<td>KAMPANYA BAŞLIĞI </td>
+								<td><input type="text" th:field="*{kampanyaAd}" style="border-style:solid;" /></td>
+							</tr>
+							<tr>
+				
+								<td>KAMPANYANIN DETAYI</td>
+								<td><input type="text" style="border-style:solid;" /></td>
+							</tr>
+							
+							<tr>
+								<td>KAMPANYANIN ORANI</td>
+								<td>
+									<input type="text" th:field="*{kampanyaOran}" style="border-style:solid;" />
+								</td>
+							</tr>
+							
+							<tr>
+				
+								<td>HANGİ ŞUBELERDE GEÇERLİ</td>
+								<td>
+								<table class="table">
+									<tr>
+										<td>TÜM ŞUBELERDE</td>
+										<td><input id="allSubeForChecked" type="checkbox" name="C1" value="ON"/></td>
+									</tr>
+									<tr id="subelerForKampanya">
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+				
+								<td>BAŞLANGIÇ TARİHİ</td>
+								<td><input  th:field="*{startDate}" type="date" />
+								<input id="ziyaretKampanyaTur" type="hidden" th:field="*{kampanyaTuru}" th:value="'3'"/>
+								</td>
+							</tr>
+							<tr>
+								<td>BİTİŞ TARİHİ</td>
+								<td><input th:field="*{endDate}" type="date" /></td>
+							</tr>
+							<tr>
+				
+								<td colspan="2"><input type="submit" value="KAYDET" /></td>
+							</tr>
+						</table>
+							
+							
+							
+							
+						</form>
 
-				<td>KAMPANYANIN DETAYI</td>
-				<td><input type="text" style="border-style:solid;" /></td>
-			</tr>
-			<tr>
-
-				<td>HANGİ ŞUBELERDE GEÇERLİ</td>
-				<td>
-				<table class="table">
-					<tr>
-						<td>TÜM ŞUBELERDE</td>
-						<td><input id="allSubeForChecked" type="checkbox" name="C1" value="ON"/></td>
-					</tr>
-					<tr id="subelerForKampanya">
-					</tr>
-				</table>
-				</td>
-			</tr>
-			<tr>
-
-				<td>BAŞLANGIÇ TARİHİ</td>
-				<td><input type="date" /></td>
-			</tr>
-			<tr>
-				<td>BİTİŞ TARİHİ</td>
-				<td><input type="date" /></td>
-			</tr>
-			<tr>
-
-				<td colspan="2"><input type="submit" value="KAYDET" /></td>
-			</tr>
-		</table>
 						
 						<!-- ziyaret kampanyası end -->
 					</div>
