@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Sube;
+import com.firmaRehber.entity.SubeKampanya;
 public interface SubeRepository extends CrudRepository<Sube,Integer> {
 
 	@Query("select sube from Sube sube,Firma firma where sube.firma=firma.id  and firma.id=:firma_id")
@@ -23,4 +24,8 @@ public interface SubeRepository extends CrudRepository<Sube,Integer> {
 	
 	@Query("select sube from Sube sube,Firma firma where sube.firma=firma.id and firma.id=:firma_id and sube.satisVarMi=true")
 	public List<Sube> getSatisNoktasiForFirma(@Param("firma_id") int firma_id);
+	
+
+	@Query("select sube from Sube sube,SubeKampanya subeKampanya where sube.id=:id and sube.id=subeKampanya.sube")
+	public Sube getSubeForSubeKampanya(@Param("id")int id);
 }

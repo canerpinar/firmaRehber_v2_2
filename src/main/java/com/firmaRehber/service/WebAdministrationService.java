@@ -259,8 +259,12 @@ public class WebAdministrationService {
 		return kampanyaRepository.findOne(id);
 	}
 	
-	public boolean isKampanyaIsActiveForSube(int id){
-		return subeKampanyaRepository.exists(id);
+	public Sube isKampanyaIsActiveForSube(int id){
+		return subeRepository.getSubeForSubeKampanya(id);
+	}
+	
+	public List<Urun> getUrunForMap(int id){
+		return urunRepository.getUrunWithBulunduguSube(id);
 	}
 	
 }

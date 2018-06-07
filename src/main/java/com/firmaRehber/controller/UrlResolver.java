@@ -52,6 +52,8 @@ import com.firmaRehber.entity.Images;
 import com.firmaRehber.entity.Kategori;
 import com.firmaRehber.entity.Reklam;
 import com.firmaRehber.entity.SubAltKategori;
+import com.firmaRehber.entity.Sube;
+import com.firmaRehber.entity.SubeKampanya;
 import com.firmaRehber.entity.Urun;
 import com.firmaRehber.entity.User;
 import com.firmaRehber.entity.UserAuthenticaion;
@@ -641,11 +643,15 @@ public class UrlResolver {
 	}
 	
 	@RequestMapping(value="/getSubeKampanyaStatus/{id}",method=RequestMethod.GET)
-	public @ResponseBody boolean getSubeKampanyaStatus(@PathVariable("id")int id){
+	public @ResponseBody Sube getSubeKampanyaStatus(@PathVariable("id")int id){
 		return administrationService.isKampanyaIsActiveForSube(id);
 	}
 	
-	
+	@RequestMapping(value="/getUrunForMaps/{id}")
+	@ResponseBody
+	public List<Urun> getUrunlerForMaps(@PathVariable("id")int id){
+		return siteGenelController.getUrunListForMap(id);
+	}
 	
 	
 }

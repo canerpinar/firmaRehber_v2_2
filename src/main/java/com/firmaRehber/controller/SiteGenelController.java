@@ -166,6 +166,11 @@ public class SiteGenelController {
 		return administrationService.getAllUrunForFirma(firmaId);
 	}
 	
+	@GetMapping(value="/getUrunlerWithSubeId/{id}")
+	public List<Urun> getUrunListForMap(@PathVariable("id") Integer id){
+		return administrationService.getUrunForMap(id);
+	}
+	
 
 
 	

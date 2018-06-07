@@ -16,14 +16,17 @@ xmlns:th="http://www.thymeleaf.org">
       // locate you.
       
        var map, infoWindow;
+       var sameUrunControlText = "";
  var server = "http://localhost:8080";
 var adress = [];
 var urunAd = [];
+var subeId = [];
 var urunAd_ = 0;
 var urunDetay=[];
 var urunLink = [];
 var kampanyaStatus = [];
 
+var img = "http://localhost:8080/img/content/currentLocation__.png";
      function initMap() {
     	 geocoder = new google.maps.Geocoder()
        map = new google.maps.Map(document.getElementById('map'), {
@@ -40,7 +43,7 @@ var kampanyaStatus = [];
              lat: position.coords.latitude,
              lng: position.coords.longitude
            };
-           var img = "http://localhost:8080/img/content/currentLocation_.png";
+           
            var marker = new google.maps.Marker({
         	    position: pos,
         	    map: map,
@@ -67,16 +70,43 @@ var kampanyaStatus = [];
      }
      
      function distance(pos){
+    	 
     	 var service = new google.maps.DistanceMatrixService();
 		$.get(server + "/getUrunler").done(function(data){
 			for(i in data){
-				adress.push(data[i].bulunduguAdres);
-				urunAd.push(data[i].urunAd);
-				urunDetay.push(data[i].urunHakkinda);
-				urunLink.push(data[i].urunLink);
-				$.get("http://localhost:8080/getSubeKampanyaStatus/"+data[i].bulunduguSubeorFirma).done(function(data){
+				var sameSubeKontrol = false;
+
+					for(k = 0; k<adress.length; k++){
+						if(adress[k] === data[i].bulunduguAdres){
+							
+							console.log("assadsad");
+							sameSubeKontrol = true;
+							continue;
+						}
+					}
 					
-					alert(data);
+					if(sameSubeKontrol === false || i==0){
+						console.log("asdsadas");
+						adress.push(data[i].bulunduguAdres);
+						urunAd.push(data[i].urunAd);
+						urunDetay.push(data[i].urunHakkinda);
+						urunLink.push(data[i].urunLink);
+						subeId.push(data[i].bulunduguSubeorFirma);
+					}
+
+				
+
+				$.get("http://localhost:8080/getSubeKampanyaStatus/"+data[i].bulunduguSubeorFirma).
+				done(function(data){
+
+						if(data===""){
+							//alert(" yok");
+							kampanyaStatus.push(false);
+						}else{
+							kampanyaStatus.push(true);
+							//alert(data.ad +" kampanya var");
+						}
+
 				});
 					}
 				service.getDistanceMatrix(
@@ -108,19 +138,62 @@ var kampanyaStatus = [];
     }
      
      function denemece(results,status){
-	var content ='<div><a href="'+urunLink[urunAd_]+'">'+urunAd[urunAd_]+'</a><br/><span style="color:green;">Ürün Detay:</span>'+urunDetay[urunAd_]+'</div>';
-         var infowindow = new google.maps.InfoWindow({
-             content: content
+    	 
+ 	var kampanyaContent = "";
+
+         var marker = new google.maps.Marker({
+             map : map,
+             position : results[0].geometry.location
            });
-      var marker = new google.maps.Marker({
-         map : map,
-         position : results[0].geometry.location
-       });
+         
+         if(kampanyaStatus[urunAd_]===true){
+        	 kampanyaContent = "Kampanya Noktası";
+        	 var img = "http://localhost:8080/img/content/kampanya_firma_icon.png";
+			marker.setIcon(img);
+         }     		        
+         
+
+        var content = kampanyaContent + '<div><a href="'+urunLink[urunAd_]+'">'+urunAd[urunAd_]+'</a><br/><span style="color:green;">Ürün Detay:</span>'+urunDetay[urunAd_]+'</div>';
+    	var infowindow = new google.maps.InfoWindow({
+        content: content
+      });
+         
+
        marker.addListener('click', function() {
-           infowindow.open(map, marker);
-         });
-       urunAd_++;
-    }
+	           infowindow.open(map, marker);
+	         });
+
+       
+       
+		var sameSubeUrunContent="";
+        $.get(server+"/getUrunForMaps/"+subeId[urunAd_]).done(function(data){
+				//alert("urun sayısı " + data.length);
+				
+				if(data.length>1){
+					//alert("aynı yerde ürün");
+					
+					for(a in data){
+						var sameSubeUrunContent = kampanyaContent + '<div><a href="'+data[a].urunLink+'">'+data[a].urunAd+'</a><br/><span style="color:green;">Ürün Detay:</span>'+data[a].urunHakkinda+'</div>';
+						
+		                 //var content = kampanyaContent+ sameUrunControlText + '<div><a href="'+urunLink[urunAd_]+'">'+urunAd[urunAd_]+'</a><br/><span style="color:green;">Ürün Detay:</span>'+urunDetay[urunAd_]+'</div>';
+		                 var infowindow = new google.maps.InfoWindow({
+		                     content: sameSubeUrunContent
+		                   });
+		                      
+
+		                    marker.addListener('click', function() {
+		                        infowindow.open(map, marker);
+		                      });
+						
+					}
+					//alertVariable(sameSubeUrunContent);
+				}
+				
+        });
+       
+ 
+	       	 urunAd_++;
+    	}
      
      
      var city;
