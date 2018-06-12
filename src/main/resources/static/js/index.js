@@ -21,8 +21,10 @@ $(document).ready(function(){
 				  return false;				  
 			  }
 	}
-	$('#password, #confirm_password').on('keyup', function () {
-		  if ($('#password').val() == $('#confirm_password').val()) {
+	$('#password_ , #confirm_password').on('keyup', function () {
+		var passwordVal = $('#password_').val();
+		var passwordConfirm = $('#confirm_password').val();
+		  if ( passwordVal === passwordConfirm) {
 			    $('#submitButton').css('visibility', 'visible');
 			    return true;
 			  } else {				  
@@ -36,5 +38,22 @@ $(document).ready(function(){
 		window.location.href = "company-sign.html";
 	});
 	
+	$("#password").on("keyup",function(){
+		if($("#username").val()!=="" && $("#password").val()!==""){
+			$("#loginButton").css('visibility','visible');
+		}
+	});
+	
+	$("#username").on("click",function(){
+		if($("#username").val()!=="" && $("#password").val()!==""){
+			$("#loginButton").css('visibility','visible');
+		}
+	});
+	
+	$("#password").on("change",function(){
+		if($("#username").val()==="" || $("#password").val()===""){
+			$("#loginButton").css('visibility','hidden');
+		}
+	});
 		
 });

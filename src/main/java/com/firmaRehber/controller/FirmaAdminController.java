@@ -183,11 +183,11 @@ public class FirmaAdminController {
 		urun.setUrunLink(urunLink);
 		urun.setImagePath(firma.getEmail()+"/"+urun.getUrunAd());
 
-		File directory = new File(context.getRealPath("")+firma.getEmail()+"\\"+urun.getUrunAd());
+		File directory = new File(context.getRealPath("")+firma.getEmail()+"/"+urun.getUrunAd());
 		if(!directory.exists())
 			directory.mkdirs();
 		for(MultipartFile file :files) {
-			fileService.saveFileForSlider(file, directory.toString()+"\\");	
+			fileService.saveFileForSlider(file, directory.toString()+"/");	
 		}
 			
 			
@@ -270,7 +270,7 @@ public class FirmaAdminController {
 		Firma firma = firmaService.getFirma(username);
 		firma.setFirmaImage(file.getOriginalFilename());
 		firmaService.saveFirma(firma);
-		fileService.saveFileForSlider(file, context.getRealPath("")+username+"\\");
+		fileService.saveFileForSlider(file, context.getRealPath("")+username+"/");
 		response.sendRedirect("/firma/admin/");		
 	}
 	

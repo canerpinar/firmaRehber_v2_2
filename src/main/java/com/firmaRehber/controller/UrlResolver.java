@@ -35,6 +35,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -604,10 +605,10 @@ public class UrlResolver {
 		File directory = new File(context.getRealPath("")+user.getUsername());
 		if(!directory.exists()){
 			directory.mkdir();
-			File directory_ = new File(context.getRealPath("")+user.getUsername()+"/bg_image");
+			File directory_ = new File(context.getRealPath("")+user.getUsername()+"/bg_image/");
 			directory_.mkdir();
 		}
-		uploadFileService.saveFileForSlider(file,directory.toString()+"\\");
+		uploadFileService.saveFileForSlider(file,directory.toString()+"/");
 		firma.setFirmaActiveStatus(true);
 		administrationService.saveFirma(firma);
 		//administrationService.sendEmailForSaveFirma(firma.getEmail(),user.getUsername(),user.getPassword());
@@ -651,6 +652,12 @@ public class UrlResolver {
 	@ResponseBody
 	public List<Urun> getUrunlerForMaps(@PathVariable("id")int id){
 		return siteGenelController.getUrunListForMap(id);
+	}
+	
+	@RequestMapping(value="/getAllSube")
+	@ResponseBody
+	public List<Sube> getAllSubeForMap(){
+		return siteGenelController.getAllSubeForMap();
 	}
 	
 	

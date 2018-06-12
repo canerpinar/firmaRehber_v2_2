@@ -171,7 +171,11 @@ public class SiteGenelController {
 		return administrationService.getUrunForMap(id);
 	}
 	
-
+	@GetMapping(value="/getAllSube")
+	public List<Sube> getAllSubeForMap(){
+		return administrationService.getAllSube();
+	}
+	
 
 	
 }

@@ -267,4 +267,8 @@ public class WebAdministrationService {
 		return urunRepository.getUrunWithBulunduguSube(id);
 	}
 	
+	public List<Sube> getAllSube(){
+		return (List<Sube>) subeRepository.findAll();
+	}
+	
 }

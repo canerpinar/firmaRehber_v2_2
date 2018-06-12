@@ -357,7 +357,7 @@ var server="http://localhost:8080/";
 		$("#firmaAd").text("");
 		$("#firmaSahip").text("");
 		$("#firmaId").text("");
-		$.get("http://localhost:8080/"+url).done(function(data){
+		$.get(server+url).done(function(data){
 			$("#firmaMail").text(data.email);
 			$("#firmaAd").text(data.firmaName);
 			$("#firmaSahip").text(data.firmaOwner);
