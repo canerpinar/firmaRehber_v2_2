@@ -176,6 +176,11 @@ public class SiteGenelController {
 		return administrationService.getAllSube();
 	}
 	
+	@GetMapping(value="/getUrun/{id}")
+	public Urun getUrun(@PathVariable("id")int id){
+		return administrationService.getUrun(id);
+	}
+	
 
 	
 }

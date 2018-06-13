@@ -160,7 +160,9 @@ public class FirmaAdminController {
 	public ModelAndView getUrunEkle(){
 		ModelAndView model = new ModelAndView("/firma/urun-ekle");
 		model.addObject("urun", new Urun());
+		List<Urun> urunlerList = administrationService.getAllUrunForFirma(firma.getId());
 		model.addObject("firma", firma);
+		model.addObject("listUrunler", urunlerList);
 		System.out.println("firma id" + firma.getId());
 		return model;
 	}
@@ -379,6 +381,55 @@ public class FirmaAdminController {
 		}
 		kampanya.setSubeKampanyaList(subeList);
 		administrationService.saveKampanya(kampanya);
+	}
+	
+	@RequestMapping(value="/getUrun/{id}")
+	@ResponseBody
+	public Urun getUrun(@PathVariable("id")int id){
+		return genelController.getUrun(id);
+	}
+	
+	@RequestMapping(value="/urunUpdate",method=RequestMethod.POST)
+	@ResponseBody
+	public void urunUpdate(@ModelAttribute("urun")Urun urun,HttpServletResponse response) throws IOException{
+		Urun getUrun = administrationService.getUrun(urun.getId());
+		/*
+		System.out.println("urun id " +urun.getId());
+		System.out.println("urun kat id " +urun.getKatagoriId());
+		System.out.println("urun kat ad " +urun.getKategoriAd());
+		
+		
+		
+		System.out.println("-----alt kat urun alt kat ad " +urun.getAltKategoriAd());
+		System.out.println("-----alt kat urun alt kat id " +urun.getAltKatagoriId());
+		
+		System.out.println("---ikinci alt kat ad " +urun.getSubKategoriAd());
+		System.out.println("---ikinci alt kat id " +urun.getSubKategoriId());
+		
+		System.out.println("urun ad "+ urun.getUrunAd());
+		System.out.println("urun marka "+ urun.getMarka());
+		*/
+		
+		getUrun.setKategoriAd(urun.getKategoriAd());
+		getUrun.setSubKategoriId(urun.getSubKategoriId());
+		getUrun.setUrunControl(true);
+		getUrun.setAltKategoriAd(urun.getAltKategoriAd());
+		getUrun.setAltKatagoriId(urun.getAltKatagoriId());
+
+		getUrun.setSubKategoriAd(urun.getSubKategoriAd());
+		getUrun.setSubKategoriId(urun.getSubKategoriId());
+		getUrun.setOdemeKrediKarti(urun.isOdemeKrediKarti());
+		
+		getUrun.setOdemeHavale(urun.isOdemeHavale());
+		getUrun.setOdemeKapida(urun.isOdemeKapida());
+		getUrun.setUrunLink(urun.getUrunLink());
+		getUrun.setMarka(urun.getMarka());
+		getUrun.setUrunAd(urun.getUrunAd());
+		getUrun.setUrunFiyat(urun.getUrunFiyat());
+		
+		administrationService.saveUrun(getUrun);
+		//response.sendRedirect("/admin/firma/"+String.valueOf(urun.getUrunSahibiFirma()));
+		
 	}
 
 	
