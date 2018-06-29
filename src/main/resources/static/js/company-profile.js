@@ -1,5 +1,5 @@
 /**
- * http://usejsdoc.org/
+ * https://usejsdoc.org/
  */
 $(document).ready(function() {
 
@@ -16,7 +16,7 @@ $(document).ready(function() {
 	
 	$(".company-heading-view .company-slider-content .general-view").css({"background":res});
 	
-	var server="http://localhost:8080";
+	var server="https://localhost:8080";
 	$("#fileUpload").on("click",function(){
 		//alert("ssdfsdf");
 		$("#upload-file").click();		

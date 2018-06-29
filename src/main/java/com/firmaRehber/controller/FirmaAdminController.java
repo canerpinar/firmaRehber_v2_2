@@ -37,6 +37,7 @@ import com.firmaRehber.entity.AltKategori;
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Kampanya;
 import com.firmaRehber.entity.Kategori;
+import com.firmaRehber.entity.Message;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.SubeKampanya;
@@ -219,6 +220,7 @@ public class FirmaAdminController {
 	public ModelAndView getKampanyalar(){
 		ModelAndView model = new ModelAndView("/firma/kampanyalar");
 		model.addObject("kampanya", new Kampanya());
+		model.addObject("kampanyalar", administrationService.getKampanyaForFirma(firma.getId()));
 		model.addObject("firma", firma);
 		return model;
 	}
@@ -240,6 +242,9 @@ public class FirmaAdminController {
 	@RequestMapping(value="/mesajlar.html",method=RequestMethod.GET)
 	public ModelAndView getMesaj(){
 		ModelAndView model = new ModelAndView("/firma/mesajlar");
+		List<Message> messageList = administrationService.getAllMessageForFirma(firma.getId());
+		System.out.println(messageList.size());
+		model.addObject("messageList", messageList);
 		model.addObject("firma", firma);
 		return model;
 	}
@@ -380,6 +385,24 @@ public class FirmaAdminController {
 			System.out.println(" sube id : "+sube);
 		}
 		kampanya.setSubeKampanyaList(subeList);
+		administrationService.saveKampanya(kampanya);	
+	}
+	
+	@RequestMapping(value="/ozelGunKampanyaEkle",method=RequestMethod.POST)
+	@ResponseBody
+	public void saveOzelGunKampanyasi(@RequestParam("subeForKampanya")String[] subeler,@ModelAttribute("kampanya")Kampanya kampanya
+			,HttpServletResponse response){
+		System.out.println("kampanya ad : " + kampanya.getKampanyaAd());
+		List<SubeKampanya> subeList = new ArrayList<SubeKampanya>();
+		for(String sube :subeler){
+			Sube sube_ = administrationService.getSube(Integer.parseInt(sube));
+			SubeKampanya subeKampanya = new SubeKampanya();
+			subeKampanya.setKampanya(kampanya);
+			subeKampanya.setSube(sube_);
+			subeList.add(subeKampanya);
+			System.out.println(" sube id : "+sube);
+		}
+		kampanya.setSubeKampanyaList(subeList);
 		administrationService.saveKampanya(kampanya);
 	}
 	
@@ -391,9 +414,36 @@ public class FirmaAdminController {
 	
 	@RequestMapping(value="/urunUpdate",method=RequestMethod.POST)
 	@ResponseBody
-	public void urunUpdate(@ModelAttribute("urun")Urun urun,HttpServletResponse response) throws IOException{
+	public void urunUpdate(@ModelAttribute("urun")Urun urun,@RequestParam("images")MultipartFile[] images,HttpServletResponse response) throws IOException{
 		Urun getUrun = administrationService.getUrun(urun.getId());
+		
+		File directory = new File(context.getRealPath("")+getUrun.getImagePath());
+		if(!images[0].isEmpty()){
+			System.out.println("image 1 ok");
+			File file = new File(context.getRealPath("")+getUrun.getImagePath()+"/"+
+			getUrun.getImage());
+			
+			file.delete();
+			fileService.saveFileForSlider(images[0], directory.toString()+"/");
+			
+			
+			getUrun.setImage(images[0].getOriginalFilename());
+		}if(!images[1].isEmpty()){
+			System.out.println("image 2 ok");
+			fileService.saveFileForSlider(images[1], directory.toString()+"/");
+			getUrun.setImageOne(images[1].getOriginalFilename());
+		}if(!images[2].isEmpty()){
+			System.out.println("image 3 ok");
+			fileService.saveFileForSlider(images[2], directory.toString()+"/");
+			getUrun.setImageTwo(images[2].getOriginalFilename());
+		}if(!images[3].isEmpty()){
+			System.out.println("image 4 ok");
+			fileService.saveFileForSlider(images[3], directory.toString()+"/");
+			getUrun.setImageThree(images[3].getOriginalFilename());
+		}
 		/*
+		
+		
 		System.out.println("urun id " +urun.getId());
 		System.out.println("urun kat id " +urun.getKatagoriId());
 		System.out.println("urun kat ad " +urun.getKategoriAd());
@@ -408,11 +458,10 @@ public class FirmaAdminController {
 		
 		System.out.println("urun ad "+ urun.getUrunAd());
 		System.out.println("urun marka "+ urun.getMarka());
-		*/
-		
+			*/
 		getUrun.setKategoriAd(urun.getKategoriAd());
-		getUrun.setSubKategoriId(urun.getSubKategoriId());
-		getUrun.setUrunControl(true);
+		getUrun.setKatagoriId(urun.getKatagoriId());
+		getUrun.setUrunControl(false);
 		getUrun.setAltKategoriAd(urun.getAltKategoriAd());
 		getUrun.setAltKatagoriId(urun.getAltKatagoriId());
 
@@ -422,14 +471,16 @@ public class FirmaAdminController {
 		
 		getUrun.setOdemeHavale(urun.isOdemeHavale());
 		getUrun.setOdemeKapida(urun.isOdemeKapida());
-		getUrun.setUrunLink(urun.getUrunLink());
+		//getUrun.setUrunLink(urun.getUrunLink());
 		getUrun.setMarka(urun.getMarka());
 		getUrun.setUrunAd(urun.getUrunAd());
 		getUrun.setUrunFiyat(urun.getUrunFiyat());
 		
 		administrationService.saveUrun(getUrun);
-		//response.sendRedirect("/admin/firma/"+String.valueOf(urun.getUrunSahibiFirma()));
 		
+		/*
+		response.sendRedirect("/firma/admin/");
+		*/	
 	}
 
 	

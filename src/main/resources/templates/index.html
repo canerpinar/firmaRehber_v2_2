@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-xmlns:th="http://www.thymeleaf.org">
+xmlns:th="https://www.thymeleaf.org">
 <head th:include="template :: head">
   <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -17,7 +17,7 @@ xmlns:th="http://www.thymeleaf.org">
       
        var map, infoWindow;
        var sameUrunControlText = "";
- var server = "http://localhost:8080";
+ var server = "https://www.vitrinde.net";
 var adress = [];
 var urunAd = [];
 var subeId = [];
@@ -26,7 +26,7 @@ var urunDetay=[];
 var urunLink = [];
 var kampanyaStatus = [];
 
-var img = "http://188.226.137.222:8080/img/content/currentLocation__.png";
+var img = "https://www.vitrinde.net/img/content/currentLocation__.png";
      function initMap() {
     	 geocoder = new google.maps.Geocoder()
        map = new google.maps.Map(document.getElementById('map'), {
@@ -96,7 +96,7 @@ var img = "http://188.226.137.222:8080/img/content/currentLocation__.png";
 
 				
 
-				$.get("http://188.226.137.222:8080/getSubeKampanyaStatus/"+data[i].bulunduguSubeorFirma).
+				$.get("https://www.vitrinde.net/getSubeKampanyaStatus/"+data[i].bulunduguSubeorFirma).
 				done(function(data){
 
 						if(data===""){
@@ -302,33 +302,38 @@ var img = "http://188.226.137.222:8080/img/content/currentLocation__.png";
               
               
 				<div class="col-sm-4 col-xs-6" th:each="urun : ${urunList}">
+				<div style="border: solid; margin-top: 5px;">
+				
                       <div class="single-product">
                         <figure>
                           <img width="150" height="150" th:src="${urun.imagePath}+'/'+${urun.image}" alt="">
                           
-						<div th:if="${urun.isKampanyaStatus()}" style="height: 50px;width: 150px; background-color: transparent; position:absolute; float:right; margin-top: -100px; margin-right: 13px;">
-						<img src="img/content/kampanya_icon.png" width="70" height="70" /><br/>
-							<span th:each="kampanya : ${urun.kampanya}" th:if="${kampanya.kampanyaTuru==1}" style="background-color:white; font-weight:bolder; font-size:small; color:black;" th:text="'Bu ürün de %'+${urun.kampanyaOran}+' indirim'">								
-							</span>
+
+                          <figcaption>
+                            <div class="bookmark">
+                              <a href="#"><i class="fa fa-bookmark-o"></i>İncele</a>
+                            </div>
+
+                            <div class="read-more">
+                              <a href="#" th:each="firma : ${urun.urunSahibi}" th:text="${firma.firmaName}"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        <h6><a th:href="${urun.urunLink}+'/'" th:text="${urun.urunAd}"></a></h6>
+						<div th:if="${urun.isKampanyaStatus()}" style=" background-color: transparent; position:absolute; float:right; margin-top: 20px; margin-right: 13px;">
+						
+							<div th:each="kampanya : ${urun.kampanya}" th:if="${kampanya.kampanyaTuru==1}" style="background-image:url('/img/content/discount_per_icon.png');position:relative; left:110px; top:-80px; font-weight:bolder; font-size:small; color:black; width: 75px;height: 30px;">
+								<span style="position:relative;top:5px;left:20px;" th:text="'%' + ${kampanya.kampanyaOran}"></span>							
+							</div>
 							<span th:each="kampanya : ${urun.kampanya}" th:if="${kampanya.kampanyaTuru==2}" style="background-color:white;font-weight:bolder; font-size:small; color:black;">
 								Bu üründe hediye var.
 							</span>
 						</div>
-                          <figcaption>
-                            <div class="bookmark">
-                              <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                            </div>
-
-                            <div class="read-more">
-                              <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                            </div>
-                        <h6><a th:href="${urun.urunLink}" th:text="${urun.urunAd}"></a></h6>
-
                           </figcaption>
                         </figure>
 
 
                       </div> <!-- end .single-product -->
+                      </div>
+                      
                     </div> <!-- end .grid-layout -->
 				
 
@@ -907,8 +912,8 @@ var img = "http://188.226.137.222:8080/img/content/currentLocation__.png";
 </div> <!-- end #main-wrapper -->
 
 <!-- Scripts -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script src="js/jquery.ba-outside-events.min.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnPlYtr2-O1O7lmFcPGod4Wm9lzGQrpQI&callback=initMap"></script>

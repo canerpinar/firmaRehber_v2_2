@@ -100,7 +100,7 @@ public class FirmaController {
 		*/
 		
 		getUrun.setKategoriAd(urun.getKategoriAd());
-		getUrun.setSubKategoriId(urun.getSubKategoriId());
+		getUrun.setKatagoriId(urun.getKatagoriId());
 		getUrun.setUrunControl(true);
 		getUrun.setAltKategoriAd(urun.getAltKategoriAd());
 		getUrun.setAltKatagoriId(urun.getAltKatagoriId());

@@ -7,6 +7,7 @@ $(document).ready(function(){
 		$("#altKategoriSelect").text('');		
 		$("#ikinciAltKategoriSelect").text('');
 		var kategori_id = $("#kategoriSelect option:selected").val();
+		alert(kategori_id);
 		var kategori_ad = $("#kategoriSelect option:selected").text();
 		$("#kategoriName").val(kategori_ad);
 	//	alert(kategori_ad);
@@ -44,8 +45,8 @@ $(document).ready(function(){
 	});
 	
 	$("#ikinciAltKategoriSelect").on("change",function(){
-		var subKategoriName = ("#ikinciAltKategoriSelect option:selected").text();
-		var subKategoriId = ("#ikinciAltKategoriSelect option:selected").val();
+		var subKategoriName = $("#ikinciAltKategoriSelect option:selected").text();
+		var subKategoriId = $("#ikinciAltKategoriSelect option:selected").val();
 		$("#subKategoriName").val(subKategoriName);
 		$("#subKategoriId").val(subKategoriId);
 	});

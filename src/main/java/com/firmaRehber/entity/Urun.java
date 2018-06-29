@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="urunler")
@@ -39,7 +40,17 @@ public class Urun {
 	@Column(name="urunsubkategori_ad")
 	private String subKategoriAd;
 	
+	@Transient
+	private Firma urunSahibi;		
 	
+	public Firma getUrunSahibi() {
+		return urunSahibi;
+	}
+
+	public void setUrunSahibi(Firma urunSahibi) {
+		this.urunSahibi = urunSahibi;
+	}
+
 	@Column(name="urunad")
 	private String urunAd;
 	

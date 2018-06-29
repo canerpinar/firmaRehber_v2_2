@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS kampanya;
 DROP TABLE IF EXISTS urunler;
 
-drop table if exists sube_kampanya;
+drop table if exists message;
 */
 create table if not exists users(
 	id integer not null auto_increment,
@@ -151,8 +151,10 @@ create table if not exists firma(
 create table if not exists  message(
 	id integer not null auto_increment,
 	mesaj_Kime integer not null,
-	mesaj_Kimden varchar(60) not null,
+	mesaj_sahip_link varchar(255) not null,
+	mesaj_Kimden integer not null,
 	mesaj_Content text not null,
+	okunduStatus boolean default false,
 	primary key(id)
 );
 
@@ -165,6 +167,8 @@ create table if not exists referanslar(
 	foreign key (firma_Id) references firma(id) ON UPDATE CASCADE,
 	primary key(id)
 );
+
+
 
 create table if not exists kampanya(
 	id integer not null auto_increment,

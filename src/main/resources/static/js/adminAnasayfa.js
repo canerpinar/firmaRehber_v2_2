@@ -1,5 +1,5 @@
 /**
- * http://usejsdoc.org/
+ * https://usejsdoc.org/
  */
 $(document).ready(function(){
 var server="http://localhost:8080/";

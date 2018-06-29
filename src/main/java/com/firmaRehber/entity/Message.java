@@ -25,6 +25,14 @@ public class Message {
 	
 	@Column(name="mesaj_Content")
 	private String mesajContent;
+	
+	@Column(name="okunduStatus")
+	private boolean okunmaDurum;
+	
+	@Column(name="mesaj_sahip_link")
+	private String mesajSahipLink;
+	
+	
 
 	public Message() {}
 
@@ -37,6 +45,18 @@ public class Message {
 		this.mesajKimden = mesajKimden;
 		this.mesajContent = mesajContent;
 	}
+	
+
+	public String getMesajSahipLink() {
+		return mesajSahipLink;
+	}
+
+
+
+	public void setMesajSahipLink(String mesajSahipLink) {
+		this.mesajSahipLink = mesajSahipLink;
+	}
+
 
 
 	public int getId() {
@@ -76,6 +96,18 @@ public class Message {
 
 	public void setMesajContent(String mesajContent) {
 		this.mesajContent = mesajContent;
+	}
+
+
+
+	public boolean isOkunmaDurum() {
+		return okunmaDurum;
+	}
+
+
+
+	public void setOkunmaDurum(boolean okunmaDurum) {
+		this.okunmaDurum = okunmaDurum;
 	}
 	
 	

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 </head>
 
 <body>
@@ -382,8 +383,9 @@
 <script th:src="@{/js/owl.carousel.js}"></script>
 <script th:src="@{/js/jquery.placeholder.min.js}"></script>
 <script th:src="@{/js/select2.min.js}"></script>
-
+<script type="text/javascript" th:src="@{/js/jQuery-TE_v.1.4.0/jquery-te-1.4.0.min.js}"></script>
 <script src="js/scripts.js"></script>
+
 <script>
   // gmap for street view
   panorama = GMaps.createPanorama({
@@ -435,12 +437,12 @@
       </div>
       <div class="modal-body">
 
-        <form id="urunUpdateForm" th:object="${urun}" action="/firma/admin/urunUpdate">
+        <form id="urunUpdateForm" th:object="${urun}" method="POST" action="/firma/admin/urunUpdate" enctype="multipart/form-data">
         	<table class="table">
         		<tr>
         			<td>Ürün Ad : </td>
         			<td>
-        				<input type="hidden" th:field="*{id}" />
+        				<input id="urunUpdateId" type="hidden" th:field="*{id}" />
         				<input id="urunAd_" th:field="*{urunAd}" type="text"/>
         			</td>
         		</tr>
@@ -458,16 +460,17 @@
 				        		
         		<tr>
         			<td>Kategori Ad : </td>
-        			<td><select id="urunKategori_" th:field="*{kategoriAd}">
-        				<!--  <option value="" id="selectedKategori" selected="selected"></option> -->
-        				
-        				
+        			<td>
+        			<input id="urunUpdateKategoriId" type="hidden"  th:field="*{katagoriId}" />
+        			<select id="urunKategori_" required="required" th:field="*{kategoriAd}">
+        				<!--  <option value="" id="selectedKategori" selected="selected"></option> -->        				        				
         			</select></td>
         		</tr>
           		<tr>
         			<td>Alt Kategori Ad : </td>
         			<td>
-	        			<select id="urunAltKategori_" th:field="*{altKategoriAd}">
+        			<input id="urunUpdateAltKategoriId" type="hidden" th:field="*{altKatagoriId}" />
+	        			<select id="urunAltKategori_" required="required" th:field="*{altKategoriAd}">
 	        				<!--  <option value="" id="selectedAltKategori" selected="selected"></option>-->
 	        			</select>
         			</td>
@@ -475,7 +478,9 @@
         		
         		<tr>
         			<td>İkinci Kategori Ad : </td>
-        			<td><select id="urunSubKategori_" th:field="*{subKategoriAd}">
+        			<td>
+        			<input id="urunUpdateSubKategoriId" type="hidden" th:field="*{subKategoriId}" />
+        			<select id="urunSubKategori_" required="required" th:field="*{subKategoriAd}">
         				<!-- <option value="" id="selectedİkinciKategori"></option>  -->
         			</select></td>
         		</tr>
@@ -485,45 +490,59 @@
         		</tr>
         		<tr>
         			<td>Ürün Stok Durumu</td>
-        			<td><input type="checkbox" />Var
-        				<input type="checkbox" />Yok
+        			<td>
+        			<select th:field="*{stokDurumu}">
+				       <optgroup label="Seçiniz">
+					
+					    <option th:if="${urun.stokDurumu == true}" selected="selected" value="true">Var</option>
+					    <option th:if="${urun.stokDurumu == false}" value="true">Var</option>
+					    <option th:if="${urun.stokDurumu == false}" selected="selected"   value="false">Yok</option>
+					    
+					  </optgroup>
+        			</select>
         			</td>
         		</tr>
         		
         		<tr>
         			<td>İmage 1</td>
         			<td>
-        				<input id="imageFile1_" style="visibility:hidden;" type="file" />
+        				<input id="imageFile1_" name="images" style="visibility:hidden;" type="file" />
         				<img onclick="$.inputFileTrue('imageFile1_')" style="width: 100px; height: 100px;" id="urunImage_1_" src="" />
         			</td>
         		</tr>
         		
         		<tr>
         			<td>İmage 2</td>
-        			<td><input id="imageFile2_" style="visibility:hidden;" type="file" />
+        			<td><input id="imageFile2_" name="images" style="visibility:hidden;" type="file" />
         			<img onclick="$.inputFileTrue('imageFile2_')" style="width: 100px; height: 100px;" id="urunImage_2_" src="" />
         			</td>
         		</tr>
         		
         		<tr>
         			<td>İmage 3</td>
-        			<td><input  id="imageFile3_" style="visibility:hidden;" type="file" />
+        			<td><input  id="imageFile3_" name="images" style="visibility:hidden;" type="file" />
         			<img onclick="$.inputFileTrue('imageFile3_')" style="width: 100px; height: 100px;" id="urunImage_3_" src="" />
         			</td>
         		</tr>
         		
         		<tr>
         			<td>İmage 4</td>
-        			<td><input  id="imageFile4_" style="visibility:hidden;" type="file" />
+        			<td><input  id="imageFile4_" name="images" style="visibility:hidden;" type="file" />
         			<img onclick="$.inputFileTrue('imageFile4_')" style="width: 100px; height: 100px;" id="urunImage_4_" src="" /></td>
         		</tr>
         		
         		<tr>
         			<td>Satış Yöntemi</td>
         			<td>
-  						<input type="checkbox" />Kredi Kartı
-  						<input type="checkbox" />Havale
-  						<input type="checkbox" />Kapıda Ödeme
+  						<input th:if="${urun.odemeKrediKarti==true}" checked="checked" type="checkbox" th:field="*{odemeKrediKarti}"/>Kredi Kartı
+  						<input th:if="${urun.odemeKrediKarti==false}"  type="checkbox" th:field="*{odemeKrediKarti}"/>Kredi Kartı
+  						
+  						<input th:if="${urun.odemeHavale==true}" checked="checked" type="checkbox" th:field="*{odemeHavale}"/>Havale
+  						<input th:if="${urun.odemeHavale==false}" type="checkbox" th:field="*{odemeHavale}"/>Havale
+  						
+  						<input th:if="${urun.odemeKapida==true}" checked="checked" type="checkbox" th:field="*{odemeKapida}"/>Kapıda Ödeme
+  						<input th:if="${urun.odemeKapida==false}" type="checkbox" th:field="*{odemeKapida}"/>Kapıda Ödeme
+  						
         			</td>
         		</tr>
         		<tr>

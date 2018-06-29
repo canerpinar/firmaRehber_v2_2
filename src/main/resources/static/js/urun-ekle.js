@@ -3,6 +3,7 @@
  */
 $(document).ready(function(){
 	var server = "http://localhost:8080";
+	$("textarea").jqte();
 	$.get(server+"/firma/admin/allKategori").done(function(data){
 		for(i in data){
 			$('#kategoriList').append("<option name='"+data[i].id+"' value='" + data[i].kategoriAd+ "'>");
@@ -95,19 +96,75 @@ $(document).ready(function(){
 	
 	$.urunDetailsForUpdate = function(id){
 		$("#urunKategori_").text("");
-		
-		$.get(server+"/firma/admin/allKategori").done(function(data){
-			for(i in data){
-				$('#urunKategori_').append("<option name='"+data[i].id+"' value='" + data[i].kategoriAd+ "'>"+data[i].kategoriAd+"</option>");
-			//console.log("denemeler");
-			}
-		});
+		$("#urunAltKategori_").text("");
+		$("#urunSubKategori_").text("");
 		
 		
 		
 		$.get(server+"/firma/admin/getUrun/"+id).done(function(data){
 			$("#urunAd_").val(data.urunAd);
+			//alert(data.katagoriId);
+			
+			$.get(server+"/firma/admin/allKategori").done(function(data_){
+				for(i in data_){
+					if(data_[i].kategoriAd === data.kategoriAd){
+						$('#urunKategori_').append("<option selected='selected' name='"+data_[i].id+"' value='" + data_[i].kategoriAd+ "'>"+data_[i].kategoriAd+"</option>");
+						
+					}else{
+						$('#urunKategori_').append("<option name='"+data_[i].id+"' value='" + data_[i].kategoriAd+ "'>"+data_[i].kategoriAd+"</option>");
+						
+					}
+					
+					
+					
+					
+				//console.log("denemeler");
+						
+						for(s in data_[i].altKategori){
+							
+							if(data_[i].altKategori[s].altKategoriAd === data.altKategoriAd){
+								$('#urunAltKategori_').append("<option  selected='selected' value='" + data_[i].altKategori[s].altKategoriAd + "'>"+data_[i].altKategori[s].altKategoriAd +"</option>");
+							
+							}
+							else{
+								if(data_[i].kategoriAd === data.kategoriAd){
+									$('#urunAltKategori_').append("<option value='" + data_[i].altKategori[s].altKategoriAd + "'>"+data_[i].altKategori[s].altKategoriAd +"</option>");									
+								}
+
+							}
+							
+							
+							for(k in data_[i].altKategori[s].subaltKategori){
+								
+								if(data_[i].altKategori[s].subaltKategori[k].subAltKategoriAd === data.subKategoriAd){
+									$('#urunSubKategori_').append("<option selected='selected' value='" + data_[i].altKategori[s].subaltKategori[k].subAltKategoriAd + "'>"+data_[i].altKategori[s].subaltKategori[k].subAltKategoriAd+"</option>");
+									
+								}else{
+									if(data_[i].altKategori[s].altKategoriAd === data.altKategoriAd){
+										$('#urunSubKategori_').append("<option value='" + data_[i].altKategori[s].subaltKategori[k].subAltKategoriAd + "'>"+data_[i].altKategori[s].subaltKategori[k].subAltKategoriAd+"</option>");
+										
+									}
+
+								}
+							}
+							
+							
+						}
+					
+
+						
+						
+				}
+			});
+
+			
+			$("#urunUpdateKategoriId").val(data.katagoriId);
+			$("#urunUpdateAltKategoriId").val(data.altKatagoriId);
+			$("#urunUpdateSubKategoriId").val(data.subKategoriId);
+			
+			$("#urunUpdateId").val(data.id);
 			$("#urunFiyat_").val(data.urunFiyat);
+			$("#urunMarka_").val(data.marka);
 			$("#selectedKategori").text(data.kategoriAd);
 			$("#selectedAltKategori").text(data.altKategoriAd);
 			$("#selectedİkinciKategori").text(data.subKategoriAd);
@@ -146,6 +203,7 @@ $(document).ready(function(){
 				
 				for(s in data[i].subaltKategori){
 					$('#urunSubKategori_').append("<option value='" + data[i].subaltKategori[s].subAltKategoriAd + "'>"+data[i].subaltKategori[s].subAltKategoriAd+"</option>");
+				
 				}
 								
 			//console.log("denemeler");

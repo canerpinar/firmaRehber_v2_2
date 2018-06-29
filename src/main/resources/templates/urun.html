@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-xmlns:th="http://www.thymeleaf.org">
+xmlns:th="https://www.thymeleaf.org">
 <head th:include="template :: head">
   <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -16,7 +16,7 @@ xmlns:th="http://www.thymeleaf.org">
       // locate you.
       
        var map, infoWindow;
- var server = "http://localhost:8080";
+ var server = "https://www.vitrinde.net";
 var adress = [];
 var urunAd = [];
 var urunAd_ = 0;
@@ -215,27 +215,15 @@ var urunLink = [];
               </div> <!-- end .change-view -->
               
               
-				<div class="col-sm-4 col-xs-6" th:each="urun : ${urunList}">
-                      <div class="single-product">
-                        <figure>
-                          <img src="img/content/company-product.jpg" alt="">
+				<div class="col-md-offset-4 col-md-8" style="margin-top:10px;">
+					<img width="250" height="250" th:src="'/'+${urun.imagePath}+'/'+${urun.image}" alt="" />
+					<div>
+										<span style="font-weight: bold; font-size: large;" th:utext="${urun.urunFiyat}"></span><br/>
+					<span th:utext="${urun.urunAd}"></span><br/>
+					<span th:utext="${urun.urunHakkinda}"></span>
+					</div>
 
-                          <figcaption>
-                            <div class="bookmark">
-                              <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                            </div>
-
-                            <div class="read-more">
-                              <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                            </div>
-                        <h6><a href="#">Product Name</a></h6>
-
-                        <h6><a href="#">Category</a></h6>
-                          </figcaption>
-                        </figure>
-
-
-                      </div> <!-- end .single-product -->
+					
                  </div> <!-- end .grid-layout -->
 				
 
@@ -664,8 +652,8 @@ var urunLink = [];
 </div> <!-- end #main-wrapper -->
 
 <!-- Scripts -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script src="js/jquery.ba-outside-events.min.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnPlYtr2-O1O7lmFcPGod4Wm9lzGQrpQI&callback=initMap"></script>

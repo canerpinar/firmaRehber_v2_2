@@ -302,45 +302,58 @@
 						<!-- ziyaret kampanyası end -->
 					</div>
 					<div id="ozelgunKam" class="tab-pane fade">
-		<table class="table">
-			<tr>
+					<form onsubmit="$.ozelGunKampanyasi()" method="POST" action="/firma/admin/ozelGunKampanyaEkle" th:object="${kampanya}">
+						<table class="table">
+							<tr>
+				
+								<td>KAMPANYA BAŞLIĞI</td>
+								<td><input type="text" th:field="*{kampanyaAd}" style="border-style:solid;"/></td>
+							</tr>
+							<tr>
+				
+								<td>KAMPANYA KONUSU</td>
+								<td><input type="text" style="border-style:solid;"/></td>
+							</tr>
+							
+							<tr>				
+								<td>KAMPANYA ORANI</td>
+								<td><input type="text" th:field="*{kampanyaOran}" style="border-style:solid;"/></td>
+							</tr>
+							
+							<tr>
+								<td>HANGİ ŞUBELERDE GEÇERLİ</td>
+									<td>
+								<table class="table">
+									<tr>
+										<td>TÜM ŞUBELERDE</td>
+										<td><input id="allSubeForChecked_" type="checkbox" name="C1" value="ON"/></td>
+									</tr>
+									<tr id="subelerForKampanya_">
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+							
+								<td>BAŞLANGIÇ TARİHİ</td>
+								<td><input type="date" th:field="*{startDate}" />
+								<input id="ozelGunKampanyaTur" type="hidden" th:field="*{kampanyaTuru}" th:value="'3'"/>
+								</td>
+							</tr>
+							<tr>
+				
+								<td>BİTİŞ TARİHİ</td>
+								<td><input type="date" th:field="*{endDate}" /></td>
+							</tr>
+							<tr>
+				
+								<td><input type="submit" value="KAYDET" /></td>
+							</tr>
+						</table>
+					
+					
+					</form>
 
-				<td>KAMPANYA BAŞLIĞI</td>
-				<td><input type="text" style="border-style:solid;"/></td>
-			</tr>
-			<tr>
-
-				<td>KAMPANYA KONUSU</td>
-				<td><input type="text" /></td>
-			</tr>
-			<tr>
-				<td>HANGİ ŞUBELERDE GEÇERLİ</td>
-					<td>
-				<table class="table">
-					<tr>
-						<td>TÜM ŞUBELERDE</td>
-						<td><input id="allSubeForChecked_" type="checkbox" name="C1" value="ON"/></td>
-					</tr>
-					<tr id="subelerForKampanya_">
-					</tr>
-				</table>
-				</td>
-			</tr>
-			<tr>
-			
-				<td>BAŞLANGIÇ TARİHİ</td>
-				<td><input type="date" /></td>
-			</tr>
-			<tr>
-
-				<td>BİTİŞ TARİHİ</td>
-				<td><input type="date" /></td>
-			</tr>
-			<tr>
-
-				<td><input type="submit" value="KAYDET" /></td>
-			</tr>
-		</table>
 
 
 					</div>
@@ -351,7 +364,11 @@
 			</div>
 			
 			<div id="kampanyaDuzenle" class="tab-pane fade">
-				KAMPANYA DÜZENLE
+				<table>
+					<tr th:each="kampanya : ${kampanyalar}">
+						<td th:text="${kampanya.kampanyaAd}"></td>
+					</tr>
+				</table>
 			</div>
 			
 		</div>

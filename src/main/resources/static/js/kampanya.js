@@ -100,4 +100,10 @@ $(document).ready(function(){
 		$("#ziyaretKampanyaTur").val(3);
 		return true;
 	}
+	
+	$.ozelGunKampanyasi = function(){
+		$("#ozelGunKampanyaTur").val(4);
+		return true;		
+	}
+	
 });

@@ -271,4 +271,11 @@ public class WebAdministrationService {
 		return (List<Sube>) subeRepository.findAll();
 	}
 	
+	public List<Message> getAllMessageForFirma(int firmaId){
+		return messageRepository.getAllMessageFromFirma(firmaId);
+	}
+	
+	public Firma getFirmaDetay(String firmaAd){
+		return firmaRepository.getFirmaDetay(firmaAd);
+	}
 }

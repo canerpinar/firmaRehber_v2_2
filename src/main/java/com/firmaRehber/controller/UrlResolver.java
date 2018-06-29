@@ -60,6 +60,7 @@ import com.firmaRehber.entity.User;
 import com.firmaRehber.entity.UserAuthenticaion;
 import com.firmaRehber.entity.UserRole;
 import com.firmaRehber.service.AutharizationSuccessRedirect;
+import com.firmaRehber.service.FirmaService;
 import com.firmaRehber.service.KategoriService;
 import com.firmaRehber.service.RoleService;
 import com.firmaRehber.service.UploadFileService;
@@ -206,7 +207,16 @@ public class UrlResolver {
 		});
 		*/
 		return model;
-
+	}
+	
+	@RequestMapping(value="firmaDetay/{ad}")
+	public ModelAndView getFirma(@PathVariable("ad")String ad){
+		ModelAndView model = new ModelAndView("company-product");
+		Firma firma_=administrationService.getFirmaDetay(ad);
+		model.addObject("urunler", administrationService.getAllUrunForFirma(firma_.getId()));
+		System.out.println(administrationService.getAllUrunForFirma(firma_.getId()).size());
+		model.addObject("firma", firma_);
+		return model;
 	}
 	
 	@RequestMapping(value="indirim.html")
@@ -299,6 +309,11 @@ public class UrlResolver {
 		List<Kategori> listKategori = (List<Kategori>) kategoriService.getAllKategori();
 		List<Images> listImagesForSlider = uploadFileService.getAllImagesForSlider();
 		List<Urun> urunList = administrationService.getAllUrun();
+		
+		urunList.forEach(urun->{
+			urun.setUrunSahibi(administrationService.getFirma(String.valueOf(urun.getUrunSahibiFirma())));
+		});
+		
 		model.addObject("username", request.getSession().getAttribute("username"));
 		String authenticationPageValue="";
 		
@@ -636,10 +651,12 @@ public class UrlResolver {
 		return siteGenelController.geturunList();
 	}
 	
-	@RequestMapping(value="/{urunAd}")
+	@RequestMapping(value="/{urunAd}/")
 	public ModelAndView getUrunler(@PathVariable("urunAd") String urunAd) {
 		ModelAndView model = new ModelAndView("urun");
-		model.addObject("urun", administrationService.getUrunWithLink(urunAd));
+		Urun urun = administrationService.getUrunWithLink("/"+urunAd);
+		model.addObject("urun", urun);
+		System.out.println(" urun ad :" +urunAd);
 		return model;
 	}
 	

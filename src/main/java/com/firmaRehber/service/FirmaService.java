@@ -24,4 +24,8 @@ public class FirmaService {
 		return firmaRepository.findOne(id);
 	}
 	
+	public Firma getFirmaDetayForUser(String firmaAd){
+		return firmaRepository.getFirmaDetay(firmaAd);
+	}
+	
 }
