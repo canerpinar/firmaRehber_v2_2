@@ -55,5 +55,26 @@ $(document).ready(function(){
 			$("#loginButton").css('visibility','hidden');
 		}
 	});
+	$.pageRefreshForCategories = function(kategoriAd){//hangi alt kategori tıklandıysa ana sayfa refresh yapılmalı
+		$("#urunListForIndexPage").text("");
+		alert(kategoriAd);
+	}
+	
+	$.urlParam = function(name){
+	    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	    if (results==null){
+	       return null;
+	    }
+	    else{
+	       return decodeURI(results[1]) || 0;
+	    }
+	}
+	
+	if($.urlParam('loginFail')=='false'){
+	$("#kullaniciLoginFail").css('visibility','visible');
+		$("#loginButtonClick").click();
+
+		//alert("yalnış giriş");
+	}
 		
 });

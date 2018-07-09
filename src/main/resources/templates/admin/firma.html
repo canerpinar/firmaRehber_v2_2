@@ -35,7 +35,7 @@
 				<td th:if="${firma.firmaControl==true}"><img src="/img/content/seo_avaliable.png"  style="width:100px; heidht:100px;"/></td>
 				<td th:if="${firma.firmaControl==false}"><img src="/img/content/seo_avaliable.png"  style="width:100px; heidht:100px;"/></td>
 				<td><span data-toggle="tab"><img th:src="'../../'+${firma.email}+'/'+${firma.firmaImage}" style="width:100px; heidht:100px;"/></span></td>
-				<td><a th:onclick="'$.messageSent(\'siteGenelEdit/messageSent/'+${firma.id}+'\');'" data-toggle="tab">MESAJ</a></td>
+				<td><a th:onclick="'$.messageSent(\'admin/siteGenelEdit/messageSent/'+${firma.id}+'\');'" data-toggle="tab">MESAJ</a></td>
 				<td><a th:onclick="'$.referansReview(\'siteGenelEdit/referansReview/'+${firma.id}+'\');'" th:href="${'#'+firma.id}" data-toggle="tab">REFERANSLARA GİT</a></td>
 			</tr>
 			

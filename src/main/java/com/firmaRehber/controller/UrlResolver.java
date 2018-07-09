@@ -51,7 +51,9 @@ import com.firmaRehber.entity.AltKategori;
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Images;
 import com.firmaRehber.entity.Kategori;
+import com.firmaRehber.entity.Message;
 import com.firmaRehber.entity.Reklam;
+import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.SubeKampanya;
@@ -95,7 +97,8 @@ public class UrlResolver {
 	@Autowired
 	private WebAdministrationService administrationService;
 	
-	
+	@Autowired
+	private FirmaAdminController firmaAdminController;
 	
 	
 	List<AltKategori> listAltKategori = new ArrayList<>();
@@ -115,7 +118,30 @@ public class UrlResolver {
 	
 	@RequestMapping(value="admin/mesajlar")
 	public ModelAndView mesajPage(){
-		ModelAndView model = new ModelAndView("admin/mesaj");
+		ModelAndView model = new ModelAndView("/admin/mesaj");
+		List<Object[]> messageList = administrationService.getAllMessageForFirma(-1);
+		
+		List<Integer> okunmamisMesajCount = new ArrayList<>();
+		List<List<Message>> allMessageList = new ArrayList<>();
+		//Map<List<Message>,Boolean> allMessageList = new HashedMap();
+
+		System.out.println(messageList.size());
+		model.addObject("messageList", messageList);
+		
+		for(Object[] message : messageList){
+			
+			System.out.println("------- ilk deger :"+message[0]);
+			System.out.println("------- ikinci deger :"+message[1]);
+			okunmamisMesajCount.add(administrationService.getMessageOkunmamis(message[0].toString()).size());
+			for(int sayac : okunmamisMesajCount){
+				System.out.println("----"+sayac);
+			}
+			allMessageList.add(administrationService.getAllMessageFromFirmaForList(Integer.parseInt(message[2].toString()),-1));
+			System.out.println(message.toString());
+		}
+		model.addObject("allMessageForList", allMessageList);
+		model.addObject("okunmamisMesaj", okunmamisMesajCount);
+
 		return model;
 	}
 	
@@ -124,12 +150,18 @@ public class UrlResolver {
 	
 	@RequestMapping(value="userLoginControl",method=RequestMethod.POST)
 	public void getAuthenticationControl(@RequestParam("username")String username,@RequestParam("password")String password,HttpServletResponse response,HttpServletRequest request)throws IOException, ServletException{
-		System.out.println("denemeler");
-		UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(username, password);
-		user.setDetails(userService.loadUserByUsername(username));
-		
-		Authentication auth = autManager.authenticate(user);
 
+		UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(username, password);
+		UserDetails userDetails = userService.loadUserByUsername(username);
+		user.setDetails(userDetails);
+		
+		if(userDetails==null){
+			response.sendRedirect("/?loginFail=false");
+			return;
+		}
+
+
+		Authentication auth = autManager.authenticate(user);
 	    SecurityContext sc = SecurityContextHolder.getContext();
 	    sc.setAuthentication(auth);
 	    HttpSession session = request.getSession(true);
@@ -217,6 +249,42 @@ public class UrlResolver {
 		System.out.println(administrationService.getAllUrunForFirma(firma_.getId()).size());
 		model.addObject("firma", firma_);
 		return model;
+	}
+	
+	@RequestMapping(value="magaza_iletisim.html/{id}")
+	public ModelAndView getFirma_Message(@PathVariable("id") int id){
+		ModelAndView model = new ModelAndView("magaza_iletisim");
+		model.addObject("firmaId", id);
+		return model;
+	}
+	
+	@RequestMapping(value="save_iletisim_form/{id}")
+	public @ResponseBody void save_iletisim_genel(@RequestParam Map<String,String> allRequest,
+			@PathVariable("id")int id){
+		Message  message = new Message();
+		
+		message.setMesajKimeId(id);
+		message.setMesajSahipLink("");
+		SecurityContext context = SecurityContextHolder.getContext();
+		String firmaAd = context.getAuthentication().getName();
+		if(!firmaAd.equals("anonymousUser")){
+			Firma firma_ = administrationService.getFirmaDetay(firmaAd);
+			message.setGonderenUyemi(true);
+			message.setGonderenId(firma_.getId());
+			message.setMesajKimden(firma_.getFirmaOwner());
+			message.setMesajContent(allRequest.get("mesajContent"));
+		}else{
+			message.setGonderenUyemi(false);
+			message.setGonderenId(0);
+			message.setMesajKimden(allRequest.get("ad") + allRequest.get("soyad"));
+			message.setMesajContent(allRequest.get("mesajContent")+"<br/>Email :"+allRequest.get("mail")+
+			"<br/>Telefon :"+allRequest.get("telefon"));
+		}
+		
+		message.setOkunmaDurum(false);
+		//message.setMesajContent(allRequest.get("mesajContent"));
+		administrationService.sentMessage(message);
+		//System.out.println("denemeler");
 	}
 	
 	@RequestMapping(value="indirim.html")
@@ -418,7 +486,8 @@ public class UrlResolver {
 		model.addObject("kategoriler", new Kategori());
 
 		List<Kategori> listKategori = (List<Kategori>) kategoriService.getAllKategori();
-		
+		model.addObject("mesajCount", administrationService.getOkunmamisMessageCount(-1));
+		//System.out.println("okunmamış mesaj sayısı " + administrationService.getOkunmamisMessageCount(-1));
 		model.addObject("kategoriList", listKategori);
 		model.addObject("altKategori", new AltKategori());
 		model.addObject("subAltKategori", new SubAltKategori());
@@ -655,6 +724,9 @@ public class UrlResolver {
 	public ModelAndView getUrunler(@PathVariable("urunAd") String urunAd) {
 		ModelAndView model = new ModelAndView("urun");
 		Urun urun = administrationService.getUrunWithLink("/"+urunAd);
+		System.out.println("urunLink -------"+urun.getUrunLink());
+		Seo seo = administrationService.getSeoForUrun(urun.getUrunLink());
+		model.addObject("seoContent", seo.getSeoContentList());
 		model.addObject("urun", urun);
 		System.out.println(" urun ad :" +urunAd);
 		return model;

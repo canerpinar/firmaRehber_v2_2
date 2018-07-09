@@ -6,11 +6,14 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -38,6 +41,8 @@ import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Kampanya;
 import com.firmaRehber.entity.Kategori;
 import com.firmaRehber.entity.Message;
+import com.firmaRehber.entity.Seo;
+import com.firmaRehber.entity.SeoContent;
 import com.firmaRehber.entity.SubAltKategori;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.SubeKampanya;
@@ -118,6 +123,8 @@ public class FirmaAdminController {
 	      model.addAttribute("firma", firma);
 	      List<Urun> urunListForFirma = administrationService.getAllUrunForFirma(firma.getId());
 	      model.addAttribute("urunler", urunListForFirma);
+	      model.addAttribute("mesajCount", administrationService.getOkunmamisMessageCount(firma.getId()));
+	      
 	      if(!firma.isFirmaActiveStatus()) {
 	    	  return "/firma/company_success_fail";
 	      }
@@ -177,12 +184,14 @@ public class FirmaAdminController {
 		System.out.println("alt kat id" + urun.getSubKategoriId());
 		urun.setImage(files[0].getOriginalFilename());
 		urun.setImageOne(files[1].getOriginalFilename());
-		urun.setImageOne(files[2].getOriginalFilename());
-		urun.setImageOne(files[3].getOriginalFilename());
+		urun.setImageTwo(files[2].getOriginalFilename());
+		urun.setImageThree(files[3].getOriginalFilename());
 		urun.setUrunSahibiFirma(firma.getId());
 		urun.setPidKod("PID"+urun.getPidKod());
 		String urunLink = "/" + urun.getUrunAd().replace(" ", "-")+"-"+urun.getPidKod();
 		urunLink=Normalizer.normalize(urunLink.toLowerCase(), Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		urunLink=pattern.matcher(urunLink).replaceAll("");
 		urun.setUrunLink(urunLink);
 		urun.setImagePath(firma.getEmail()+"/"+urun.getUrunAd());
 
@@ -193,8 +202,16 @@ public class FirmaAdminController {
 			fileService.saveFileForSlider(file, directory.toString()+"/");	
 		}
 			
-			
-
+		Seo seo = new Seo();
+		seo.setPageName(urunLink);
+		List<SeoContent> listSeoContent = new ArrayList<>();
+		SeoContent seoContent = new SeoContent();
+		seoContent.setContent(urun.getUrunHakkinda());
+		seoContent.setMetaName("content");
+		listSeoContent.add(seoContent);
+		seo.setSeoContentList(listSeoContent);
+		seoContent.setSeo(seo);
+		administrationService.saveSeoForUrun(seo);
 		
 		//System.out.println(file.getOriginalFilename());
 		
@@ -242,9 +259,28 @@ public class FirmaAdminController {
 	@RequestMapping(value="/mesajlar.html",method=RequestMethod.GET)
 	public ModelAndView getMesaj(){
 		ModelAndView model = new ModelAndView("/firma/mesajlar");
-		List<Message> messageList = administrationService.getAllMessageForFirma(firma.getId());
+		List<Object[]> messageList = administrationService.getAllMessageForFirma(firma.getId());
+		
+		List<Integer> okunmamisMesajCount = new ArrayList<>();
+		List<List<Message>> allMessageList = new ArrayList<>();
+		//Map<List<Message>,Boolean> allMessageList = new HashedMap();
+		System.out.println(firma.getId());
 		System.out.println(messageList.size());
 		model.addObject("messageList", messageList);
+		
+		for(Object[] message : messageList){
+			
+			System.out.println("------- ilk deger :"+message[0]);
+			System.out.println("------- ikinci deger :"+message[1]);
+			okunmamisMesajCount.add(administrationService.getMessageOkunmamis(message[0].toString()).size());
+			for(int sayac : okunmamisMesajCount){
+				System.out.println("----"+sayac);
+			}
+			allMessageList.add(administrationService.getAllMessageFromFirmaForList(Integer.parseInt(message[2].toString()),firma.getId()));
+			System.out.println(message.toString());
+		}
+		model.addObject("allMessageForList", allMessageList);
+		model.addObject("okunmamisMesaj", okunmamisMesajCount);
 		model.addObject("firma", firma);
 		return model;
 	}
@@ -407,8 +443,7 @@ public class FirmaAdminController {
 	}
 	
 	@RequestMapping(value="/getUrun/{id}")
-	@ResponseBody
-	public Urun getUrun(@PathVariable("id")int id){
+	public @ResponseBody Urun getUrun(@PathVariable("id")int id){
 		return genelController.getUrun(id);
 	}
 	
@@ -476,11 +511,58 @@ public class FirmaAdminController {
 		getUrun.setUrunAd(urun.getUrunAd());
 		getUrun.setUrunFiyat(urun.getUrunFiyat());
 		
+		Seo seo = administrationService.getSeoForUrun(getUrun.getUrunLink());
+		
+		String urunLink = "/" + urun.getUrunAd().replace(" ", "-")+"-"+urun.getPidKod();
+		urunLink=Normalizer.normalize(urunLink.toLowerCase(), Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		urunLink=pattern.matcher(urunLink).replaceAll("");		
+		seo.setPageName(urunLink);
+		administrationService.saveSeoForUrun(seo);
 		administrationService.saveUrun(getUrun);
 		
 		/*
 		response.sendRedirect("/firma/admin/");
 		*/	
+	}
+	
+	@RequestMapping(value="readMessage/{user}",method=RequestMethod.POST)
+	public @ResponseBody void readAllMessageForFirma(@PathVariable("user")String user){
+		List<Message> messageList = administrationService.getMessageOkunmamis(user);
+		messageList.forEach(message->{
+			Message message_ = administrationService.getMessageForOkunmamis(message);
+			message_.setOkunmaDurum(true);
+			administrationService.messageUpdate(message_);
+		});
+		
+	}
+	
+	@RequestMapping(value="sendMessageAnswer/{user}",method=RequestMethod.POST)
+	public @ResponseBody void sendMessageAnswers(@PathVariable("user")String user,
+			@RequestParam Map<String,String> allRequest){
+		SecurityContext context=SecurityContextHolder.getContext();
+				
+		Message message = new Message();
+		message.setGonderenId(Integer.parseInt(allRequest.get("mesajKimden")));
+		Firma firma_=administrationService.getFirmaDetay(context.getAuthentication().getName());
+		message.setGonderenUyemi(true);
+		
+		message.setMesajKimden(firma_.getFirmaOwner());
+		message.setMesajContent(firma_.getFirmaName()+" :"+allRequest.get("answer"));
+		message.setOkunmaDurum(false);
+		System.out.println("mesaj kime ------" + allRequest.get("mesajKime"));
+		if(allRequest.get("mesajKime").equals("Admin")){
+			System.out.println("mesaj admine------");
+			message.setMesajKimeId(-1);
+			message.setMesajContent("Admin :"+allRequest.get("answer"));
+			 message.setGonderenId(firma_.getId());
+			message.setMesajSahipLink("");
+		}else{
+			message.setMesajKimeId(Integer.parseInt(allRequest.get("mesajAlanId")));
+			message.setMesajSahipLink("/firmaDetay"+allRequest.get("mesajKime"));
+		}
+		administrationService.sentMessage(message);
+		//System.out.println("-----content :" + allRequest);
 	}
 
 	

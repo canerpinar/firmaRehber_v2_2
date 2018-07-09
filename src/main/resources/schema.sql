@@ -13,7 +13,25 @@ DROP TABLE IF EXISTS kampanya;
 DROP TABLE IF EXISTS urunler;
 
 drop table if exists message;
+
+drop table if exists seo_content;
+drop table if exists seo;
+DROP TABLE IF EXISTS sube_kampanya;
+DROP TABLE IF EXISTS kampanya;
+DROP TABLE IF EXISTS urunler;
+drop table if exists seo_content;
+drop table if exists seo;
+
+DROP TABLE IF EXISTS sube_kampanya;
+DROP TABLE IF EXISTS kampanya;
+DROP TABLE IF EXISTS urunler;
+drop table if exists seo_content;
+drop table if exists seo;
+drop table if exists urunler;
+drop table if exists sube;
+drop table if exists firma;
 */
+
 create table if not exists users(
 	id integer not null auto_increment,
 	username varchar(45) not null unique,
@@ -78,7 +96,7 @@ create table if not exists reklam(
 
 create table if not exists seo(
 	id integer not null auto_increment,
-	page_name varchar(45),
+	page_name varchar(255),
 	primary key(id)
 );
 
@@ -143,6 +161,7 @@ create table if not exists firma(
 	firma_control boolean default false,
 	firma_active boolean default false,
 	firma_bg_image text,
+	firma_hakkinda text,
 	website text default null,
 	haftasonuacik_mi boolean default false,
 	primary key(id)
@@ -151,10 +170,12 @@ create table if not exists firma(
 create table if not exists  message(
 	id integer not null auto_increment,
 	mesaj_Kime integer not null,
+	mesaj_gonderen_id integer,
 	mesaj_sahip_link varchar(255) not null,
-	mesaj_Kimden integer not null,
+	mesaj_Kimden varchar(255) not null,
 	mesaj_Content text not null,
-	okunduStatus boolean default false,
+	gonderen_uyemi boolean,
+	okundu_Status boolean default false,
 	primary key(id)
 );
 

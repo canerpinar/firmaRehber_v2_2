@@ -40,6 +40,14 @@ position:relative;
       #loginButton{
       visibility: hidden;
       }
+      #kullaniciLoginFail{
+      	visibility: hidden;
+      	color:#fdc600;
+      	  padding: 5px 10px;
+  font-size: 13px;
+  text-decoration: underline;
+
+      }
 
       /* Optional: Makes the sample page fill the window. */
 
@@ -61,7 +69,7 @@ position:relative;
           
 		
 			
-			<a th:if="${username == null }" href="#" class="" th:text="#{lang.log}"><i class="fa fa-power-off"></i></a>
+			<a id="loginButtonClick" th:if="${username == null }" href="#" class="" th:text="#{lang.log}"><i class="fa fa-power-off"></i></a>
 			<ul th:if="${username != null}" style="list-style-type: none;">
 			<li th:text="'Merhaba '+${username}" style="float: left; margin-left: 5px;margin-right: 5px;"></li>
 			<li style="float: left; margin-left: 5px;margin-right: 5px;"><a th:href="${successPage}">Profil Sayfası</a></li>
@@ -72,8 +80,10 @@ position:relative;
               <input id="username" name="username" type="text" class="form-control" placeholder="Username" />
               <input id="password" name="password" type="password" class="form-control" placeholder="Password" />
               <input id="loginButton" type="submit" class="btn btn-default" value="Login" />
-              <a href="#" class="btn btn-link">Forgot Password?</a>
+              <a href="#" class="btn btn-link">Forgot Password?</a><br/>
+				<span id="kullaniciLoginFail">Kullanıcı adı yada Parola yanlış</span>
             </form>
+            
           </div>
 
 
@@ -1672,10 +1682,10 @@ position:relative;
                      
                      	
                       	<div th:each="altKategori : ${kategori.altKategori}" style="background-color: white;">
-                      		<ul>
-	                      		<li>
+                      		<ul class="nav nav-tabs" role="tablist">
+	                      		<li style="background-color: white;">
 							    <a class="dropdown-toggle" role="tab" data-toggle="tab" href="#" th:text="${altKategori.altKategoriAd}"></a>
-							    <div  th:each="subalt : ${altKategori.subaltKategori}"><a th:text="${subalt.subAltKategoriAd}" href="#"></a></div>
+							    	<div  th:each="subalt : ${altKategori.subaltKategori}"><a th:onclick="'$.pageRefreshForCategories(\''+${subalt.subAltKategoriAd}+'\')'" th:text="${subalt.subAltKategoriAd}" href="#"></a></div>
 							    </li>
 						    </ul>
 						</div>               

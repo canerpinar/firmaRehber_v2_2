@@ -25,6 +25,9 @@ public class Firma {
 	@Column(name="firma_mail")
 	private String email;
 	
+	@Column(name="firma_hakkinda")
+	private String firmaHakkinda;
+	
 	@Column(name="firma_bg_image")
 	private String firmaBackgroundImage;
 	
@@ -52,6 +55,14 @@ public class Firma {
 	
 	
 	
+	public String getFirmaHakkinda() {
+		return firmaHakkinda;
+	}
+
+	public void setFirmaHakkinda(String firmaHakkinda) {
+		this.firmaHakkinda = firmaHakkinda;
+	}
+
 	public String getWebsite() {
 		return website;
 	}

@@ -5,11 +5,66 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/template.css}"></link>
+    <link type="text/css" th:href="@{/css/template.css}"></link>
+
+    <style type="text/css">
+	   header a {
+
+   margin-left: 20px;
+   margin-right: 20px;
+   }
+</style>
 <title>Insert title here</title>
 </head>
 <body>
 <header th:include="admin/template :: header"></header>
-Mesajlar
+  	<div class="container">
+  		<div class="row">
+  			<div class="col-md-4">
+	  			<ul>
+	  				<th:block th:each="mesaj,status :${messageList}">
+	  					<li th:id="${mesaj[0]}" th:if="${okunmamisMesaj[__${status.index}__]>0}" style="background-color: aqua; list-style: none;">
+	  						<a th:onclick="'$.mesajRead(\''+${mesaj[0]}+'\')'" data-toggle="tab" th:href="'#'+__${status.index}__" th:text="${mesaj[0]}"></a>
+	  						<span style="position:absolute; left:160px; color:red;" th:id="${mesaj[0]}+'_count'" th:text="${okunmamisMesaj[__${status.index}__]}+' okunmamış mesaj'"></span>
+	  					</li>
+	  					<li style="list-style: none;" th:unless="${okunmamisMesaj[__${status.index}__]>0}">
+	  						<a th:onclick="'$.mesajRead(\''+${mesaj[0]}+'\')'" data-toggle="tab" th:href="'#'+__${status.index}__" th:text="${mesaj[0]}"></a>
+	  					</li>  					
+	  				</th:block>
+	  			</ul>  				
+  			</div>
+  			
+  			<div class="col-md-8">
+  				<div class="tab-content">
+  					<div th:each="okunmamis,status : ${okunmamisMesaj}" class="tab-pane" th:id="__${status.index}__">
+   						<div th:each="allMessage,status_ : ${allMessageForList[__${status.index}__]}">
+  							<span th:each="message :${allMessage}" th:utext="${message.mesajContent}"></span>
+
+  							<th:block th:if="${messageList[__${status.index}__][1]}==true">
+  								<form th:onsubmit="'return $.sendAnswerMessage('+${__${status.index}__}+')'" method="POST" th:if="${#lists.size(allMessageForList[__${status.index}__])-1==__${status_.index}__}">	  							
+	  								<input th:id="'answerContent'+__${status.index}__" name="content" type="text" />
+	  								<input th:id="'mesajKime'+__${status.index}__" type="hidden" th:value="${allMessage.mesajKimden}" />
+	  								<input th:id="'mesajKimden'+__${status.index}__" type="hidden" th:value="${messageList[__${status.index}__][3]}" />
+	  								<input th:id="'mesajAlanId'+__${status.index}__" type="hidden" th:value="${messageList[__${status.index}__][2]}" /> 								
+	  								<input type="submit" value="Gönder" />
+	  							</form>
+  							</th:block>
+  								
+	  						
+  							
+
+  						
+  						</div>
+
+  					</div>
+  					
+  				</div>
+  			</div>
+  			
+  			
+  			
+  		</div>
+  		</div>
+  		<script th:src="@{/js/adminMesaj.js}"></script>
 </body>
 </html>

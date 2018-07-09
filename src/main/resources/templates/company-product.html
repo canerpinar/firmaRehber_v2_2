@@ -202,11 +202,11 @@
         <div class="company-slider-content">
 
           <div class="general-view">
-            <span></span> <!-- for dark-overlay on the bg -->
+            <span><img th:src="'../'+${firma.email}+'/bg_image/'+${firma.firmaBackgroundImage}" alt="" style="width: 100%; height: 100%;"></span> <!-- for dark-overlay on the bg -->
             <div class="container">
 
               <div class="logo-image">
-                <img th:src="'/'+${firma.firmaName}+'/'+${firma.firmaImage}" alt="">
+                <img th:src="'../'+${firma.email}+'/'+${firma.firmaImage}" alt="">
               </div>
 
               <h1 th:text="${firma.firmaName}"></h1>
@@ -259,19 +259,8 @@
                 </div>
 
                 <div class="company-text">
-                  <p>
-                    <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue,
-                      suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus.
-                      Phasellus pharetra nulla ac diam. Quisque semper justo at risus.</strong>
-                  </p>
-
-                  <p>Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus,
-                    sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet,
-                    elit magna vulputate arcu, vel tempus metus leo non est.
-                    Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque.
-                    Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor,
-                    et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit,
-                    urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
+                  <p th:text="${firma.firmaHakkinda}">
+                   
                   </p>
                 </div> <!-- end company-text -->
 
@@ -1243,6 +1232,12 @@
 						</tr>
 						<tr>
 							<td>Mağaza Adres: gdfgfgdfgdfgdfgdfgfdgdfgdf</td>							
+						</tr>
+						<tr>
+							<td>Mağaza Hakkinda : <span th:text="${firma.firmaHakkinda}"></span></td>							
+						</tr>
+						<tr>
+							<td style="background: transparent;"><a th:href="'/magaza_iletisim.html/'+${firma.id}">Mağazaya sormak için.</a></td>							
 						</tr>
 						<tr>
 							<td style="background: transparent;"><a href="#">Mağaza şubelerin görmek için</a></td>							

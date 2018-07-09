@@ -135,6 +135,7 @@ public class SeoController {
 				listSeo.add(seo_);
 			}
 			seo.setSeoContentList(listSeo);
+			seo.setPageName("/"+urun.getUrunAd().replace(" ", "-")+"-pid"+urun.getPidKod());
 			urun.setSeoStatus(true);
 			administrationService.saveSeoForUrun(seo);
 		}

@@ -1,60 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link rel="stylesheet" href="/bootstrap-3.3.7/bootstrap-3.3.7/css/bootstrap.min.css"></link>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script  src="/bootstrap-3.3.7/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-  <meta charset="utf-8"></meta>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
-
-  <title>Globo</title>
-
-  <!-- Stylesheets -->
-	  <link href="css/select2.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- GOOGLE FONTS -->
-  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,600,800%7COpen+Sans:400italic,400,600,700' rel='stylesheet' type='text/css'>
-
-  <!--[if IE 9]>
-    <script src="js/media.match.min.js"></script>
-  <![endif]-->
-  
-  <script type="text/javascript" src="../static/js/index.js" th:src="@{/js/index.js}"></script>
-  <script type="text/javascript" src="../static/js/company-sign.js" th:src="@{/js/company-sign.js}"></script>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  <link th:href="@{/css/select2.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+	  <style type="text/css">
   #header .header-nav-bar .primary-nav {
   position: relative;
-  margin-left: 250px;
+  margin-left: 200px;
 
 }
-      
-      #loginButton{
-      visibility: hidden;
-      }
-    </style>
-<script type="text/javascript" th:src="@{/js/company-sign.js}"></script>
+  #header .header-nav-bar .primary-nav > li:first-child > a {
+  padding: 0 22px;
+}
+#header .header-nav-bar .primary-nav > li > a {
+  display: block;
+  color: #333333;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 58px;
+  padding: 0px 25px;
+  text-transform: uppercase;
+  transition: all .3s ease;
+}
+  </style>
+
 </head>
+
+<body>
 <div id="main-wrapper">
 
   <header id="header">
     <div class="header-top-bar">
       <div class="container">
         <!-- HEADER-LOGIN -->
-        <div class="header-login"  th:include="template :: header-login">
-
-
-
+         <div class="header-login" th:include="template :: header-login">
         </div> <!-- END .HEADER-LOGIN -->
 
         <!-- HEADER REGISTER -->
         <div class="header-register" th:include="template :: header-register">
 
-
-        </div> <!-- END .HEADER-REGISTER -->
+        </div>  <!-- END .HEADER-REGISTER -->
 
         <!-- HEADER-LOG0 -->
         <div class="header-logo text-center">
@@ -219,20 +207,35 @@
   </header> <!-- end #header -->
 
   <div id="page-content">
-          <div class="company-signup-form">
-            <form  th:object="${firma}" action="/signupFirma" enctype="multipart/form-data" method="POST" onsubmit="return $.onConfirmPassword();">
-              <input type="text" required="required" th:field="*{firmaName}" class="form-control" placeholder="Username" />
-              <input type="text" required="required" th:field="*{email}" class="form-control" placeholder="Email" />
-              <input type="text" required="required" th:field="*{firmaOwner}" class="form-control" placeholder="Company Owner" />              
-              <input id="password_" required="required" type="password" th:field="*{password}" class="form-control" placeholder="Password" />
-			  <input id="confirm_password" required="required" type="password" class="form-control" placeholder="Password Again" />
-  			<textarea placeholder="Firma Detayı" th:field="*{firmaHakkinda}" required="required"></textarea>
-			  
-              <input type="file" name="resim" class="form-control" required="required" />
-              <input id="submitButton" type="submit" class="btn btn-default" value="Register"/>
-              
-            </form>
-          </div>
+    <div class="container">
+      <div class="page-content">
+      <form th:action="'/save_iletisim_form/'+${firmaId}" method="POST">
+      	<table class="table">
+    		<tr>
+    			<td><input required="required" name="ad" type="text" placeHolder="Ad :"/></td>
+    		</tr>
+    		<tr>
+    			<td><input required="required" name="soyad" type="text" placeHolder="Soyad :"/></td>
+    		</tr>
+    		<tr>
+    			<td><input required="required" name="telefon" type="text" placeHolder="Telefon :"/></td>
+    		</tr>
+    		<tr>
+    			<td><input required="required" name="mail" type="text" placeHolder="Email :"/></td>
+    		</tr>
+    		<tr>
+    			<td><textarea required="required" name="mesajContent" placeHolder="İleti giriniz :"></textarea></td>
+    		</tr>
+    		<tr>
+    			<td><input type="submit" value="Gönder"/></td>
+    		</tr>
+    	</table>
+      </form>
+
+	
+      </div> <!-- end .page-content -->
+    </div> <!-- end .container -->
+
   </div> <!-- end #page-content -->
 
 
@@ -342,18 +345,18 @@
 </div> <!-- end #main-wrapper -->
 
 <!-- Scripts -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script src="js/jquery.ba-outside-events.min.js"></script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="js/gomap.js"></script>
 <script type="text/javascript" src="js/gmaps.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/owl.carousel.js"></script>
-<script src="/js/jquery.placeholder.min.js"></script>
-<script src="/js/select2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.js"></script>
+<script src="js/jquery.placeholder.min.js"></script>
+<script src="js/select2.min.js"></script>
 
-<script src="/js/scripts.js"></script>
+<script src="js/scripts.js"></script>
 
 </body>
 </html>

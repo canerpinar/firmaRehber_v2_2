@@ -26,13 +26,42 @@ public class Message {
 	@Column(name="mesaj_Content")
 	private String mesajContent;
 	
-	@Column(name="okunduStatus")
+	@Column(name="okundu_Status")
 	private boolean okunmaDurum;
 	
 	@Column(name="mesaj_sahip_link")
 	private String mesajSahipLink;
 	
+	@Column(name="mesaj_gonderen_id")
+	private int gonderenId;
 	
+	@Column(name="gonderen_uyemi")
+	private boolean gonderenUyemi;
+	
+
+	public int getGonderenId() {
+		return gonderenId;
+	}
+
+
+
+	public void setGonderenId(int gonderenId) {
+		this.gonderenId = gonderenId;
+	}
+
+
+
+	public boolean isGonderenUyemi() {
+		return gonderenUyemi;
+	}
+
+
+
+	public void setGonderenUyemi(boolean gonderenUyemi) {
+		this.gonderenUyemi = gonderenUyemi;
+	}
+
+
 
 	public Message() {}
 

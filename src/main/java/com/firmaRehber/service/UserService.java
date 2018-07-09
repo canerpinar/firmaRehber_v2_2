@@ -25,14 +25,13 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		User user = repository.findByUsername(username);
+		
 		List<String> userRoleList = null;
-		if(user == null){
-			 new UsernameNotFoundException("bulunamadı");
-		}else{
+		if(user != null){
 			 userRoleList= repository.findRoleByUsername(username);
 			return new UserAuthenticaion(user,userRoleList);
 		}
-		return new UserAuthenticaion(user, userRoleList);
+		return null;
 	}
 	
 	public void saveUser(User user){

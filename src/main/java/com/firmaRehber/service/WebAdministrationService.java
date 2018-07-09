@@ -23,6 +23,7 @@ import com.firmaRehber.entity.SubAltKategoriSeo;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.SubeKampanya;
 import com.firmaRehber.entity.Urun;
+import com.firmaRehber.entity.User;
 import com.firmaRehber.repository.AltKategoriSeoRepository;
 import com.firmaRehber.repository.FirmaRepository;
 import com.firmaRehber.repository.ImagesRepository;
@@ -36,6 +37,7 @@ import com.firmaRehber.repository.SubAltKategoriSeoRepository;
 import com.firmaRehber.repository.SubeKampanyaRepository;
 import com.firmaRehber.repository.SubeRepository;
 import com.firmaRehber.repository.UrunRepository;
+import com.firmaRehber.repository.UserRepository;
 
 @Service
 public class WebAdministrationService {
@@ -81,6 +83,9 @@ public class WebAdministrationService {
 	
 	@Autowired
 	private SubeKampanyaRepository subeKampanyaRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public void saveImages(Images images) {
 		imagesRepository.save(images);
@@ -271,11 +276,35 @@ public class WebAdministrationService {
 		return (List<Sube>) subeRepository.findAll();
 	}
 	
-	public List<Message> getAllMessageForFirma(int firmaId){
+	public List<Object[]> getAllMessageForFirma(int firmaId){
 		return messageRepository.getAllMessageFromFirma(firmaId);
 	}
 	
 	public Firma getFirmaDetay(String firmaAd){
 		return firmaRepository.getFirmaDetay(firmaAd);
+	}
+	
+	public List<Message> getMessageOkunmamis(String user){
+		return messageRepository.getMessageOkunmamis(user);				
+	}
+
+	public List<Message> getAllMessageFromFirmaForList(int kime_id,int gonderen_id){
+		return messageRepository.getAllMessageFromFirmaForList(kime_id,gonderen_id);
+	}
+	
+	public void messageUpdate(Message message){
+		messageRepository.save(message);
+	}
+	
+	public Message getMessageForOkunmamis(Message message){
+		return messageRepository.findOne(message.getId());
+	}
+	
+	public User getUser(User user){
+		return userRepository.getFirmaUserIsAuthentication(user.getUsername(), user.getPassword());
+	}
+	
+	public int getOkunmamisMessageCount(int id){
+		return messageRepository.getOkunmamisMessageCount(id);
 	}
 }

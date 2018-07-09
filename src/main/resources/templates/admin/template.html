@@ -20,7 +20,7 @@
 			<a href="/admin/firma/">ÜYE FİRMA</a>
 			<a href="/admin/urunler/">URUNLER</a>
 
-			<a href="/admin/mesajlar/">MESAJLAR</a>
+			<a href="/admin/mesajlar/">MESAJLAR<span th:if="${mesajCount>0}" style="position:absolute;top:10px; margin-left:-5px; color:red;" th:text="${mesajCount}+' yeni mesaj'"></span></a>
 			<a href="/admin/bireysel/">BİREYSEL ÜYELER</a>
 			<a href="/admin/takip/">TAKİP</a>
 			<a href="/admin/uygulama/">UYGULAMA TAKİP</a>

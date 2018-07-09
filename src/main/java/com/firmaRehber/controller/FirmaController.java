@@ -1,12 +1,17 @@
 package com.firmaRehber.controller;
 
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.firmaRehber.entity.Firma;
 import com.firmaRehber.entity.Kampanya;
+import com.firmaRehber.entity.Message;
 import com.firmaRehber.entity.Seo;
 import com.firmaRehber.entity.Sube;
 import com.firmaRehber.entity.Urun;
@@ -36,7 +42,7 @@ public class FirmaController {
 	
 	@Autowired
 	private KategoriService kategoriService;
-
+	
 	
 	@RequestMapping("/")
 	public ModelAndView indexLoad() {
@@ -116,6 +122,18 @@ public class FirmaController {
 		getUrun.setUrunAd(urun.getUrunAd());
 		getUrun.setUrunFiyat(urun.getUrunFiyat());
 		
+		
+		Seo seo = administrationService.getSeoForUrun(getUrun.getUrunLink());
+		
+		String urunLink = "/" + getUrun.getUrunAd().replace(" ", "-")+"-"+urun.getPidKod();
+		urunLink=Normalizer.normalize(urunLink.toLowerCase(), Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		urunLink=pattern.matcher(urunLink).replaceAll("");		
+		seo.setPageName(urunLink);
+		administrationService.saveSeoForUrun(seo);
+		
+		
+
 		administrationService.saveUrun(getUrun);
 		response.sendRedirect("/admin/firma/"+String.valueOf(urun.getUrunSahibiFirma()));
 		
@@ -144,6 +162,36 @@ public class FirmaController {
 		System.out.println("kampanya güncellendi");
 		response.sendRedirect("/admin/firma/"+firma_id);
 	}
+	
+	@RequestMapping(value="readMessage/{user}",method=RequestMethod.POST)
+	public @ResponseBody void readAllMessageForFirma(@PathVariable("user")String user){
+		List<Message> messageList = administrationService.getMessageOkunmamis(user);
+		messageList.forEach(message->{
+			Message message_ = administrationService.getMessageForOkunmamis(message);
+			message_.setOkunmaDurum(true);
+			administrationService.messageUpdate(message_);
+		});
+		
+	}
+	
+	@RequestMapping(value="sendMessageAnswer/{user}",method=RequestMethod.POST)
+	public @ResponseBody void sendMessageAnswers(@PathVariable("user")String user,
+			@RequestParam Map<String,String> allRequest){
+			Message message = new Message();
+			message.setGonderenId(Integer.parseInt(allRequest.get("mesajKimden")));
+
+			message.setGonderenUyemi(true);		
+			message.setMesajKimden("Admin");
+			message.setMesajContent("Admin :"+" :"+allRequest.get("answer"));
+			message.setOkunmaDurum(false);
+			System.out.println("mesaj kime ------" + allRequest.get("mesajKime"));
+			message.setMesajKimeId(Integer.parseInt(allRequest.get("mesajAlanId")));
+			message.setMesajSahipLink("/firmaDetay"+allRequest.get("mesajKime"));
+		
+		administrationService.sentMessage(message);
+		//System.out.println("-----content :" + allRequest);
+	}
+
 
 	
 	

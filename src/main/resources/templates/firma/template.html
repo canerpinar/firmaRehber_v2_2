@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
@@ -318,13 +318,13 @@
         <div class="company-slider-content" th:fragment="company-slider-content">
 
           <div class="general-view">
-            <span></span> <!-- for dark-overlay on the bg -->
+            <span><img th:src="'../../'+${firma.email}+'/bg_image/'+${firma.firmaBackgroundImage}" alt="" style="width: 100%; height: 100%;"></span> <!-- for dark-overlay on the bg -->
             <div class="container">
 
               <div class="logo-image">
               <form id="firmaUploadInformationForm" th:object="${firma}" method="POST" enctype="multipart/form-data" action="/firma/admin/updateFirmaImage">
                 <a id="imageUploadForUpdateFirma" style="width: 200px; height: 200px;"><img style="width: 200px; height: 200px; cursor: pointer;"   th:src="'../../'+${firma.email}+'/'+${firma.firmaImage}" alt=""/></a>
-            <input type="hidden" name="username" id="firmaName" th:value="${firma.email}" />
+            	<input type="hidden" name="username" id="firmaName" th:value="${firma.email}" />
                 <input type="file" name="imageUploadForFirma" id="imageUploadForFirma" />
         	</form>
               </div>
@@ -381,7 +381,7 @@
             <li><a href="kampanyalar.html">KAMPANYA</a></li>
             <li><a href="referanslar.html">REFERANS/HİZMET EKLEME</a></li>
             <li><a href="istatistik.html">İSTATİSLİK</a></li>
-            <li><a href="mesajlar.html">MESAJ</a></li>
+            <li><a href="mesajlar.html">MESAJ</a><span style="position:absolute; font-size:smaller; top:3px; left:15px; color:red;" th:if="${mesajCount>0}" th:text="${mesajCount}+' yeni mesaj'"></span></li>
             <li><a href="iletisim.html">İLETİŞİM</a></li>
           </ul>
         </nav>

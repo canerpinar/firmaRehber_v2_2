@@ -1,5 +1,6 @@
 package com.firmaRehber.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import org.springframework.util.StringUtils;
 
 public class UserAuthenticaion extends User implements UserDetails {
 
-	List<String> userListRoles;
+	List<String> userListRoles = new ArrayList<>();
 	
 	User user;
 	

@@ -80,11 +80,65 @@
   </header> <!-- end #header -->
 
   <div id="page-content">
-  	<table class="table">
-  		<tr>
+  	<div class="container">
+  		<div class="row">
+  			<div class="col-md-4">
+	  			<ul>
+	  				<th:block th:each="mesaj,status :${messageList}">
+	  					<li th:id="${mesaj[0]}" th:if="${okunmamisMesaj[__${status.index}__]>0}" style="background-color: aqua; list-style: none;">
+	  						<a th:onclick="'$.mesajRead(\''+${mesaj[0]}+'\')'" data-toggle="tab" th:href="'#'+__${status.index}__" th:text="${mesaj[0]}"></a>
+	  						<span style="position:absolute; left:160px; color:red;" th:id="${mesaj[0]}+'_count'" th:text="${okunmamisMesaj[__${status.index}__]}+' okunmamış mesaj'"></span>
+	  					</li>
+	  					<li style="list-style: none;" th:unless="${okunmamisMesaj[__${status.index}__]>0}">
+	  						<a th:onclick="'$.mesajRead(\''+${mesaj[0]}+'\')'" data-toggle="tab" th:href="'#'+__${status.index}__" th:text="${mesaj[0]}"></a>
+	  					</li>  					
+	  				</th:block>
+	  			</ul>  				
+  			</div>
   			
-  		</tr>
-  	</table>		
+  			<div class="col-md-8">
+  				<div class="tab-content">
+  					<div th:each="okunmamis,status : ${okunmamisMesaj}" class="tab-pane" th:id="__${status.index}__">
+  						<div th:each="allMessage,status_ : ${allMessageForList[__${status.index}__]}">
+  							<span th:each="message :${allMessage}" th:utext="${message.mesajContent}"></span>
+
+  							<th:block th:if="${messageList[__${status.index}__][1]}==true">
+  								<form th:onsubmit="'return $.sendAnswerMessage('+${__${status.index}__}+')'" method="POST" th:if="${#lists.size(allMessageForList[__${status.index}__])-1==__${status_.index}__}">	  							
+	  								<input th:id="'answerContent'+__${status.index}__" name="content" type="text" />
+	  								<input th:id="'mesajKime'+__${status.index}__" type="hidden" th:value="${allMessage.mesajKimden}" />
+	  								<input th:id="'mesajKimden'+__${status.index}__" type="hidden" th:value="${messageList[__${status.index}__][3]}" />
+	  								<input th:id="'mesajAlanId'+__${status.index}__" type="hidden" th:value="${messageList[__${status.index}__][2]}" /> 								
+	  								<input type="submit" value="Gönder" />
+	  							</form>
+  							</th:block>
+  								
+	  						
+  							
+
+  						
+  						</div>
+
+  					</div>
+  					
+  				</div>
+  			</div>
+  			
+  			
+  			
+  		</div>
+  	</div>
+<!--  <table>
+	<tr th:each="mesaj,status : ${messageList}">
+		<td>
+		<span th:if="${okunmamisMesaj[__${status.index}__]>0}" style="background-color: aqua;" th:text="${mesaj}"></span>
+		<span th:if="${okunmamisMesaj[__${status.index}__]==0}"  th:text="${mesaj}"></span>
+		<span th:if="${okunmamisMesaj[__${status.index}__]>0}" th:text="${okunmamisMesaj[__${status.index}__]}"></span>
+		
+			
+		</td>
+	</tr>
+</table> -->
+  			
   </div> <!-- end #page-content -->
 
 
@@ -204,8 +258,11 @@
 <script th:src="@{/js/owl.carousel.js}"></script>
 <script th:src="@{/js/jquery.placeholder.min.js}"></script>
 <script th:src="@{/js/select2.min.js}"></script>
+<script type="text/javascript" src="@{/js/jquery.animate-colors-min.js}"></script>
 
+<script th:src="@{/js/firmaMesaj.js}"></script>
 <script src="js/scripts.js"></script>
+
 <script>
   // gmap for street view
   panorama = GMaps.createPanorama({

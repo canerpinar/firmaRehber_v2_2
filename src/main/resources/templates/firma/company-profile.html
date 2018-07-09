@@ -209,19 +209,8 @@
                 </div>
 
                 <div class="company-text">
-                  <p>
-                    <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue,
-                      suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus.
-                      Phasellus pharetra nulla ac diam. Quisque semper justo at risus.</strong>
-                  </p>
+                  <p th:text="${firma.firmaHakkinda}">
 
-                  <p>Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus,
-                    sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet,
-                    elit magna vulputate arcu, vel tempus metus leo non est.
-                    Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque.
-                    Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor,
-                    et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit,
-                    urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.
                   </p>
                 </div> <!-- end company-text -->
 
@@ -1110,6 +1099,8 @@
                   </div> <!-- end .row -->
                 </div> <!-- end .company-portfolio -->
               </div> <!-- end .tab-pane -->
+              
+
 
               <div class="tab-pane" id="company-events">
 
@@ -1710,6 +1701,7 @@
               <li>
                 <a href="#company-product" role="tab" data-toggle="tab"><i class="fa fa-cubes"></i>Product</a>
               </li>
+
 
               <li>
                 <a href="#company-portfolio" role="tab" data-toggle="tab"><i class="fa fa-file-image-o"></i>Portfolio</a>
