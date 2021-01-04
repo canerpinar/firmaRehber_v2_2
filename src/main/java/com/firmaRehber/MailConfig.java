@@ -25,8 +25,8 @@ public class MailConfig {
 
         javaMailSender.setHost(host);
         javaMailSender.setPort(port);
-        javaMailSender.setUsername("burak_turkmen_34_@hotmail.com");
-        javaMailSender.setPassword("3772391Caner%");
+        javaMailSender.setUsername("****@hotmail.com");
+        javaMailSender.setPassword("****");
 
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");
